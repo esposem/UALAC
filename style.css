@@ -1,0 +1,92 @@
+*{
+  margin: 0;
+  font-size: 20px;
+  font-family: "Helvetica Neue";
+  box-sizing: border-box;
+}
+
+ul{
+  list-style: none;
+}
+.menu-ul{
+  padding: 0;
+
+}
+.menu-ul li{
+  /*height: 40px;*/
+  border: 1px solid black;
+  padding-left: 10px;
+  text-align: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+.main-wrapper{
+  width: 100vw;
+  height: 100vh;
+  background-color: red;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar{
+  background-color: green;
+  height: 100vh;
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-title{
+  width: 100%;
+  padding-top: 20px;
+  padding-left: 10px;
+  margin-bottom: 30px;
+  font-size: 25px;
+}
+
+.main-content{
+  background-color: blue;
+  height: 100vh;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.topbar{
+  width: 100%;
+  /*padding-left: 10px;*/
+  /*margin-bottom: 30px;*/
+  font-size: 25px;
+  display: flex;
+  flex-direction: column;
+  background-color: red;
+}
+
+
+.topbar ul{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.topbar ul li{
+  border: 1px solid black;
+  padding-top: 27px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-bottom: 27px;
+  text-align: center;
+  width: 150px;
+  /*padding-top: 15px;*/
+  /*padding-bottom: 15px;*/
+}
+.content{
+  flex-grow: 2;
+  background-color: violet;
+}
+
+.footbar{
+  align-self: flex-end;
+}
