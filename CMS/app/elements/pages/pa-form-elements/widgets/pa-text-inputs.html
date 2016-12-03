@@ -1,0 +1,33 @@
+<dom-module id="pa-text-inputs">
+  <template>
+    <style include="shared-styles"></style>
+
+    <div class="vertical-section">
+      <div style="display: flex; flex-direction: row">
+        <paper-input style="flex-grow: 7" label="Article title" style=></paper-input>
+        <paper-button style="flex-grow: 1" raised>Upload Image</paper-button>
+      </div>
+
+      <br></br>
+
+      <paper-input multiline label="Article body"></paper-input>
+
+      <!-- <paper-input label="password" type="password"></paper-input>
+
+      <paper-input label="disabled" disabled></paper-input>
+
+      <paper-input label="label" char-counter></paper-input> -->
+    </div>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'pa-text-inputs'
+      });
+    })();
+  </script>
+
+</dom-module>
