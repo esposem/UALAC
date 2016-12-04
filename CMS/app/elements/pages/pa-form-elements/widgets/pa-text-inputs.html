@@ -1,22 +1,83 @@
+<link rel="import" href="../../pa-typo/widgets/pa-typo-content.html">
 <dom-module id="pa-text-inputs">
   <template>
     <style include="shared-styles"></style>
+    <style>
+      paper-button {
+        display: block;
+        margin-bottom: 0px;
+        border: 1px red;
+      }
+
+      paper-button[toggles] {
+        transition: background-color 0.3s;
+      }
+
+      paper-button[toggles][active] {
+        background-color: rgba(0, 0, 0, 0.25);
+      }
+
+      paper-button[toggles][active].colorful {
+        background-color: rgba(66, 133, 244, 0.25);
+      }
+
+      paper-button[toggles][active][raised].colorful {
+        background-color: rgba(66, 133, 244, 0.75);
+      }
+
+      paper-button.blue {
+        --paper-button-flat-focus-color: var(--paper-light-blue-50);
+        color: var(--paper-light-blue-500);
+      }
+      paper-button.blue:hover {
+        background: var(--paper-light-blue-50);
+      }
+      paper-button.red {
+        --paper-button-flat-focus-color: var(--paper-red-50);
+        color: var(--paper-red-500);
+      }
+      paper-button.red:hover {
+        background: var(--paper-red-50);
+      }
+      paper-button.orange {
+        --paper-button-flat-focus-color: var(--paper-orange-50);
+        color: var(--paper-orange-500);
+      }
+      paper-button.orange:hover {
+        background: var(--paper-orange-50);
+      }
+
+      paper-button.hover:hover {
+        background: #eee;
+      }
+
+      paper-button.ripple {
+        --paper-button-ink-color: var(--paper-pink-a200);
+      }
+    </style>
 
     <div class="vertical-section">
       <div style="display: flex; flex-direction: row">
-        <paper-input style="flex-grow: 7" label="Article title" style=></paper-input>
-        <paper-button style="flex-grow: 1" raised>Upload Image</paper-button>
+        <div style="display: flex; flex-direction: column">
+          <div style="padding:12px; flex-grow:0;">
+          </div>
+        <div class="paper-font-title" style="align-self: center;  padding-top: 1px; padding-bottom:0px; padding-right: 15px;"> Title </div>
+        </div>
+        <paper-input style="flex-grow: 0; align-self: center; padding:0px; width:40%;" required auto-validate error-message="needs some text!" label="Article title" style=></paper-input>
       </div>
 
       <br></br>
+      <div style="display:flex; flex-direction: column;">
+        <paper-button tabindex="0" toggles raised noink style= "width:0%; text-align: center;">HTML</paper-button>
+        <paper-textarea id="ciao" rows="1" label="Write the article here" onClick="[[clicked()]]"  ></paper-textarea>
+      </div>
+    </div>
 
-      <paper-input multiline label="Article body"></paper-input>
-
-      <!-- <paper-input label="password" type="password"></paper-input>
-
-      <paper-input label="disabled" disabled></paper-input>
-
-      <paper-input label="label" char-counter></paper-input> -->
+    <br>
+    <br>
+    <div >
+      <div id= "demo">
+      </div>
     </div>
   </template>
 
@@ -25,7 +86,17 @@
       'use strict';
 
       Polymer({
-        is: 'pa-text-inputs'
+        is: 'pa-text-inputs',
+
+        clicked: function() {
+	          setInterval(function(){
+            let x = document.getElementById("ciao").value;
+            let text = x || "Nothing to show";
+            text = text.split("\n").join("<br>");
+            document.getElementById("demo").innerHTML = text;
+          },100);
+        },
+
       });
     })();
   </script>

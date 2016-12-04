@@ -1,0 +1,27 @@
+# Polymer Admin Template
+
+## What to do to start the template:
+
+1. Install gulp (we already have bower):
+
+  npm install -g gulp
+
+2. Install dependencies:
+
+  npm install && bower install
+
+
+3. Build & vulcanize sources:
+
+  gulp
+
+
+## Development workflow
+
+Run development web-server:
+
+  gulp serve
+
+Run production web-server:
+
+  gulp serve:dist
