@@ -1,0 +1,39 @@
+<!-- Camillo Malnati, Riccardo Gabriele -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+  <meta name="viewport">
+  <title>UALAC components demo</title>
+
+  <script src="bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+
+  <script>
+     window.Polymer = window.Polymer || {};
+     window.Polymer.dom = 'shadow';
+  </script>
+
+	<link rel="import" href="bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+
+	<link rel="import" href="elements/menu-item/menu-item.html"/>
+	<link rel="import" href="elements/article-item/article-item.html">
+
+
+  <style>
+
+
+  </style>
+</head>
+
+
+<body>
+	<h4 aria-hidden="true">&lt;menu-item&gt;test</h4>
+	<menu-item></menu-item>
+	<h4 aria-hidden="true">&lt;article-item&gt; test</h4>
+	<article-item></article-item>
+
+
+</body>
+<script src="./util.js"></script>
+</html>

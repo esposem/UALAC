@@ -1,0 +1,80 @@
+<!-- Camillo Malnati, Riccardo Gabriele -->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+
+
+<dom-module id="menu-item">
+
+  <style>
+    :host{
+      display: block;
+      padding: 5px;
+      background-color: var(--toto-item-background-color, transparent);
+    }
+
+    .todo-item-date{
+      color: gray;
+      font-size: 85%;
+      @apply(--todo-item-date-mixin);
+    }
+
+    .linethrough{
+      text-decoration: line-through;
+    }
+  </style>
+
+  <template>
+
+    <div id="menu" aria-selected="true" tabindex="0" title="Sei nel menù. Premi shift enne per ascoltare gli elementi del menù">Menù</div>
+
+
+  </template>
+
+  <script>
+  (function () {
+    'use strict';
+
+    Polymer({
+      is: 'menu-item',
+      behaviors: [Polymer.IronA11yKeysBehavior],
+      keyBindings: {
+        'shift+n': '_handleEnter',
+        'shift+e': '_handleExit',
+        '1': '_handleNumbers',
+        '2': '_handleNumbers',
+        '3': '_handleNumbers'
+      },
+      _handleEnter: function(e) {
+        console.log('funziona')
+        if (event.target.id == 'menu')
+          this.$['menu'].title = "uno: Home, due: Bo, tre: prova, premi shift e per tornare indietro ";
+      },
+      _handleExit: function(e) {
+        if (event.target.id == 'menu')
+          this.$['menu'].title = "Sei nel menù. Premi shift enne per ascoltare gli elementi del menù";
+      },
+      _handleNumbers: function(e) {
+        if (event.target.id == 'menu')
+          {
+              if (event.detail.key == "1")
+                  console.log("home");
+              if (event.detail.key == "2")
+                  console.log("bo");
+              if (event.detail.key == "3")
+                  console.log("prova");
+          }
+      },
+      properties: {
+        keyEventTarget: {
+          type: Object,
+          value: function() {
+            return document.body;
+          }
+        }
+      }
+    });
+})();
+  </script>
+
+</dom-module>

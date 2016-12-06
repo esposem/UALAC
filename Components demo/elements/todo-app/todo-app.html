@@ -1,0 +1,207 @@
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+
+<!-- Task 8 -->
+
+<!-- build:remove -->
+<link rel="import" href="../../bower_components/paper-input/paper-input.html">
+<link rel="import" href="../../bower_components/paper-toggle-button/paper-toggle-button.html">
+<!-- /build -->
+
+<!-- /Task 8 -->
+
+<link rel="import" href="../todo-item/todo-item.html">
+
+<dom-module id="todo-app">
+
+  <style>
+    :host{
+      display: block;
+
+      /* Task 10 */
+
+      /* use a CSS variable to set the background color
+      for a todo-item to #BFF1BF */
+      /* use a CSS mixin to set the font-family to 'courier, monospace'
+      and the border to '1px dashed gray' */
+      /*<!-- build:remove --> */
+      --toto-item-background-color: #BFF1BF;
+      --todo-item-date-mixin:{
+        font-family: courier, monospace;
+        border: 2px dashed gray;
+      };
+      /* <!-- /build --> */
+
+      /* /Task 10 */
+    }
+    
+    #todos{
+      margin-top: 10px;
+    }
+
+
+  </style>
+
+  <template>
+      <!-- Task 8 -->
+
+      <!-- build:include skeleton-todo-app-paper-input.html -->
+      <paper-input on-keypress="_onKeypress" label="Create a new todo"></paper-input>
+      <!-- /build -->
+
+      <!-- Task 8 -->
+
+
+      <div id="todos">
+        <!-- Task 9--> 
+        <!-- make the <p> element display the number of total todos -->
+        <!-- build:include skeleton-todo-app-statusMsg.html -->
+        <!-- <p id="statusMsg">You have <span>[[todos.length]]</span> todos in total.</p> -->
+        <!-- /build -->
+
+        <!-- /Task 9--> 
+
+
+        <!-- Task 12--> 
+        <!-- modify the <p> element. When showUnfinished==true
+        it should display the message: 
+        "You have <number-of-remaining-todos> remaining" 
+        otherwise it should display the same message as before  -->
+
+        <!-- build:remove -->
+        <p id="statusMsg2">You have <span>[[todos.length]]</span> todos <span>[[_computeUnfinishedMessage(showUnfinished)]]</span>.</p>
+        <!-- /build -->
+
+        <!-- /Task 12 -->
+
+
+        <!-- Task 9--> 
+
+        <!-- bind the the checked property to 'showUnfinished' of the host element -->
+        <!-- build:include skeleton-todo-app-paper-toggle-button.html -->
+        All <paper-toggle-button checked="{{showUnfinished}}"></paper-toggle-button> Unfinished
+        <!-- /build -->
+
+        <!-- insert template here -->
+
+        <!-- build:remove -->
+        <template id="todoList" is="dom-repeat" items="{{todos}}" as="todo" filter="{{_calculateTodoListFilter(showUnfinished)}}" observe="finished" >
+          <todo-item 
+            index="[[_addOne(index)]]"
+            description="[[todo.description]]"
+            finished="{{todo.finished}}"
+            date="[[todo.date]]"
+          >
+          </todo-item>
+        </template>
+        <!-- /build -->
+
+        <!-- /Task 9 -->        
+      
+      </div>
+  </template>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var ENTER_KEY = 13;
+
+    Polymer({
+      is: 'todo-app',
+
+      properties: {
+        todos:{
+          type: Array,
+          value: function(){return []}
+        },
+
+        /* Task 11 */
+        /* Define showUnfinished */
+
+        //<!-- build:remove -->
+        showUnfinished: {
+          type: Boolean,
+          value: false,
+          notify: true
+        }
+        //<!-- /build -->
+
+        /* /Task 11 */
+      },
+
+      _calculateTodoListFilter: function(showUnfinished){
+        /* Task 9 */
+
+        //<!-- build:remove -->
+        return (showUnfinished)? "showUnfinishedFilter" : "";
+        //<!-- /build -->
+
+        /* /Task 9 */
+      },
+
+      showUnfinishedFilter: function(todo){
+        /* Task 9 */
+        /* return true when the element is not finished */
+
+        //<!-- build:remove -->
+        return !todo.finished;
+        //<!-- /build -->
+
+        /* /Task 9 */
+      },
+
+      _onKeypress : function(e, detail){
+        /* Task 8 */
+        /* if the event keyCode is equal to ENTER_KEY
+        create a new todo Item */
+
+        //<!-- build:remove -->
+        if (e.keyCode === ENTER_KEY) {
+          this._addTodoItem(e.target.value);
+          e.target.value = "";
+        }
+        //<!-- /build -->
+
+        /* /Task 8 */
+      },
+
+      _addTodoItem : function(desc){
+        /* Task 8 */
+        /* Create a new todo object and push it in todos */
+
+        //<!-- build:remove -->
+        this.push('todos', {
+          description: desc,
+          finished: false,
+          date: new Date().toJSON().slice(0,10)
+        } );
+        //<!-- /build -->
+
+        /* /Task 8 */
+      },
+      
+      _computeUnfinishedMessage: function(showUnfinished){
+        /* Task 11 */
+
+        //<!-- build:remove -->
+        if(showUnfinished) return 'remaining';
+        return 'in total';
+        //<!-- /build -->
+
+        /* Task 11 */
+      },
+
+      _addOne: function(n){
+        /* Task 9 */
+
+        //<!-- build:remove -->
+        return ++n;
+        //<!-- /build -->
+
+        /* /Task 9 */
+      }
+    });
+})();
+  </script>
+
+</dom-module>

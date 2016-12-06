@@ -1,0 +1,148 @@
+<!-- Task 5 -->
+<!-- import your element's dependencies -->
+<!-- build:remove -->
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html">
+<!-- /build -->
+<!-- Task 5 -->
+
+<dom-module id="todo-item">
+
+  <style>
+    :host{
+      display: block;
+      padding: 5px;
+
+      /* Task 10 */
+      /* use a CSS variable to set the background color */
+
+      /*<!-- build:remove --> */
+      background-color: var(--toto-item-background-color, transparent);
+      /* <!-- /build --> */
+
+      /* /Task 10 */
+    }
+
+    .todo-item-date{
+      color: gray;
+      font-size: 85%;
+      
+      /* Task 10 */
+      /* Apply a mixin for the date */
+
+      /*<!-- build:remove --> */
+      @apply(--todo-item-date-mixin);
+      /* <!-- /build --> */
+
+      /* /Task 10 */
+    }
+
+    .linethrough{
+      text-decoration: line-through;
+    }
+  </style>
+
+  <!-- Task 5 -->
+  <!-- define a <template> element and the shadow DOM of the element -->
+  <!-- keep the comments for Task 6 and Task 7 inside the template -->
+  <!-- build:remove -->
+  <template>
+  <!--
+    <span>1</span>.&nbsp;
+    <paper-checkbox></paper-checkbox>
+    <span>My first todo</span>
+    <div class="todo-item-date">created on<span> 2015-11-2</span></div>
+  -->
+  <!-- /build -->
+
+
+    <!-- Task 6 -->
+    <!-- modify Local DOM elements to use the declared properties
+    and data-binding -->
+    <!-- build:remove -->
+    <!--
+      <span>{{index}}</span>.&nbsp;
+      <paper-checkbox"></paper-checkbox>
+      <span>{{description}}</span>
+      <div class="todo-item-date">created on<span> {{date}}</span></div>
+    -->
+    <!-- /build -->
+
+    <!-- /Task 6 -->
+
+
+    <!-- Task 7 -->
+    <!-- dynamically calculate the class of the description -->
+    <!-- build:remove -->
+    <span>{{index}}</span>.&nbsp;
+    <paper-checkbox checked="{{finished}}"></paper-checkbox>
+    <span class$="{{_calcDescriptionClass(finished)}}">{{description}}</span>
+    <div class="todo-item-date">created on<span> {{date}}</span></div>
+    <!-- /build -->
+
+    <!-- /Task 7 -->
+
+
+  <!-- build:remove -->
+  </template>
+  <!-- /build -->
+
+  <!-- /Task 5 -->
+
+  <script>
+  (function () {
+    'use strict';
+
+    Polymer({
+      /* Task 5 */
+      /* give the element a name*/
+
+      // <!-- build:remove -->
+      is: 'todo-item',
+      // <!-- /build -->
+
+      /* /Task 5 */
+
+
+      /* Task 6 */
+      /* define the declared properties*/
+
+      // <!-- build:remove -->
+      properties: {
+        index:{
+          type: Number,
+          notify: true
+        },
+        description:{
+          type: String,
+          notify: true
+        },
+        date:{
+          type: String,
+          notify: true
+        },
+        finished:{
+          type: Boolean,
+          notify: true
+        }
+
+      },
+      // <!-- /build -->
+
+      /* /Task 6 */
+
+      _calcDescriptionClass: function(finished){
+        /* Task 7 */
+
+        // <!-- build:remove -->
+        return finished ? 'linethrough' : "";
+        // <!-- /build -->
+
+        /* /Task 7 */
+      }
+
+    });
+})();
+  </script>
+
+</dom-module>

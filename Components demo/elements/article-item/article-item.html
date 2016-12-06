@@ -1,0 +1,132 @@
+<!-- Camillo Malnati, Riccardo Gabriele -->
+
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+
+
+<dom-module id="article-item">
+
+  <style>
+    :host{
+      display: block;
+      padding: 5px;
+      background-color: var(--toto-item-background-color, transparent);
+    }
+
+    *:focus {outline: 0px;}
+
+
+    .todo-item-date{
+      color: gray;
+      font-size: 85%;
+      @apply(--todo-item-date-mixin);
+    }
+
+    .linethrough{
+      text-decoration: line-through;
+    }
+  </style>
+
+  <template>
+
+    <div id="article" tabindex="0" title="Sei nell'articolo" aria-hidden="false" class="pText">
+    <section>
+    	<article>
+    <div aria-hidden="false" class="normalPage">
+    <header>
+    <img id="image" tabindex="1" alt="Sei nell'immagine, vuoi sentire la descrizione dell'immagine? premi enter" class="img_gallery" src="/images/st.briac.png" title="Saint Briac" style="display: inline;" width="50%"></img>
+    <h1 id="header" tabindex="2" title="Autore dell'opera" class="titolo">Paul Signac</h1><h2 tabindex="3" title="Titolo dell'opera" class="subtitle">Riflessi sull'acqua</h2></header>
+    <div id="text" tabindex="4" title="Sei nella descrizione dell'opera, vuoi sentirla? Premi enter" aria-hidden="false" class="pageContent"></div>
+      <p aria-hidden="false" class="abstract">Il Museo d’arte della Svizzera italiana presenta una grande mostra dedicata a Paul Signac (1863-1935) che aprirà la nuova stagione museale a un anno dall’inaugurazione del MASILugano. Attraverso oltre centoquaranta opere provenienti da un’eccezionale collezione privata la mostra illustra la carriera di uno dei massimi protagonisti dell’arte di fine Ottocento e grande precursore della pittura moderna.</p>
+    <p aria-hidden="false" aria-hidden="true" lang="it">In quest’opera giovanile, Paul Signac è ancora molto legato alla concezione della pittura impressionista, che prevede l’utilizzo di pennellate allungate e di vari colori che si influenzano a vicenda sulla tela per riflettere la completezza delle tonalità presenti in natura. L’artista, al contrario del suo amico e maestro che lo introduce al Neoimpressionismo, Georges Seurat, rimarrà legato alla pittura svolta en plain air e non alle lunghe ore di composizione in studio. Il tema fondamentale, come in molte altre opere presenti in mostra, sono i riflessi della luce che appaiono sull’acqua e la luce del sole che colpisce le case facendoci comprendere immediatamente che ora del giorno viene rappresentata, ovvero il sorgere del sole.</p>
+    <p title="Link alle mostre, per visitarlo premi enter" aria-hidden="false" class="adtag">
+      <span aria-hidden="true" class="adtag" style="cursor:pointer;" onclick="document.location=&#39;/searchevents/?tag=Mostre&amp;tagref=9&#39;">Link alle mostre</span></p>
+    <p aria-hidden="true">&gt; <a href="http://www.luganolac.ch/it/orari">Orari e informazioni</a></p>
+    <hr aria-hidden="true">
+    <p aria-hidden="true"></p>
+    <p aria-hidden="true"><span style="text-decoration: underline;">Il catalogo</span></p>
+    <p aria-hidden="true"><img style="float: left; margin-right: 20px;" title="Image" src="/images/load_image.aspx" alt="Image" width="120" height="145">La mostra è accompagnata dalla pubblicazione <em>Paul Signac. Riflessi sull’acqua</em> edita da Skira, che presenta immagini a colori delle opere esposte, testi critici di Marina Ferretti Bocquillon, curatrice della mostra e una prefazione firmata dalla curatrice insieme a Sylvie Wuhrmann, direttrice della Fondation de l’Hermitage di Losanna e Marco Franciolli, direttore del Museo d’arte della Svizzera italiana.<br><br><span>&gt;</span><a href="http://www.lacshop.ch/prodotto/signac-riflessi-sullacqua/" target="_blank">Acquisto catalogo on-line</a></p>
+    </div>
+
+    	</article>
+
+    </section>
+    </div>
+
+
+
+
+  </template>
+
+  <script>
+  (function () {
+    'use strict';
+
+    Polymer({
+      is: 'article-item',
+      listeners: {
+        // 'focusin': "readIt"
+      },
+      behaviors: [Polymer.IronA11yKeysBehavior],
+      keyBindings: {
+        'shift+n': '_handleEnter',
+        'shift+e': '_handleExit',
+        '1': '_handleNumbers',
+        '2': '_handleNumbers',
+        '3': '_handleNumbers'
+      },
+
+      created: function(){
+        this.boundReadIt = this.readIt.bind(this)
+      },
+
+      attached: function(){
+        this.addEventListener('focus', this.boundReadIt , true);
+      },
+      detached: function(){
+        console.log("detached")
+        this.removeEventListener('focus', this.boundReadIt, true);
+      },
+
+      readIt: function(e){
+        e.target.focus()
+          focused = e.target;
+
+          console.log(Polymer.dom(e).rootTarget);
+
+          e.target.detached();
+      },
+
+      _handleEnter: function(e) {
+        if (event.target.id == 'article')
+          this.$['article'].title = "uno: Home, due: Bo, tre: prova, premi shift e per tornare indietro ";
+      },
+      _handleExit: function(e) {
+        if (event.target.id == 'article')
+          this.$['article'].title = "Sei nel menù. Premi shift enne per ascoltare gli elementi del menù";
+      },
+      _handleNumbers: function(e) {
+        if (event.target.id == 'article')
+          {
+              if (event.detail.key == "1")
+                  console.log("home");
+              if (event.detail.key == "2")
+                  console.log("bo");
+              if (event.detail.key == "3")
+                  console.log("prova");
+          }
+      },
+      properties: {
+        keyEventTarget: {
+          type: Object,
+          value: function() {
+            return document.body;
+          }
+        }
+      }
+    });
+})();
+  </script>
+
+</dom-module>
