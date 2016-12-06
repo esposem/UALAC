@@ -18,11 +18,11 @@ function setVoiceOverFocus(element) {
 }
 
 var focused;
-document.addEventListener("click", readThis)
+//document.addEventListener("click", readThis)
 
 function readThis(e)
 {
-  console.log(Polymer.dom(e));
-  focused = e.target.id;
-  console.log(e);
+  // console.log(Polymer.dom(e));
+  // focused = e.target.id;
+  // console.log(e);
 }

@@ -83,6 +83,8 @@
 
       attached: function(){
         this.addEventListener('focus', this.boundReadIt , true);
+        this.addEventListener('focusout', this.detached , true);
+
       },
       detached: function(){
         console.log("detached")

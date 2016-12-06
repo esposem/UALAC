@@ -4,30 +4,24 @@
     "Camillo Malnati <malnac@usi.ch>",
     "Riccardo Gabriele <gabrir@usi.ch>"
   ],
-  "description": "UALAC",
+  "description": "UALAC web components",
   "main": "index.html",
-  "moduleType": [],
-  "keywords": [
-    "Web",
-    "Components",
-    "Polymer"
-  ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://github.com/esposem/UALAC",
   "private": true,
+  "dependencies": {
+    "iron-menu-behavior": "PolymerElements/iron-menu-behavior#^1.2.0",
+    "polymer": "Polymer/polymer#1.7.0",
+    "webcomponentsjs": "0.7.23",
+    "paper-input": "PolymerElements/paper-input#~1.1.20",
+    "paper-checkbox": "PolymerElements/paper-checkbox#~1.4.0",
+    "paper-toggle-button": "PolymerElements/paper-toggle-button#1.2.0"
+  },
   "ignore": [
     "**/.*",
     "node_modules",
     "bower_components",
     "test",
     "tests"
-  ],
-  "dependencies": {
-    "iron-a11y-keys": "PolymerElements/iron-a11y-keys#^1.0.0",
-    "polymer": "Polymer/polymer#1.7.0",
-    "webcomponentsjs": "0.7.23",
-    "paper-input": "PolymerElements/paper-input#~1.1.20",
-    "paper-checkbox": "PolymerElements/paper-checkbox#~1.4.0",
-    "paper-toggle-button": "PolymerElements/paper-toggle-button#1.2.0"
-  }
+  ]
 }
