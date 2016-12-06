@@ -1,0 +1,192 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+
+<!-- build:remove -->
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
+<link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="/bower_components/iron-icons/av-icons.html">
+<link rel="import" href="/bower_components/iron-icons/image-icons.html">
+<link rel="import" href="/bower_components/iron-icons/iron-icons.html">
+<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
+
+<!-- /build -->
+
+
+<link rel="import" href="/bower_components/app-route/app-location.html">
+<link rel="import" href="/bower_components/app-route/app-route.html">
+
+<link rel="import" href="/styles/app-theme.html">
+<link rel="import" href="/styles/shared-styles.html">
+
+<!-- build:remove -->
+
+<link rel="import" href="/bower_components/paper-toast/paper-toast.html">
+
+<link rel="import" href="/bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
+<link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
+<link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
+<!-- /build -->
+
+<!-- the following script can help you formatting the dates -->
+<script type="text/javascript" src="../../js/utils.js"></script>
+
+<dom-module id="ab-app">
+  <template>
+
+    <!-- build:remove -->
+
+    <style is="custom-style" include="shared-styles"></style>
+
+
+    <!-- /build -->
+
+<paper-scroll-header-panel fixed>
+  <paper-toolbar class="top-toolbar">
+    <h1><a data-route="dashboard" href="/" on-click="onDataRouteClick">UALAC</a></h1>
+    <paper-icon-button icon="menu" class="toggle-drawer" on-click="toggleDrawer"></paper-icon-button>
+    <span class="flex"></span>
+  <paper-icon-button icon="refresh" class="refresh-icon"></paper-icon-button>
+      <!-- <pa-search></pa-search> <!--MODIFY --> <!--MODIFY --> -->
+  </paper-toolbar>
+</paper-scroll-header-panel>
+
+  <!-- /build -->
+  </template>
+
+  <script>
+    (function () {
+      'use strict';
+
+      Polymer({
+        is: 'ab-app',
+
+        properties: {
+          page: {
+            type: String,
+            reflectToAttribute: true,
+            observer: '_pageChanged'
+          },
+
+
+          // <!-- build:remove -->
+          params: {
+            type: Object,
+            notify: true
+          },
+          userid:{
+            type: String,
+            value: '583414e7479aab0ac483d382'
+          },
+          tracks:{
+            type:Array
+          },
+          albums:{
+            type:Array
+          },
+          artists:{
+            type:Array
+          },
+          playlists:{
+            type: Array
+          },
+          selectedPlaylist:{
+            type:Object
+          }
+
+          // <!-- /build -->
+        },
+
+        observers: [
+          '_routePageChanged(routeData.page)',
+          // <!-- build:remove -->
+          '_routesubPageChanged(subrouteData.playlistid)'
+
+          // <!-- /build -->
+
+        ],
+
+        // <!-- build:remove -->
+        created: function(){
+          this._hasReceivedAJAXPlaylistsResponse = false;
+        },
+
+
+        // <!-- /build -->
+
+        _routePageChanged: function(page) {
+          console.log(page)
+          // <!-- build:remove -->
+
+          this.page = page || 'library';
+
+          // <!-- /build -->
+
+        },
+
+        // <!-- build:remove -->
+
+        _pageChanged: function(page) {
+          const acceptedPages = ['library', 'artists', 'albums', 'playlists', 'view404']
+          if(acceptedPages.indexOf(page) < 0){
+            this.page = 'view404';
+          }
+        },
+
+        _routesubPageChanged: function(playlistid){
+          if(this.page !== 'playlists') return;
+
+          this._validatePlaylistId(playlistid, (err, found) => {
+            if(!found){
+              this.$.toast.text = 'Can\'t find playlist with id: ' + playlistid  + '. Redirected you to Home Page';
+              this.$.toast.show();
+              this.page = '/'
+            }
+          })
+
+        },
+
+        _onPlaylistAjax: function(event){
+          this._hasReceivedAJAXPlaylistsResponse = true;
+        },
+
+        // page middleware for playlit
+        _validatePlaylistId: function(playlistid, cb, timesTried){
+          timesTried = timesTried || 0;
+          let found = false;
+
+          // try 10 times and then surrender
+          if(timesTried >9){
+            return next(null, found);
+          }
+
+          // make sure we have playlists
+          if(!this._hasReceivedAJAXPlaylistsResponse){
+            return this.async(function(){
+              this._validatePlaylistId(playlistid, cb, ++timesTried)
+            }, 500)
+          }
+
+          for(let i = 0, l= this.playlists.length; i<l; i++){
+            if(this.playlists[i]._id == playlistid){
+              this.selectedPlaylist = this.playlists[i];
+              found = true;
+              break;
+            }
+          }
+          cb(null, found);
+        },
+
+        _hideToast(){
+          this.$.toast.hide();
+        },
+
+        _calcPlaylistHref(pid){
+          return `/playlists/${pid}`;
+        }
+        // <!-- /build -->
+      });
+
+    })();
+  </script>
+
+</dom-module>

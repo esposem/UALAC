@@ -1,0 +1,26 @@
+<dom-module id="pa-widget">
+  <template>
+    <style include="shared-styles"></style>
+
+    <paper-material class="widget" elevation="1">
+      <div style="margin:5px 0px 5px 0px" >{{ widget.title }}</div>
+      <div id="content"></div>
+    </paper-material>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'pa-widget',
+
+        ready: function(){
+          var dynamicEl = document.createElement(this.widget.component);
+          this.$.content.appendChild(dynamicEl);
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

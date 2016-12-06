@@ -3,6 +3,8 @@
 
   var app = document.querySelector('#app');
 
+
+
   app.displayInstalledToast = function() {
     // Check to make sure caching is actually enabled—it won't be in the dev environment.
     if (!document.querySelector('platinum-sw-cache').disabled) {
@@ -26,7 +28,7 @@
   };
 
   // Initial widgets cols number
-  app.cols = '2';
+  app.cols = '1';
 
   // Firebase location
   app.location = 'https://polymer-admin.firebaseio.com';
