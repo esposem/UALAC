@@ -16,8 +16,8 @@
 
 	<link rel="import" href="bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
 
-	<link rel="import" href="elements/menu-item/menu-item.html"/>
-	<link rel="import" href="elements/menu-component/menu-component.html"/>
+	<link rel="import" href="elements/menu-item/menu-item.html">
+	<link rel="import" href="elements/menu-component/menu-component.html">
 
 	<link rel="import" href="elements/article-item/article-item.html">
 
@@ -30,15 +30,19 @@
 
 
 <body>
-	<h4 aria-hidden="true">&lt;menu-item&gt;test</h4>
-	<menu-component id="main-menu">
-		<menu-item value="Home" href="localhost:8080"></menu-item>
-			<menu-item value="NOt home" href="localhost:8080"></menu-item>
-				<menu-item value="ciao" href="localhost:8080"></menu-item>
-				<menu-item value="richi" href="localhost:8080"></menu-item>
-				<menu-item value="come" href="localhost:8080"></menu-item>
-				<menu-item value="stai" href="localhost:8080"></menu-item>
 
+
+
+
+
+
+	<menu-component id="main-menu">
+		<menu-item value="Home" link="www.google.com"></menu-item>
+			<menu-item value="Info" link="localhost:8080"></menu-item>
+				<menu-item value="Biglietti" link="localhost:8080"></menu-item>
+				<menu-item value="Orari" link="localhost:8080"></menu-item>
+				<menu-item value="Visita" link="localhost:8080"></menu-item>
+				<menu-item value="Programma" link="localhost:8080"></menu-item>
 	</menu-component>
 	<h4 aria-hidden="true">&lt;article-item&gt; test</h4>
 	<article-item></article-item>
