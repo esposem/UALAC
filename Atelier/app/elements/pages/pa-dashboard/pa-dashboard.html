@@ -2,24 +2,32 @@
 <link rel="import" href="widgets/pa-about.html">
 <link rel="import" href="widgets/pa-combo-chart.html">
 <link rel="import" href="widgets/pa-news.html">
+<link rel="import" href="/elements/common/pa-simple-grid.html">
+<link rel="import" href="/elements/common/pa-widgets/pa-widget.html">
 
 <dom-module id="pa-dashboard">
   <template>
-    <style include="shared-styles"></style>
+    <style is="custom-style" include="shared-styles">
+      pa-widget{
+        box-sizing: border-box;
+        display: block;
+        padding: 0 15px;
+        width: 100%;
+        }
+
+        pa-simple-grid{
+          margin-left: -15px;
+          margin-right: -15px;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+
+        }
+
+    </style>
 
     <pa-simple-grid sm-cols="1" md-cols$='{{cols}}'>
-
-      <!-- <pa-widget widget="{{ widgets.comboChart}}"></pa-widget> -->
-
-      <!-- todo: pass component with params to pa-widget if possible -->
-      <!-- <div>
-        <paper-material class="widget" elevation="1">
-          <h3>Todo List</h3>
-          <pa-todo todos="{{todos}}" user="{{user}}"></pa-todo>
-        </paper-material>
-      </div> -->
-
-      <!-- <pa-widget widget="{{ widgets.news }}"></pa-widget> -->
       <pa-widget widget="{{ widgets.about }}"></pa-widget>
       <pa-widget widget="{{ widgets.about }}"></pa-widget>
       <pa-widget widget="{{ widgets.about }}"></pa-widget>

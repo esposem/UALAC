@@ -1,4 +1,8 @@
 <link rel="import" href="../../pa-typo/widgets/pa-typo-content.html">
+<link rel="import" href="/bower_components/paper-input/paper-input.html">
+<link rel="import" href="/bower_components/paper-button/paper-button.html">
+<link rel="import" href="/bower_components/paper-input/paper-textarea.html">
+<link rel="import" href="/styles/shared-styles.html">
 <dom-module id="pa-text-inputs">
   <template>
     <style include="shared-styles"></style>
@@ -69,7 +73,7 @@
       <br></br>
       <div style="display:flex; flex-direction: column;">
         <paper-button tabindex="0" id="htmlbutton" toggles raised noink click="[[check()]]" style= "width:0%; text-align: center;">HTML</paper-button>
-        <paper-textarea id="ciao" rows="1" label="Write the article here" onClick="[[clicked()]]"  ></paper-textarea>
+        <paper-textarea id="ciao" rows="1" label="Write the article here" on-input="clicked"></paper-textarea>
       </div>
     </div>
 
@@ -77,6 +81,7 @@
     <br>
     <div >
       <div id= "demo">
+        Ciao
       </div>
     </div>
   </template>
@@ -94,10 +99,6 @@
           },
         },
 
-        listeners: {
-          "click" : 'check',
-        },
-
 
         check: function(el) {
           if(el){
@@ -107,20 +108,12 @@
             }
           }
         },
-
-        fun : function(){
-          let x = document.getElementById("ciao").value;
+        clicked: function(el) {
+          console.log(this.$.ciao);
+          let x = this.$.ciao.value;
           let text = x || "Nothing to show";
-          // if(this.checked === false){
-            // console.log(this.checked);
             text = text.split("\n").join("<br>");
-          // }
-          document.getElementById("demo").innerHTML = text;
-        },
-
-        clicked: function() {
-          // let a = this.checked;
-	          setInterval(this.fun ,100);
+          this.$.demo.innerHTML = text;
         },
 
       });

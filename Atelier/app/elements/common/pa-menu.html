@@ -1,3 +1,5 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-menu-behavior/iron-menu-behavior.html">
 <dom-module id="pa-menu">
   <template>
     <style include="shared-styles"></style>
@@ -70,19 +72,25 @@
       }
     </style>
 
-    <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
 
-      <a data-route="dashboard" href="/" on-click="onDataRouteClick">
+
+
+
+      <div>
+        <content></content>
+      </div>
+
+       <!-- <a data-route="dashboard" href="/dashboard" >  on-click="onDataRouteClick"
         <iron-icon icon="dashboard"></iron-icon>
-        <span>Article Manager</span>
-      </a>
+        <span>Article Manager {{routers}}</span>
+      </a> -->
 
-      <a data-route="form" href="/form-elements" id="ciao" on-click="onDataRouteClick">
+      <!-- <a data-route="article" href="/article" id="ciao" >
         <iron-icon icon="add-circle"></iron-icon>
         <span>New Article</span>
-      </a>
+      </a> -->
 
-    </paper-menu>
+
   </template>
 
   <script>
@@ -91,6 +99,14 @@
 
       Polymer({
         is: 'pa-menu',
+
+        behaviors: [Polymer.IronMenuBehavior],
+
+        properties: {
+          routers : {
+            type: String,
+          }
+        },
 
         toggleSubmenu: function(e) {
           e.target.parentNode.classList.toggle('submenu-expanded');

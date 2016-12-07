@@ -1,4 +1,12 @@
-<!-- <link rel="import" href="../../login.html"> -->
+<link rel="import" href="/elements/common/pa-page-title.html">
+<link rel="import" href="/elements/pages/pa-dashboard/pa-dashboard.html">
+<link rel="import" href="/elements/pages/pa-form-elements/pa-form-elements.html">
+<link rel="import" href="/elements/pages/pa-not-found/pa-not-found.html">
+<link rel="import" href="/elements/common/pa-menu.html">
+<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
+
+<link rel="import" href="/styles/shared-styles.html">
+
 <dom-module id="pa-pages">
   <template>
     <style include="shared-styles"></style>
@@ -16,50 +24,21 @@
       }
     </style>
 
-    <iron-pages attr-for-selected="data-route" selected="{{route}}">
+    <iron-pages attr-for-selected="data-route" selected="{{routers}}" fallback-selection="not-found">
 
       <section data-route="dashboard">
-        <pa-page-title title="Manage Articles" cols='{{cols}}'></pa-page-title>
-        <pa-dashboard cols='{{cols}}' todos="{{todos}}" user="{{user}}" on-sign-in="signIn"></pa-dashboard>
+        <pa-page-title title="Manage Articles" ></pa-page-title>
+        <pa-dashboard ></pa-dashboard>
       </section>
 
-      <section data-route="charts">
+      <!-- <section data-route="charts">
         <pa-page-title title="New Article" cols='{{cols}}'></pa-page-title>
         <pa-charts cols='{{cols}}'></pa-charts>
-      </section>
-
-      <!-- <section data-route="login">
-        <pa-login> </pa-login>
       </section> -->
 
-      <section data-route="form-elements">
-        <pa-page-title title="Create Article" cols='{{cols}}'></pa-page-title>
-        <pa-form-elements cols='{{cols}}'></pa-form-elements>
-      </section>
-
-      <section data-route="typo">
-        <pa-page-title title="Typography" cols='{{cols}}'></pa-page-title>
-        <pa-typo cols='{{cols}}'></pa-typo>
-      </section>
-
-      <section data-route="buttons">
-        <pa-page-title title="Buttons" cols='{{cols}}'></pa-page-title>
-        <pa-buttons cols='{{cols}}'></pa-buttons>
-      </section>
-
-      <section data-route="ui-other">
-        <pa-page-title title="Other UI Elements" cols='{{cols}}'></pa-page-title>
-        <pa-ui-other cols='{{cols}}'></pa-ui-other>
-      </section>
-
-      <section data-route="maps">
-        <pa-page-title title="Maps" cols='{{cols}}'></pa-page-title>
-        <pa-maps cols='{{cols}}'></pa-maps>
-      </section>
-
-      <section data-route="user-profile">
-        <pa-page-title title="User Profile" cols='{{cols}}'></pa-page-title>
-        <pa-profile cols='{{cols}}' profile="{{profile}}"></pa-profile>
+      <section data-route="article">
+        <pa-page-title title="Create Article" ></pa-page-title>
+        <pa-form-elements ></pa-form-elements>
       </section>
 
       <section data-route="not-found">
@@ -75,7 +54,13 @@
       'use strict';
 
       Polymer({
-        is: 'pa-pages'
+        is: 'pa-pages',
+
+        properties : {
+          routers : {
+            type : String,
+          }
+        },
 
 
       });

@@ -1,7 +1,8 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/styles/shared-styles.html">
 <dom-module id="pa-simple-grid">
   <template>
-    <style include="shared-styles"></style>
-    <style>
+    <style is="custom-style" include="shared-styles">
       :host {
         margin-left: -15px;
         margin-right: -15px;
@@ -11,12 +12,12 @@
         flex-wrap: wrap;
       }
 
-      :host::shadow > * {
+      /*:host::shadow > * {
         box-sizing: border-box;
         display: block;
         padding: 0 15px;
         width: 100%;
-      }
+      }*/
 
       :host[xs-cols='1']::shadow > * { width: 100%; }
       :host[xs-cols='2']::shadow > * { width: 50%; }

@@ -2,12 +2,33 @@
 <link rel="import" href="widgets/pa-radio-buttons.html">
 <link rel="import" href="widgets/pa-text-inputs.html">
 <link rel="import" href="widgets/pa-inputs-validation.html">
+<link rel="import" href="/elements/common/pa-widgets/pa-widget.html">
+<link rel="import" href="/elements/common/pa-simple-grid.html">
 
 <dom-module id="pa-form-elements">
   <template>
-    <style include="shared-styles"></style>
+    <style is="custom-style" include="shared-styles">
 
-    <pa-widgets widgets="{{widgets}}" cols="{{cols}}"></pa-widgets>
+    pa-simple-grid{
+      margin-left: -15px;
+      margin-right: -15px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+    }
+    paper-material{
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+
+    </style>
+    <pa-simple-grid sm-cols="1" md-cols$='{{cols}}'>
+      <paper-material class="widget" elevation="1">
+        <pa-text-inputs> </pa-text-inputs>
+      </paper-material>
+
+    </pa-simple-grid>
+    <!-- <pa-widgets widgets="{{widgets}}" ></pa-widgets> -->
   </template>
 
   <script>

@@ -15,9 +15,10 @@
 <link rel="import" href="/bower_components/app-route/app-location.html">
 <link rel="import" href="/bower_components/app-route/app-route.html">
 
+
 <link rel="import" href="/styles/app-theme.html">
 <link rel="import" href="/styles/shared-styles.html">
-
+<link rel="import" href="ab-app-styles.html">
 <!-- build:remove -->
 
 <link rel="import" href="/bower_components/paper-toast/paper-toast.html">
@@ -29,6 +30,10 @@
 <link rel="import" href="/elements/common/pa-menu.html">
 <link rel="import" href="/elements/common/pa-pages.html">
 <link rel="import" href="/elements/common/pa-footer.html">
+<link rel="import" href="/elements/pa-menu-item/pa-menu-item.html">
+
+<link rel="import" href="/bower_components/app-route/app-location.html">
+<link rel="import" href="/bower_components/app-route/app-route.html">
 <!-- /build -->
 
 <!-- the following script can help you formatting the dates -->
@@ -36,30 +41,58 @@
 
 <dom-module id="ab-app">
   <template>
-    <style is="custom-style" include="shared-styles"></style>
-    <!-- <paper-scroll-header-panel fixed> -->
+    <style is="custom-style" include="shared-styles ab-app-styles"></style>
+    <style is="custom-style">
+      paper-toolbar {
+        --paper-toolbar-background: #E01010;
+        --paper-toolbar-color: white;
+      }
+    </style>
+
+    <app-location route="{{route}}"></app-location>
+    <app-route
+       route="{{route}}"
+       pattern="/:page"
+       data="{{routeData}}"
+       tail="{{subroute}}">
+    </app-route>
+
+    <!-- build:remove -->
+
+    <app-route
+       route="{{subroute}}"
+       pattern="/:playlistid"
+       data="{{subrouteData}}">
+    </app-route>
+
+    <paper-scroll-header-panel fixed>
+
       <paper-toolbar class="top-toolbar">
-        <h1><a data-route="dashboard" href="/" on-click="onDataRouteClick">UALAC</a></h1>
+        <h1><a data-route="dashboard" href="#" on-click="onDataRouteClick">UALAC</a></h1>
         <paper-icon-button icon="menu" class="toggle-drawer" on-click="toggleDrawer"></paper-icon-button>
         <span class="flex"></span>
-        <paper-icon-button icon="refresh" class="refresh-icon"></paper-icon-button>
+        <!-- <paper-icon-button icon="refresh" class="refresh-icon"></paper-icon-button> -->
         <!-- <pa-search></pa-search>  -->
       </paper-toolbar>
 
       <paper-drawer-panel id="paperDrawerPanel">
 
         <paper-scroll-header-panel drawer>
-          <pa-menu route="{{route}}" user="{{user}}"></pa-menu>
+          <pa-menu class="list" attr-for-selected="data-route" selected="{{page}}" >
+            {{page}}
+            <pa-menu-item data-route="dashboard" href="/dashboard" value="Article Manager"> </pa-menu-item>
+            <pa-menu-item data-route="article" href="/article" value="New Article"> </pa-menu-item>
+          </pa-menu> <!-- routers="{{page}}" -->
         </paper-scroll-header-panel>
 
         <paper-scroll-header-panel main>
-          <pa-pages route="{{route}}" user="{{user}}" profile='{{profile}}' todos="{{todos}}" on-sign-in="signIn"></pa-pages>
+          <pa-pages routers="{{page}}" ></pa-pages>
           <pa-footer></pa-footer>
         </paper-scroll-header-panel>
 
       </paper-drawer-panel>
 
-    <!-- </paper-scroll-header-panel> -->
+    </paper-scroll-header-panel>
 
   </template>
 
@@ -124,10 +157,11 @@
         // <!-- /build -->
 
         _routePageChanged: function(page) {
-          console.log(page)
+          // console.log(page)
           // <!-- build:remove -->
 
-          this.page = page || 'library';
+          this.page = page || 'dashboard';
+          console.log("route is " + this.page);
 
           // <!-- /build -->
 
@@ -136,7 +170,7 @@
         // <!-- build:remove -->
 
         _pageChanged: function(page) {
-          const acceptedPages = ['library', 'artists', 'albums', 'playlists', 'view404']
+          const acceptedPages = ['dashboard', 'article', 'view404']
           if(acceptedPages.indexOf(page) < 0){
             this.page = 'view404';
           }
