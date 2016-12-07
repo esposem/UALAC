@@ -1,0 +1,92 @@
+<!-- Gianmarco Palazzi -->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="switch-view">
+
+  <style>
+  :host{
+    --cont1: block;
+    --cont2: none;
+    --cont3: none;
+
+  }
+  #normal{
+    display: var(--cont1)
+  }
+
+  #semplified{
+    display:  var(--cont2);
+  }
+  #visual{
+    display: var(--cont3);
+  }
+
+
+  </style>
+
+  <template>
+    <div id="article">
+      <div id = "title">
+      titolo
+      </div>
+      <div id="buttons">
+          <paper-button raised on-tap="fxn">normal</paper-button>
+          <paper-button raised on-tap="fxs">semplified</paper-button>
+          <paper-button raised on-tap="fxv">visual</paper-button>
+
+      </div>
+
+      <div id="normal">
+      {{content1}}
+   </div>
+   <div id="semplified">
+     {{content2}}
+
+  </div>
+  <div id="visual">
+    {{content3}}
+
+ </div>
+ </div>
+  </template>
+
+
+  <script>
+  (function () {
+    'use strict';
+
+
+    Polymer({
+      is: 'switch-view',
+      properties:{
+        content1: String,
+        content2: String,
+        content3: String
+      },
+      fxn: function(){
+        this.customStyle['--cont1'] = 'block';
+        this.customStyle['--cont2'] = 'none';
+        this.customStyle['--cont3'] = 'none';
+
+        this.updateStyles();
+       },
+      fxs: function(){
+        this.customStyle['--cont1'] = 'none';
+        this.customStyle['--cont2'] = 'block';
+        this.customStyle['--cont3'] = 'none';
+        this.updateStyles();
+      },
+      fxv: function(){
+        this.customStyle['--cont1'] = 'none';
+        this.customStyle['--cont2'] = 'none';
+        this.customStyle['--cont3'] = 'block';
+        this.updateStyles();
+      }
+
+        });
+})();
+  </script>
+
+</dom-module>
