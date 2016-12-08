@@ -6,7 +6,7 @@ const router = express.Router();
 const middleware =  require('../middleware');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
-const Artist = mongoose.model('Artist');
+const Article = mongoose.model('Article');
 const config = require("../../config");
 const pubsub = require('../../pubsub');
 
@@ -20,7 +20,7 @@ router.all('/', middleware.supportedMethods('GET, POST, OPTIONS'));
 //list artists
 router.get('/', function(req, res, next) {
 
-  Artist.find({} , fieldsFilter).lean().exec(function(err, artists){
+  Article.find({} , fieldsFilter).lean().exec(function(err, artists){
     if (err) return next (err);
 
     artists.forEach(function(artist){
@@ -32,14 +32,14 @@ router.get('/', function(req, res, next) {
 
 //create new artist
 router.post('/', function(req, res, next) {
-
-    const newArtist = new Artist(req.body);
-    newArtist.save(onModelSave(res, 201, true));
+  console.log("CIAOCIAO");
+    // const newArtist = new Article(req.body);
+    // newArtist.save(onModelSave(res, 201, true));
 });
 
 //get a artist
 router.get('/:artistid', function(req, res, next) {
-  Artist.findById(req.params.artistid, fieldsFilter).lean().exec(function(err, artist){
+  Article.findById(req.params.artistid, fieldsFilter).lean().exec(function(err, artist){
     if (err) return next (err);
     if (!artist) {
       res.status(404);
@@ -58,7 +58,7 @@ router.get('/:artistid', function(req, res, next) {
 router.put('/:artistid', function(req, res, next) {
   const data = req.body;
 
-  Artist.findById(req.params.artistid, fieldsFilter, function(err, artist){
+  Article.findById(req.params.artistid, fieldsFilter, function(err, artist){
     if (err) return next (err);
     if (artist){
       artist.name = data.name;
@@ -69,7 +69,7 @@ router.put('/:artistid', function(req, res, next) {
       artist.save(onModelSave(res));
     }else{
       //artist does not exist create it
-      const newArtist = new Artist(data);
+      const newArtist = new Article(data);
       newArtist._id = ObjectId(req.params.artistid);
       newArtist.save(onModelSave(res, 201, true));
     }
@@ -78,7 +78,7 @@ router.put('/:artistid', function(req, res, next) {
 
 //remove a artist
 router.delete('/:artistid', function(req, res, next) {
-  Artist.findById(req.params.artistid, fieldsFilter, function(err, artist){
+  Article.findById(req.params.artistid, fieldsFilter, function(err, artist){
     if (err) return next (err);
     if (!artist) {
       res.status(404);
@@ -101,7 +101,7 @@ function onModelSave(res, status, sendItAsResponse){
   sendItAsResponse = sendItAsResponse || false;
   return function(err, saved){
     if (err) {
-      if (err.name === 'ValidationError' 
+      if (err.name === 'ValidationError'
         || err.name === 'TypeError' ) {
         res.status(400)
         return res.json({
@@ -128,7 +128,7 @@ function onModelSave(res, status, sendItAsResponse){
 
 function addLinks(artist){
   artist.links = [
-    { 
+    {
       "rel" : "self",
       "href" : config.url + "/artists/" + artist._id
     }

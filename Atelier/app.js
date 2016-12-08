@@ -30,7 +30,7 @@ app.use('/', routers.root);
 app.use('*', function(req,res, next){
   if(req.accepts('html')){
     const options = {
-        root: __dirname + '/app/',        
+        root: __dirname + '/app/',
       };
     return res.sendFile('index.html', options);
   }
@@ -39,9 +39,7 @@ app.use('*', function(req,res, next){
 })
 
 // json serving routes
-app.use('/albums', routers.albums);
-app.use('/artists', routers.artists);
-app.use('/tracks', routers.tracks);
-app.use('/users', routers.users);
+app.use('/dashboard', routers.dashboard);
+app.use('/article', routers.article);
 
 module.exports = app;

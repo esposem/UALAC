@@ -6,7 +6,7 @@ const router = express.Router();
 const middleware =  require('../middleware');
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
-const Album = mongoose.model('Album');
+const Article = mongoose.model('Article');
 const config = require("../../config");
 const pubsub = require('../../pubsub');
 
@@ -14,32 +14,32 @@ const pubsub = require('../../pubsub');
 const fieldsFilter = { '__v': 0 };
 
 //supported methods
-router.all('/:albumid', middleware.supportedMethods('GET, PUT, DELETE, OPTIONS'));
+router.all('/:artistid', middleware.supportedMethods('GET, PUT, DELETE, OPTIONS'));
 router.all('/', middleware.supportedMethods('GET, POST, OPTIONS'));
 
 //list albums
 router.get('/', function(req, res, next) {
-
-  Album.find({}, fieldsFilter).lean().populate('artist').exec(function(err, albums){
+  console.log("CALLED");
+  Article.find({}, fieldsFilter).lean().populate('').exec(function(err, articles){
     if (err) return next (err);
-    albums.forEach(function(album){
-      addLinks(album);
-    });
-    res.json(albums);
+    res.json(articles);
   });
 });
 
 //create new album
 router.post('/', function(req, res, next) {
-    const newAlbum = new Album(req.body);
-    newAlbum.save(onModelSave(res, 201, true));
+  console.log("dashboard");
+  console.log(req.body);
+    // const newArtist = new Article(req.body);
+    // newArtist.save(onModelSave(res, 201, true));
 });
 
+
 //get a album
-router.get('/:albumid', function(req, res, next) {
-  Album.findById(req.params.albumid, fieldsFilter).lean().populate('artist').exec(function(err, album){
+router.get('/:artistid', function(req, res, next) {
+  Article.findById(req.params.artistid, fieldsFilter).lean().populate('').exec(function(err, artist){
     if (err) return next (err);
-    if (!album) {
+    if (!artist) {
       res.status(404);
       res.json({
         statusCode: 404,
@@ -47,37 +47,36 @@ router.get('/:albumid', function(req, res, next) {
       });
       return;
     }
-    addLinks(album);
-    res.json(album);
+    res.json(artist);
   });
 });
 
 //update a album
-router.put('/:albumid', function(req, res, next) {
-  const data = req.body;
-
-  Album.findById(req.params.albumid, fieldsFilter , function(err, album){
-    if (err) return next (err);
-    if (album){
-      album.name =  data.name; 
-      album.artist = data.artist;
-      album.artwork = data.artwork;
-      album.dateCreated = data.dateCreated;
-      album.artwork = data.artwork;
-
-      album.save(onModelSave(res));
-    }else{
-      //album does not exist create it
-      const newAlbum = new Album(data);
-      newAlbum._id = ObjectId(req.params.albumid);
-      newAlbum.save(onModelSave(res, 201, true));
-    }
-  });
-});
+// router.put('/:artistid', function(req, res, next) {
+//   const data = req.body;
+//
+//   Article.findById(req.params.albumid, fieldsFilter , function(err, album){
+//     if (err) return next (err);
+//     if (album){
+//       album.name =  data.name;
+//       album.artist = data.artist;
+//       album.artwork = data.artwork;
+//       album.dateCreated = data.dateCreated;
+//       album.artwork = data.artwork;
+//
+//       album.save(onModelSave(res));
+//     }else{
+//       //album does not exist create it
+//       const newArticle = new Article(data);
+//       newArticle._id = ObjectId(req.params.albumid);
+//       newArticle.save(onModelSave(res, 201, true));
+//     }
+//   });
+// });
 
 //remove a album
 router.delete('/:albumid', function(req, res, next) {
-  Album.findById(req.params.albumid, fieldsFilter , function(err, album){
+  Article.findById(req.params.albumid, fieldsFilter , function(err, album){
     if (err) return next (err);
     if (!album) {
       res.status(404);
@@ -100,7 +99,7 @@ function onModelSave(res, status, sendItAsResponse){
   sendItAsResponse = sendItAsResponse || false;
   return function(err, saved){
     if (err) {
-      if (err.name === 'ValidationError' 
+      if (err.name === 'ValidationError'
         || err.name === 'TypeError' ) {
         res.status(400)
         return res.json({
@@ -125,18 +124,6 @@ function onModelSave(res, status, sendItAsResponse){
   }
 }
 
-function addLinks(album){
-  album.links = [
-    { 
-      "rel" : "self",
-      "href" : config.url + "/albums/" + album._id
-    },
-    { 
-      "rel" : "artist",
-      "href" : config.url + "/artists/" + album.artist
-    }
-  ];
-}
 
 /** router for /albums */
 module.exports = router;

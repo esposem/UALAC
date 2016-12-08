@@ -5,17 +5,10 @@
 
 const mongoose = require('mongoose');
 
-require('./Album');
-require('./Artist');
-require('./Playlist');
-require('./Track');
-require('./User');
+require('./Article');
+
 
 module.exports = {
-  'Album' : mongoose.model('Album'),
-  'Artist' : mongoose.model('Artist'),
-  'Playlist' : mongoose.model('Playlist'),
-  'Track' : mongoose.model('Track'),
-  'User' : mongoose.model('User')
+  'Article' : mongoose.model('Article'),
+  
 }
-

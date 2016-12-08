@@ -1,5 +1,5 @@
 /** @module models/Album
-* The Album Model. 
+* The Album Model.
 * Schema:
 * _id            String       required   Unique identifier of the album
 * name           String       required   Name of the album
@@ -22,19 +22,15 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 * @augments AbstractSoundCollectionSchemaInstance
 * @param {Object} definition
 */
-const AlbumSchema = new mongoose.Schema(
+const ArticleSchema = new mongoose.Schema(
   {
-    name : { type: String, required: true },
-    tracks : [{ type: ObjectId, ref: "Track" }],
-    artist : { type: ObjectId, ref:"Artist", required: true },
-    artwork: { type: String, default: "" },
-    dateReleased : { type: Date, default: Date.now },
+    title : { type: String, required: true },
+    image : [{ type: String, default: "/images/blank-user.jpg" }],
+    text : { type: String, default: "Nothing to show" },
     dateCreated : { type: Date, default: Date.now },
-    label : { type: String, default: 'USI-INF records' }
   }
 );
 
 
 //register model
-mongoose.model('Album', AlbumSchema);
-
+mongoose.model('Article', ArticleSchema);

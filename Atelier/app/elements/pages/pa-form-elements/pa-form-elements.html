@@ -7,28 +7,8 @@
 
 <dom-module id="pa-form-elements">
   <template>
-    <style is="custom-style" include="shared-styles">
-
-    pa-simple-grid{
-      margin-left: -15px;
-      margin-right: -15px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-    }
-    paper-material{
-      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
-    }
-
-    </style>
-    <pa-simple-grid sm-cols="1" md-cols$='{{cols}}'>
-      <paper-material class="widget" elevation="1">
+    <style is="custom-style" include="shared-styles"></style>
         <pa-text-inputs> </pa-text-inputs>
-      </paper-material>
-
-    </pa-simple-grid>
-    <!-- <pa-widgets widgets="{{widgets}}" ></pa-widgets> -->
   </template>
 
   <script>
@@ -37,20 +17,6 @@
 
       Polymer({
         is: 'pa-form-elements',
-
-        properties: {
-          widgets: {
-            type: Array,
-            value: [
-              {
-                title: '',
-                component: 'pa-text-inputs'
-              },
-
-
-            ]
-          }
-        }
       });
     })();
   </script>
