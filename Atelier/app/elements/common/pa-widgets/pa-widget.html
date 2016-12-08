@@ -1,3 +1,4 @@
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 <dom-module id="pa-widget">
   <template>
     <style include="shared-styles"></style>
@@ -7,8 +8,17 @@
     }
     </style>
     <paper-material class="widget" elevation="1">
-      <div style="margin:5px 0px 5px 0px" >{{ art.title }}</div>
-      <div id="content"></div>
+      <iron-ajax
+      id="ajax"
+      url="/dashboard/{{art._id}}"
+      handle-as="json"
+      content-type ="application/json"
+      on-response="finished">
+    </iron-ajax>
+      <div style="margin:5px 0px 5px 0px" ><a href="/article" on-click="call">{{ art.title }} </a></div>
+
+      <div id="content">
+      <pa-about img={{art.image}} txt={{art.text}} ></pa-about></div>
     </paper-material>
   </template>
 
@@ -24,15 +34,27 @@
           }
         },
 
-        ready: function(){
-          var dynamicEl = document.createElement(this.widget.component);
-          // console.log(this.art);
-          dynamicEl.setAttribute("img", this.art.image);
-          dynamicEl.setAttribute("txt", this.art.text);
-          dynamicEl.setAttribute("title", this.art.title);
-          // console.log(dynamicEl);
-          this.$.content.appendChild(dynamicEl);
+        modifytext : function(el){
+          let str;
+            if(el.length > 300){
+              str =  (el).substring(0,300)+ "...";
+            }else {
+              str =  (el).substring(0,300);
+            }
+            return str;
+        },
+
+        call : function() {
+          let ajaxel = this.$.ajax;
+          ajaxel.generateRequest();
+          console.log("request generated for " + ajaxel.url);
+        },
+
+        finished : function(res){
+          console.log("GOT ");
+          console.log(res.detail.response);
         }
+
       });
     })();
   </script>

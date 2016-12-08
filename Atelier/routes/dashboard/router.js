@@ -42,10 +42,10 @@ router.post('/', function(req, res, next) {
 
 
 //get a album
-router.get('/:artistid', function(req, res, next) {
-  Article.findById(req.params.artistid, fieldsFilter).lean().populate('').exec(function(err, artist){
+router.get('/:articleid', function(req, res, next) {
+  Article.findById(req.params.articleid, fieldsFilter).lean().populate('').exec(function(err, article){
     if (err) return next (err);
-    if (!artist) {
+    if (!article) {
       res.status(404);
       res.json({
         statusCode: 404,
@@ -53,7 +53,9 @@ router.get('/:artistid', function(req, res, next) {
       });
       return;
     }
-    res.json(artist);
+    res.json(article);
+    res.status(200);
+    res.send();
   });
 });
 

@@ -31,7 +31,6 @@
     <pa-simple-grid sm-cols="1">
 
     <template is="dom-repeat" items="{{artic}}" as="article">
-      <!-- {{fun(article)}} -->
       <pa-widget widget="{{ widgets.about }}" art="{{article}}"></pa-widget>
     </template>
     </pa-simple-grid>
@@ -60,19 +59,6 @@
           },
         },
 
-        fun : function(el){
-          // console.log("DASH GOT " + this.artic);
-        },
-
-        // ready : function(){
-          // let ajaxel = this.$.ajax;
-          // ajaxel.generateRequest();
-        // },
-        //
-        // finished : function(el){
-        //   this.articles = el.detail.response;
-        //   // console.log(this.articles);
-        // },
       });
     })();
   </script>

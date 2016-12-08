@@ -42,7 +42,6 @@
       </iron-ajax>
 
         <pa-page-title title="Manage Articles"></pa-page-title>
-        <!-- {{isdash(routers)}} -->
         <pa-dashboard artic={{articles}}></pa-dashboard>
       </section>
 
@@ -77,18 +76,7 @@
 
         finished : function(el){
           this.articles = el.detail.response;
-          // console.log("got an ajax response");
         },
-
-        // isdash : function(el){
-        //   console.log(el);
-        //   if(el === "dashboard"){
-        //     let ajaxel = this.$.ajax;
-        //     ajaxel.generateRequest();
-        //   }
-        //
-        // }
-
 
       });
     })();

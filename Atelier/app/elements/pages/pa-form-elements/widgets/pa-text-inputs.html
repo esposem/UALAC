@@ -4,6 +4,7 @@
 <link rel="import" href="/bower_components/paper-input/paper-textarea.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="/styles/shared-styles.html">
+<link rel="import" href="/bower_components/paper-toast/paper-toast.html">
 <dom-module id="pa-text-inputs" is="dom-bind">
   <template>
     <style include="shared-styles"></style>
@@ -118,7 +119,6 @@
     <pa-simple-grid sm-cols="1">
       <paper-material class="widget" elevation="1">
 
-        <!-- <form method="post" > -->
         <div class="vertical-section">
 
           <div style="display: flex; flex-direction: row">
@@ -142,7 +142,8 @@
           </div>
 
         </div>
-
+        <paper-toast id="toast">
+        </paper-toast>
 
           </div>
 
@@ -152,7 +153,6 @@
               style= "width:0%; text-align: center;">HTML</paper-button>
             <paper-textarea  id="inputbox"  label="Write the article here" on-input="clicked"></paper-textarea>
             <div style="display:flex; flex-direction: row-reverse;">
-              <!-- <input type="submit" name="" value="Submit"> -->
               <iron-ajax
               id="ajax"
               url="/dashboard"
@@ -165,7 +165,6 @@
             </div>
           </div>
         </div>
-      <!-- </form> -->
       </paper-material>
     </pa-simple-grid>
 
@@ -234,6 +233,7 @@
           this.$.articleid.childNodes[1].innerHTML = "No id yet"
           this.$.inputbox.value = ""
           this.$.title.value=" "
+          this.$.title.value=""
           this.$["title-field-title"].style="";
           // console.log(this.$.title);
         },
@@ -258,8 +258,8 @@
             ajaxel.generateRequest();
 
           }else{
-              console.log("title is not valid! no request made");
-              this.$.title.value = " ";
+              // console.log("title is not valid! no request made");
+              this.$.title.value = " "; // Done to show the error in the paper-input
               this.$.title.value = "";
               this.$["title-field-title"].style="color: red;";
           }
@@ -270,7 +270,13 @@
           let id = this.$.articleid.childNodes[1].innerHTML;
           if(id === "No id yet"){
             this.$.articleid.childNodes[1].innerHTML = el.detail.response;
+            this.$.toast.text = 'Created a new Article!';
+            this.$.toast.show();
+          }else{
+            this.$.toast.text = 'Article ' + id + " updated!";
+            this.$.toast.show();
           }
+
 
         },
 
