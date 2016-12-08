@@ -6,23 +6,41 @@
 <dom-module id="switch-view">
 
   <style>
+
   :host{
     --cont1: block;
     --cont2: none;
     --cont3: none;
 
+    --cc1:red; rosso
+    --cc2:#7be276; verde
+    --cc3:#4286f4; blu
+
+    --clickcolor:black;
   }
+
+  paper-button.custom {
+    --paper-button-ink-color: var(--clickcolor);
+  }
+  paper-button.normal {
+    background-color: var(--cc1);
+  }
+  paper-button.simplified {
+    background-color: var(--cc2);
+  }
+  paper-button.emotional {
+    background-color: var(--cc3);
+    }
+
   #normal{
     display: var(--cont1)
   }
-
-  #semplified{
+  #simplified{
     display:  var(--cont2);
   }
   #emotional{
     display: var(--cont3);
   }
-
 
   </style>
 
@@ -32,19 +50,20 @@
       {{title}}
       </div>
       <div id="buttons">
-          <paper-button raised on-tap="fxn">Normal</paper-button>
-          <paper-button raised on-tap="fxs">Semplified</paper-button>
-          <paper-button raised on-tap="fxv">Emotional</paper-button>
+
+        <paper-button  class="custom normal" raised on-tap="fxn">Normal</paper-button>
+        <paper-button  class="custom simplified" raised on-tap="fxs">Simplified</paper-button>
+        <paper-button  class ="custom emotional" raised on-tap="fxv">Emotional</paper-button>
       </div>
 
       <div id="normal" style="word-wrap:break-word;">
         {{normal}}
       </div>
-       <div id="semplified" style="word-wrap:break-word;">
+       <div id="simplified" style="word-wrap:break-word;">
          {{semplified}}
        </div>
-      <div id="emotional" style="word-wrap:break-word;">
-        {{emotional}}
+       <div id="emotional">
+         <img src="{{content3}}" height="500" width="600">
       </div>
     </div>
 </template>
@@ -53,16 +72,25 @@
   <script>
   (function () {
     'use strict';
-
+    var init1= "#f4425f";
+    var init2="#7be276";
+    var init3="#4286f4";
+    var sel1="red";
+    var sel2="green";
+    var sel3="blue";
 
     Polymer({
       is: 'switch-view',
       properties:{
         normal: String,
-        semplified: String,
+        simplified: String,
         emotional: String
       },
       fxn: function(){
+        this.customStyle['--cc1'] = sel1;
+        this.customStyle['--cc2'] = init2;
+        this.customStyle['--cc3'] = init3;
+
         this.customStyle['--cont1'] = 'block';
         this.customStyle['--cont2'] = 'none';
         this.customStyle['--cont3'] = 'none';
@@ -70,12 +98,20 @@
         this.updateStyles();
        },
       fxs: function(){
+        this.customStyle['--cc1'] = init1;
+        this.customStyle['--cc2'] = sel2;
+        this.customStyle['--cc3'] = init3;
+
         this.customStyle['--cont1'] = 'none';
         this.customStyle['--cont2'] = 'block';
         this.customStyle['--cont3'] = 'none';
         this.updateStyles();
       },
       fxv: function(){
+        this.customStyle['--cc1'] = init1;
+        this.customStyle['--cc2'] = init2;
+        this.customStyle['--cc3'] = sel3;
+
         this.customStyle['--cont1'] = 'none';
         this.customStyle['--cont2'] = 'none';
         this.customStyle['--cont3'] = 'block';
