@@ -69,7 +69,7 @@
 
       <paper-toolbar class="top-toolbar">
         <h1><a data-route="dashboard" href="#" on-click="onDataRouteClick">UALAC</a></h1>
-        <paper-icon-button icon="menu" class="toggle-drawer" on-click="toggleDrawer"></paper-icon-button>
+        <!-- <paper-icon-button icon="menu" class="toggle-drawer" on-click="toggleDrawer"></paper-icon-button> -->
         <span class="flex"></span>
         <!-- <paper-icon-button icon="refresh" class="refresh-icon"></paper-icon-button> -->
         <!-- <pa-search></pa-search>  -->
@@ -105,65 +105,17 @@
             reflectToAttribute: true,
             observer: '_pageChanged'
           },
-
-
-          // <!-- build:remove -->
-          params: {
-            type: Object,
-            notify: true
-          },
-          userid:{
-            type: String,
-            value: '583414e7479aab0ac483d382'
-          },
-          tracks:{
-            type:Array
-          },
-          albums:{
-            type:Array
-          },
-          artists:{
-            type:Array
-          },
-          playlists:{
-            type: Array
-          },
-          selectedPlaylist:{
-            type:Object
-          }
-
-          // <!-- /build -->
         },
 
         observers: [
           '_routePageChanged(routeData.page)',
-          // <!-- build:remove -->
-          '_routesubPageChanged(subrouteData.playlistid)'
-
-          // <!-- /build -->
-
         ],
-
-        // <!-- build:remove -->
-        created: function(){
-          this._hasReceivedAJAXPlaylistsResponse = false;
-        },
-
-
-        // <!-- /build -->
 
         _routePageChanged: function(page) {
           // console.log(page)
-          // <!-- build:remove -->
-
           this.page = page || 'dashboard';
           console.log("route is " + this.page);
-
-          // <!-- /build -->
-
         },
-
-        // <!-- build:remove -->
 
         _pageChanged: function(page) {
           const acceptedPages = ['dashboard', 'article', 'view404']
@@ -171,59 +123,6 @@
             this.page = 'view404';
           }
         },
-
-        _routesubPageChanged: function(playlistid){
-          if(this.page !== 'playlists') return;
-
-          this._validatePlaylistId(playlistid, (err, found) => {
-            if(!found){
-              this.$.toast.text = 'Can\'t find playlist with id: ' + playlistid  + '. Redirected you to Home Page';
-              this.$.toast.show();
-              this.page = '/'
-            }
-          })
-
-        },
-
-        _onPlaylistAjax: function(event){
-          this._hasReceivedAJAXPlaylistsResponse = true;
-        },
-
-        // page middleware for playlit
-        _validatePlaylistId: function(playlistid, cb, timesTried){
-          timesTried = timesTried || 0;
-          let found = false;
-
-          // try 10 times and then surrender
-          if(timesTried >9){
-            return next(null, found);
-          }
-
-          // make sure we have playlists
-          if(!this._hasReceivedAJAXPlaylistsResponse){
-            return this.async(function(){
-              this._validatePlaylistId(playlistid, cb, ++timesTried)
-            }, 500)
-          }
-
-          for(let i = 0, l= this.playlists.length; i<l; i++){
-            if(this.playlists[i]._id == playlistid){
-              this.selectedPlaylist = this.playlists[i];
-              found = true;
-              break;
-            }
-          }
-          cb(null, found);
-        },
-
-        _hideToast(){
-          this.$.toast.hide();
-        },
-
-        _calcPlaylistHref(pid){
-          return `/playlists/${pid}`;
-        }
-        // <!-- /build -->
       });
 
     })();

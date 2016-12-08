@@ -15,7 +15,7 @@ const fieldsFilter = { '__v': 0 };
 
 //supported methods
 router.all('/:artistid', middleware.supportedMethods('GET, PUT, DELETE, OPTIONS'));
-router.all('/', middleware.supportedMethods('GET, POST, OPTIONS'));
+router.all('/', middleware.supportedMethods('GET, POST, PUT, OPTIONS'));
 
 //list albums
 router.get('/', function(req, res, next) {
@@ -30,8 +30,12 @@ router.get('/', function(req, res, next) {
 router.post('/', function(req, res, next) {
   console.log("dashboard");
   console.log(req.body);
-    // const newArtist = new Article(req.body);
-    // newArtist.save(onModelSave(res, 201, true));
+    const newArticle = new Article(req.body);
+    newArticle.save();
+    res.json(newArticle._id)
+    // console.log(newArticle._id);
+    res.status(201);
+    res.send();
 });
 
 
@@ -52,27 +56,27 @@ router.get('/:artistid', function(req, res, next) {
 });
 
 //update a album
-// router.put('/:artistid', function(req, res, next) {
-//   const data = req.body;
-//
-//   Article.findById(req.params.albumid, fieldsFilter , function(err, album){
-//     if (err) return next (err);
-//     if (album){
-//       album.name =  data.name;
-//       album.artist = data.artist;
-//       album.artwork = data.artwork;
-//       album.dateCreated = data.dateCreated;
-//       album.artwork = data.artwork;
-//
-//       album.save(onModelSave(res));
-//     }else{
-//       //album does not exist create it
-//       const newArticle = new Article(data);
-//       newArticle._id = ObjectId(req.params.albumid);
-//       newArticle.save(onModelSave(res, 201, true));
-//     }
-//   });
-// });
+router.put('/', function(req, res, next) {
+  const data = req.body;
+
+  Article.findById(req.body._id, fieldsFilter , function(err, article){
+    if (err) return next (err);
+    if (article){
+      article.text =  data.text;
+      article.image = data.image || "/images/blank-user.jpg";
+      article.title = data.title;
+      article.save();
+      res.status(201);
+      res.send();
+    }
+    else{
+      console.log("ERROR");
+      res.status(500);
+      res.send();
+    }
+
+  });
+});
 
 //remove a album
 router.delete('/:albumid', function(req, res, next) {
@@ -112,15 +116,15 @@ function onModelSave(res, status, sendItAsResponse){
     }
 
     pubsub.emit('album.updated', {})
-    if( sendItAsResponse){
-      const obj = saved.toObject();
-      delete obj.password;
-      delete obj.__v;
-      addLinks(obj);
-      return res.status(statusCode).json(obj);
-    }else{
-      return res.status(statusCode).end();
-    }
+    // if( sendItAsResponse){
+    //   const obj = saved.toObject();
+    //   delete obj.password;
+    //   delete obj.__v;
+    //   // addLinks(obj);
+    //   return res.status(statusCode).json(obj);
+    // }else{
+    //   return res.status(statusCode).end();
+    // }
   }
 }
 

@@ -40,6 +40,6 @@ app.use('*', function(req,res, next){
 
 // json serving routes
 app.use('/dashboard', routers.dashboard);
-app.use('/article', routers.article);
+app.use('/article', routers.dashboard);
 
 module.exports = app;

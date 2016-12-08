@@ -104,7 +104,12 @@
         properties: {
           routers : {
             type: String,
-          }
+          },
+
+          // drawerPanel : {
+          //   type : String,
+          //
+          // },
         },
 
         toggleSubmenu: function(e) {
@@ -113,19 +118,29 @@
 
         onDataRouteClick: function() {
           // Close drawer after menu item is selected if drawerPanel is narrow
-          var drawerPanel = document.querySelector('#paperDrawerPanel');
-          if (drawerPanel.narrow) {
-            drawerPanel.closeDrawer();
-          }
+          // var drawerPanel = document.querySelector('#paperDrawerPanel');
+          //
+          // if (this.drawerPanel.narrow) {
+          //   this.drawerPanel.closeDrawer();
+          // }
 
           // adjust charts to widgets size
           // var charts = document.getElementsByTagName('google-chart');
-          setTimeout(function(){
-            for (var i = 0; i < charts.length; i++) {
-              charts[i].drawChart();
-            }
-          }, 0);
-        }
+          // setTimeout(function(){
+          //   for (var i = 0; i < charts.length; i++) {
+          //     charts[i].drawChart();
+          //   }
+          // }, 0);
+        },
+
+        toggleDrawer : function() {
+          // var drawerPanel = document.getElementById('paperDrawerPanel');
+          // if (drawerPanel.narrow) {
+          //   drawerPanel.togglePanel();
+          // } else {
+          //   drawerPanel.classList.toggle('collapsed-menu');
+          // }
+        },
       });
     })();
   </script>

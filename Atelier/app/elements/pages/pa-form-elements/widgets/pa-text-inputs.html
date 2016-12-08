@@ -98,8 +98,21 @@
                 Title </div>
             </div>
             <paper-input id="title" style="flex-grow: 0; align-self: center; padding:0px; width:40%;"
-                required auto-validate error-message="needs some text!" label="Article title" style=></paper-input>
+                required auto-validate error-message="needs some text!" label="Article title" ></paper-input>
+
+                <div style="display: flex; flex-direction: column">
+                  <div style="padding:12px; flex-grow:0;">
+                  </div>
+                <div class="paper-font-title"
+                style="align-self: center; padding-top: 1px; padding-bottom:0px; padding-right: 15px; padding-left: 15px;">
+                    ID </div>
+                </div>
+                <div id="articleid" style="flex-grow: 0; align-self: center; padding:0px; width:40%;">
+                  <i>No id yet</i></div>
+              </div>
+
           </div>
+
           <br></br>
           <div style="display:flex; flex-direction: column;">
             <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml"
@@ -111,9 +124,7 @@
               id="ajax"
               url="/dashboard"
               handle-as="json"
-
               content-type ="application/json"
-              method="post"
               on-response="finished">
             </iron-ajax>
               <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest"  raised noink
@@ -181,7 +192,7 @@
             text = text.split("\n").join("<br>");
           }
           // console.log(this.$.demo.childNodes[1]);
-          this.$.demo.childNodes[1].innerHTML =  text ;
+          this.$.demo.childNodes[1].innerHTML =  text;
           this.wrotebefore = text;
           // this.$.inputbox.value = "a" + this.$.inputbox.value;
         },
@@ -190,20 +201,31 @@
           let ajaxel = this.$.ajax;
           let txt = this.$.inputbox.value;
           let tle = this.$.title.value;
-
+          // console.log(this.$.articleid.childNodes[1].innerHTML);
           if(tle){
             console.log("title valid");
-            ajaxel.body = JSON.stringify({"text": txt, "title" : tle});
+            let id = this.$.articleid.childNodes[1].innerHTML;
+            if(id !== "No id yet"){
+              console.log("Put Request");
+              ajaxel.method="PUT"
+              ajaxel.body = JSON.stringify({"_id" : id, "text": txt, "title" : tle});
+            }else{
+              console.log("Post Request");
+              ajaxel.method="POST"
+              ajaxel.body = JSON.stringify({"text": txt, "title" : tle});
+            }
             ajaxel.generateRequest();
+
           }else{
               console.log("title is not valid! no request made");
-
           }
 
         },
 
-        finished : function(){
-          console.log("complete");
+        finished : function(el){
+          // console.log("complete ");
+          // console.log(el.detail.response);
+          this.$.articleid.childNodes[1].innerHTML = el.detail.response;
         },
 
 

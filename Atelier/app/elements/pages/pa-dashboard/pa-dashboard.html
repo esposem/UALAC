@@ -27,7 +27,7 @@
 
     </style>
 
-    <pa-simple-grid sm-cols="1" md-cols$='{{cols}}'>
+    <pa-simple-grid sm-cols="1">
       <pa-widget widget="{{ widgets.about }}"></pa-widget>
       <pa-widget widget="{{ widgets.about }}"></pa-widget>
       <pa-widget widget="{{ widgets.about }}"></pa-widget>
@@ -48,14 +48,6 @@
           widgets: {
             type: Array,
             value: {
-              comboChart: {
-                title: 'Combo Chart',
-                component: 'pa-combo-chart'
-              },
-              news: {
-                title: 'Latest News',
-                component: 'pa-news'
-              },
               about: {
                 title: 'Article 1',
                 component: 'pa-about'
