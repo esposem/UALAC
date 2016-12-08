@@ -18,27 +18,12 @@ module.exports = function(httpServer) {
 		})
 	})
 
-	eventBus.on('track.deleted', function(event){
-		io.emit('change-track', event)
+
+	eventBus.on('article.updated', function(event){
+		io.emit('change-article', event)
 	})
 
-	eventBus.on('track.updated', function(event){
-		io.emit('change-track', event)
-	})
-
-	eventBus.on('album.deleted', function(event){
-		io.emit('change-album', event)
-	})
-
-	eventBus.on('album.updated', function(event){
-		io.emit('change-album', event)
-	})
-
-	eventBus.on('artist.deleted', function(event){
-		io.emit('change-artist', event)
-	})
-
-	eventBus.on('artist.updated', function(event){
-		io.emit('change-artist', event)
+	eventBus.on('article.deleted', function(event){
+		io.emit('delete-article', event)
 	})
 }

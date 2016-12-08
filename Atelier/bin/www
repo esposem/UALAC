@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const debug = require('debug')('atelierbeats-server');
+const debug = require('debug')('projectUALAC');
 const app = require('../app');
 
 app.set('port', process.env.PORT || 3000);

@@ -15,11 +15,10 @@ const fieldsFilter = { '__v': 0 };
 
 //supported methods
 router.all('/:artistid', middleware.supportedMethods('GET, PUT, DELETE, OPTIONS'));
-router.all('/', middleware.supportedMethods('GET, POST, PUT, OPTIONS'));
+router.all('/', middleware.supportedMethods('GET, POST, PUT, DELETE, OPTIONS'));
 
 //list albums
 router.get('/', function(req, res, next) {
-  console.log("CALLED");
   Article.find({}, fieldsFilter).lean().populate('').exec(function(err, articles){
     if (err) return next (err);
     res.json(articles);
@@ -72,6 +71,7 @@ router.put('/', function(req, res, next) {
       article.save();
       res.status(201);
       res.send();
+      pubsub.emit('article.updated', {})
     }
     else{
       console.log("ERROR");
@@ -83,10 +83,10 @@ router.put('/', function(req, res, next) {
 });
 
 //remove a album
-router.delete('/:albumid', function(req, res, next) {
-  Article.findById(req.params.albumid, fieldsFilter , function(err, album){
+router.delete('/:articleid', function(req, res, next) {
+  Article.findById(req.params.articleid, fieldsFilter , function(err, article){
     if (err) return next (err);
-    if (!album) {
+    if (!article) {
       res.status(404);
       res.json({
         statusCode: 404,
@@ -94,43 +94,14 @@ router.delete('/:albumid', function(req, res, next) {
       });
       return;
     }
-    album.remove(function(err, removed){
+    article.remove(function(err, removed){
       if (err) return next (err);
       res.status(204).end();
-      pubsub.emit('album.deleted', {})
+      pubsub.emit('article.deleted', {})
     })
   });
 });
 
-function onModelSave(res, status, sendItAsResponse){
-  const statusCode = status || 204;
-  sendItAsResponse = sendItAsResponse || false;
-  return function(err, saved){
-    if (err) {
-      if (err.name === 'ValidationError'
-        || err.name === 'TypeError' ) {
-        res.status(400)
-        return res.json({
-          statusCode: 400,
-          message: "Bad Request"
-        });
-      }else{
-        return next (err);
-      }
-    }
-
-    pubsub.emit('album.updated', {})
-    // if( sendItAsResponse){
-    //   const obj = saved.toObject();
-    //   delete obj.password;
-    //   delete obj.__v;
-    //   // addLinks(obj);
-    //   return res.status(statusCode).json(obj);
-    // }else{
-    //   return res.status(statusCode).end();
-    // }
-  }
-}
 
 
 /** router for /albums */

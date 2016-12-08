@@ -11,12 +11,13 @@
       <iron-ajax
       id="ajax"
       url="/dashboard/{{art._id}}"
-      handle-as="json"
-      content-type ="application/json"
+
       on-response="finished">
     </iron-ajax>
-      <div style="margin:5px 0px 5px 0px" ><a href="/article" on-click="call">{{ art.title }} </a></div>
-
+      <div style="display:flex; justify-content: space-between;">
+        <div style="margin:5px 0px 5px 0px" ><a href="/article" on-click="call">{{ art.title }} </a></div>
+        <div> <a href="#" on-click="del"> x </a> </div>
+      </div>
       <div id="content">
       <pa-about img={{art.image}} txt={{art.text}} ></pa-about></div>
     </paper-material>
@@ -46,8 +47,18 @@
 
         call : function() {
           let ajaxel = this.$.ajax;
+          ajaxel.method = "GET"
+          ajaxel["handle-as"]="json"
+          ajaxel["content-type"] ="application/json"
           ajaxel.generateRequest();
-          console.log("request generated for " + ajaxel.url);
+          console.log("request generated for GET" + ajaxel.url);
+        },
+
+        del : function(){
+          let ajaxel = this.$.ajax;
+          ajaxel.method = "DELETE"
+          ajaxel.generateRequest();
+          console.log("request generated for DELETE" + ajaxel.url);
         },
 
         finished : function(res){
