@@ -27,12 +27,13 @@
 
     </style>
 
-    <pa-simple-grid sm-cols="1">
-      <pa-widget widget="{{ widgets.about }}"></pa-widget>
-      <pa-widget widget="{{ widgets.about }}"></pa-widget>
-      <pa-widget widget="{{ widgets.about }}"></pa-widget>
-      <pa-widget widget="{{ widgets.about }}"></pa-widget>
 
+    <pa-simple-grid sm-cols="1">
+
+    <template is="dom-repeat" items="{{artic}}" as="article">
+      <!-- {{fun(article)}} -->
+      <pa-widget widget="{{ widgets.about }}" art="{{article}}"></pa-widget>
+    </template>
     </pa-simple-grid>
 
   </template>
@@ -49,12 +50,29 @@
             type: Array,
             value: {
               about: {
-                title: 'Article 1',
+                title: '',
                 component: 'pa-about'
               }
             }
-          }
-        }
+          },
+          artic : {
+            type: Array,
+          },
+        },
+
+        fun : function(el){
+          // console.log("DASH GOT " + this.artic);
+        },
+
+        // ready : function(){
+          // let ajaxel = this.$.ajax;
+          // ajaxel.generateRequest();
+        // },
+        //
+        // finished : function(el){
+        //   this.articles = el.detail.response;
+        //   // console.log(this.articles);
+        // },
       });
     })();
   </script>

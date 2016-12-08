@@ -23,6 +23,8 @@ router.get('/', function(req, res, next) {
   Article.find({}, fieldsFilter).lean().populate('').exec(function(err, articles){
     if (err) return next (err);
     res.json(articles);
+    res.status(200);
+    res.send();
   });
 });
 

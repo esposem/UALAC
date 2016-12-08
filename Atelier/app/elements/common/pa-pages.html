@@ -4,6 +4,7 @@
 <link rel="import" href="/elements/pages/pa-not-found/pa-not-found.html">
 <link rel="import" href="/elements/common/pa-menu.html">
 <link rel="import" href="/bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 
 <link rel="import" href="/styles/shared-styles.html">
 
@@ -24,11 +25,25 @@
       }
     </style>
 
+
+
     <iron-pages attr-for-selected="data-route" selected="{{routers}}" fallback-selection="not-found">
 
       <section data-route="dashboard">
-        <pa-page-title title="Manage Articles" ></pa-page-title>
-        <pa-dashboard ></pa-dashboard>
+        <iron-ajax
+        id="ajax"
+        auto
+        url="/dashboard"
+        params = "{{routers}}"
+        method="GET"
+        handle-as="json"
+        content-type ="application/json"
+        on-response="finished">
+      </iron-ajax>
+
+        <pa-page-title title="Manage Articles"></pa-page-title>
+        <!-- {{isdash(routers)}} -->
+        <pa-dashboard artic={{articles}}></pa-dashboard>
       </section>
 
       <section data-route="article">
@@ -54,8 +69,25 @@
         properties : {
           routers : {
             type : String,
-          }
+          },
+          articles : {
+            type : Array,
+          },
         },
+
+        finished : function(el){
+          this.articles = el.detail.response;
+          // console.log("got an ajax response");
+        },
+
+        // isdash : function(el){
+        //   console.log(el);
+        //   if(el === "dashboard"){
+        //     let ajaxel = this.$.ajax;
+        //     ajaxel.generateRequest();
+        //   }
+        //
+        // }
 
 
       });

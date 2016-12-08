@@ -253,9 +253,11 @@
         },
 
         finished : function(el){
-          // console.log("complete ");
-          // console.log(el.detail.response);
-          this.$.articleid.childNodes[1].innerHTML = el.detail.response;
+          let id = this.$.articleid.childNodes[1].innerHTML;
+          if(id === "No id yet"){
+            this.$.articleid.childNodes[1].innerHTML = el.detail.response;
+          }
+
         },
 
 
