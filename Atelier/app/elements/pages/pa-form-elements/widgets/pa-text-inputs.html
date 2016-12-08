@@ -133,8 +133,11 @@
               </div>
 
             <div id="articleid">
-              <i>No id yet</i>
+              <i style="font-weight: bold;">No id yet</i>
             </div>
+
+            <paper-button tabindex="0" id="submitbutton" on-click="deleteverything"  raised noink
+                style= "width:20%; text-align: center; margin-top: 20px;">New Article</paper-button>
 
           </div>
 
@@ -227,20 +230,28 @@
           // this.$.inputbox.value = "a" + this.$.inputbox.value;
         },
 
+        deleteverything: function(){
+          this.$.articleid.childNodes[1].innerHTML = "No id yet"
+          this.$.inputbox.value = ""
+          this.$.title.value=" "
+          this.$["title-field-title"].style="";
+          // console.log(this.$.title);
+        },
+
         ajaxrequest : function(){
           let ajaxel = this.$.ajax;
           let txt = this.$.inputbox.value;
           let tle = this.$.title.value;
           // console.log(this.$.articleid.childNodes[1].innerHTML);
           if(tle){
-            console.log("title valid");
+            // console.log("title valid");
             let id = this.$.articleid.childNodes[1].innerHTML;
             if(id !== "No id yet"){
-              console.log("Put Request");
+              // console.log("Put Request");
               ajaxel.method="PUT"
               ajaxel.body = JSON.stringify({"_id" : id, "text": txt, "title" : tle});
             }else{
-              console.log("Post Request");
+              // console.log("Post Request");
               ajaxel.method="POST"
               ajaxel.body = JSON.stringify({"text": txt, "title" : tle});
             }
@@ -248,6 +259,9 @@
 
           }else{
               console.log("title is not valid! no request made");
+              this.$.title.value = " ";
+              this.$.title.value = "";
+              this.$["title-field-title"].style="color: red;";
           }
 
         },
