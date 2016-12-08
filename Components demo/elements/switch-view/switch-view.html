@@ -18,52 +18,79 @@
 
     --clickcolor:black;
   }
+  paper-button {
+  text-transform: none;
+}
 
   paper-button.custom {
     --paper-button-ink-color: var(--clickcolor);
   }
-  paper-button.normal {
+  paper-button.normalbutton {
     background-color: var(--cc1);
   }
-  paper-button.simplified {
+  paper-button.simplifiedbutton {
     background-color: var(--cc2);
   }
-  paper-button.emotional {
+  paper-button.emotionalbutton {
     background-color: var(--cc3);
     }
 
-  #normal{
+  .normal{
     display: var(--cont1)
   }
-  #simplified{
+  .simplified{
     display:  var(--cont2);
   }
-  #emotional{
+  .emotional{
     display: var(--cont3);
+
+
+}
+.inline {
+display: inline-block;
+height: 30%;
   }
 
+.buttons {
+  float: right;
+}
+
+#article-content{
+  width: 60%;
+  height: 200px;
+
+}
+.dim{
+width: 100%;
+height: 100%;
+overflow: scroll;
+
+}
   </style>
 
   <template>
     <div id="article-content">
-      <div id = "title">
-      {{title}}
-      </div>
-      <div id="buttons">
+      <div class = "inline title">
+      <font size ="6" style="vertical-align:middle;"> <b>{{title}}</b></font>
 
-        <paper-button  class="custom normal" raised on-tap="fxn">Normal</paper-button>
-        <paper-button  class="custom simplified" raised on-tap="fxs">Simplified</paper-button>
-        <paper-button  class ="custom emotional" raised on-tap="fxv">Emotional</paper-button>
       </div>
+      <div class="inline buttons">
 
-      <div id="normal" style="word-wrap:break-word;">
+        <paper-button  class="custom normalbutton" raised on-tap="fxn">Normal</paper-button>
+        <paper-button  class="custom simplifiedbutton" raised on-tap="fxs">Simplified</paper-button>
+        <paper-button  class ="custom emotionalbutton" raised on-tap="fxv">Emotional</paper-button>
+      </div>
+      <br>
+      <br>
+      <br>
+      <div class=" dim normal" style="word-wrap:break-word;">
         {{normal}}
       </div>
-       <div id="simplified" style="word-wrap:break-word;">
-         {{semplified}}
+       <div class="dim simplified">
+         {{simplified}}
        </div>
-       <div id="emotional">
-         <img src="{{content3}}" height="500" width="600">
+       <div class="dim emotional">
+         <img src="{{emotional}}" height="500" width="600">
       </div>
     </div>
 </template>
