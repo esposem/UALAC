@@ -78,11 +78,7 @@
       <paper-drawer-panel id="paperDrawerPanel">
 
         <paper-scroll-header-panel drawer>
-          <pa-menu class="list" attr-for-selected="data-route" selected="{{page}}" >
-            {{page}}
-            <pa-menu-item data-route="dashboard" href="/dashboard" value="Article Manager"> </pa-menu-item>
-            <pa-menu-item data-route="article" href="/article" value="New Article"> </pa-menu-item>
-          </pa-menu> <!-- routers="{{page}}" -->
+          <pa-menu route="{{route}}" user="{{user}}"></pa-menu>
         </paper-scroll-header-panel>
 
         <paper-scroll-header-panel main>
