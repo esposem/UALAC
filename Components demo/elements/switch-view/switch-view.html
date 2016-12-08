@@ -19,7 +19,7 @@
   #semplified{
     display:  var(--cont2);
   }
-  #visual{
+  #emotional{
     display: var(--cont3);
   }
 
@@ -27,30 +27,27 @@
   </style>
 
   <template>
-    <div id="article">
+    <div id="article-content">
       <div id = "title">
-      titolo
+      {{title}}
       </div>
       <div id="buttons">
-          <paper-button raised on-tap="fxn">normal</paper-button>
-          <paper-button raised on-tap="fxs">semplified</paper-button>
-          <paper-button raised on-tap="fxv">visual</paper-button>
-
+          <paper-button raised on-tap="fxn">Normal</paper-button>
+          <paper-button raised on-tap="fxs">Semplified</paper-button>
+          <paper-button raised on-tap="fxv">Emotional</paper-button>
       </div>
 
-      <div id="normal">
-      {{content1}}
-   </div>
-   <div id="semplified">
-     {{content2}}
-
-  </div>
-  <div id="visual">
-    {{content3}}
-
- </div>
- </div>
-  </template>
+      <div id="normal" style="word-wrap:break-word;">
+        {{normal}}
+      </div>
+       <div id="semplified" style="word-wrap:break-word;">
+         {{semplified}}
+       </div>
+      <div id="emotional" style="word-wrap:break-word;">
+        {{emotional}}
+      </div>
+    </div>
+</template>
 
 
   <script>
@@ -61,9 +58,9 @@
     Polymer({
       is: 'switch-view',
       properties:{
-        content1: String,
-        content2: String,
-        content3: String
+        normal: String,
+        semplified: String,
+        emotional: String
       },
       fxn: function(){
         this.customStyle['--cont1'] = 'block';
@@ -85,7 +82,7 @@
         this.updateStyles();
       }
 
-        });
+  });
 })();
   </script>
 
