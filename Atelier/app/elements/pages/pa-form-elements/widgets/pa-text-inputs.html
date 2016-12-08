@@ -85,31 +85,61 @@
       .fit{
         left:5px;
       }
+
+      #title-field-title {
+        align-self: center;
+        padding-top: 16px;
+        padding-bottom:0px;
+        padding-right: 15px;"
+      }
+
+      #title {
+        flex-grow: 0;
+        align-self: center;
+        padding:0px;
+        width:40%;
+      }
+
+      #title-id {
+        align-self: center;
+        padding-top: 16px;
+        padding-bottom:0px;
+        padding-right: 15px;
+        padding-left: 15px;
+      }
+
+      #articleid {
+        align-self: center;
+        padding-top: 16px;
+        width:40%;
+      }
+
     </style>
     <pa-simple-grid sm-cols="1">
       <paper-material class="widget" elevation="1">
+
         <!-- <form method="post" > -->
         <div class="vertical-section">
-          <div style="display: flex; flex-direction: row">
-            <div style="display: flex; flex-direction: column">
-              <div style="padding:12px; flex-grow:0;">
-              </div>
-            <div class="paper-font-title" style="align-self: center;  padding-top: 1px; padding-bottom:0px; padding-right: 15px;">
-                Title </div>
-            </div>
-            <paper-input id="title" style="flex-grow: 0; align-self: center; padding:0px; width:40%;"
-                required auto-validate error-message="needs some text!" label="Article title" ></paper-input>
 
-                <div style="display: flex; flex-direction: column">
-                  <div style="padding:12px; flex-grow:0;">
-                  </div>
-                <div class="paper-font-title"
-                style="align-self: center; padding-top: 1px; padding-bottom:0px; padding-right: 15px; padding-left: 15px;">
-                    ID </div>
-                </div>
-                <div id="articleid" style="flex-grow: 0; align-self: center; padding:0px; width:40%;">
-                  <i>No id yet</i></div>
+          <div style="display: flex; flex-direction: row">
+
+            <div id="title-field-title" class="paper-font-title">
+                Title </div>
+
+            <paper-input id="title" required auto-validate error-message="needs some text!" label="Article title"></paper-input>
+
+            <div id="title-id" class="paper-font-title">
+                  ID
               </div>
+
+            <div id="articleid">
+              <i>No id yet</i>
+            </div>
+
+          </div>
+
+        </div>
+
 
           </div>
 
