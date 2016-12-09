@@ -13,26 +13,104 @@
         display: block;
         padding: 0 15px;
         width: 100%;
-        }
+      }
 
-        pa-simple-grid{
-          margin-left: -15px;
-          margin-right: -15px;
-          box-sizing: border-box;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: wrap;
+      pa-simple-grid{
+        margin-left: -15px;
+        margin-right: -15px;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
 
-        }
+      .group {
+        position: relative;
+        margin-bottom: 16px;
+        margin-top: -58px;
+        margin-left: auto;
+        margin-right: 18px;
+      }
+
+      input {
+        font-size:18px;
+        padding:10px 0px 8px 0px;
+        display:block;
+        width:300px;
+        border:none;
+        font-weight:100;
+        border-bottom:1px solid #999;
+        background-color: inherit;
+      }
+
+      input:focus { outline:none; }
+
+      label          {
+        color:#999;
+        font-size:18px;
+        /*font-weight:normal;*/
+        position:absolute;
+        pointer-events:none;
+        top:14px;
+        transition:0.2s ease all;
+      }
+
+      input:focus ~ label, input:valid ~ label     {
+        top:-10px;
+        font-size:14px;
+      }.
+
+      highlight {
+        position:absolute;
+        height:60%;
+        width:100px;
+        top:25%;
+        left:0;
+        pointer-events:none;
+        opacity:0.5;
+      }
+
+      input:focus ~ .highlight {
+        animation:inputHighlighter 0.3s ease;
+      }
+
+      .bar  { position:relative; display:block; width:300px; }
+      .bar:before, .bar:after   {
+        content:'';
+        height:2px;
+        width:0;
+        bottom:1px;
+        position:absolute;
+        background:#E01010;
+        transition:0.2s ease all;
+      }
+      .bar:before {
+        left:50%;
+      }
+      .bar:after {
+        right:50%;
+      }
+
+      /* active state */
+      input:focus ~ .bar:before, input:focus ~ .bar:after {
+        width:50%;
+      }
+
+
 
     </style>
 
 
     <pa-simple-grid sm-cols="1">
-
-    <template is="dom-repeat" items="{{artic}}" as="article">
-      <pa-widget widget="{{ widgets.about }}" art="{{article}}"></pa-widget>
-    </template>
+      <div class="group">
+        <input type="text" value="{{searchString::input}}" required>
+        <span class="bar"></span>
+        <label>Search Articles by Title</label>
+      </div>
+      <!-- <paper-input label="search here!" value="{{searchString::input}}"></paper-input> -->
+      <template is="dom-repeat" items="{{artic}}" as="article" filter="{{computeFilter(searchString)}}">
+        <pa-widget widget="{{ widgets.about }}" art="{{article}}"></pa-widget>
+      </template>
     </pa-simple-grid>
 
   </template>
@@ -44,6 +122,18 @@
       Polymer({
         is: 'pa-dashboard',
 
+        computeFilter: function(string) {
+          if (!string) {
+            return null;
+          } else {
+            string = string.toLowerCase();
+            return function(art) {
+              var title = art.title;
+              return title.indexOf(string) != -1;
+            }
+          }
+        },
+
         properties: {
           widgets: {
             type: Array,
@@ -54,11 +144,11 @@
               }
             }
           },
+
           artic : {
             type: Array,
           },
         },
-
       });
     })();
   </script>
