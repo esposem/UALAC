@@ -15,6 +15,11 @@
   <template>
     <style include="shared-styles"></style>
     <style>
+      a {
+        text-decoration: none;
+        color: #222;
+      }
+      
       paper-button {
         display: block;
         margin-bottom: 0px;
@@ -134,7 +139,7 @@
           <div style="display: flex; flex-direction: row">
 
             <div id="title-field-title" class="paper-font-title">
-                Title </div>
+                Name </div>
 
             <paper-input id="title" required auto-validate error-message="needs some text!" label="Article title"></paper-input>
 
@@ -147,7 +152,7 @@
             </div>
 
             <paper-button tabindex="0" id="submitbutton" on-click="deleteverything"  raised noink
-                style= "width:20%; text-align: center; margin-top: 20px;">New Article</paper-button>
+                style= "width:20%; text-align: center; margin-top: 20px;"><a href="/article"> New Article</a></paper-button>
 
           </div>
 
@@ -178,7 +183,7 @@
               <paper-button tabindex="0" raised on-click="addMenuItem" style="width:auto; text-align: center;">Menu Item</paper-button>
             </div>
             <p class$="{{hiddenClass}}">&#60;div&#62;</p>
-            <paper-textarea id="inputbox" label="Write the article here" on-input="clicked"></paper-textarea>
+            <paper-textarea id="inputbox" label="Write the article here" on-input="clicked" value=" "></paper-textarea>
             <p class$="{{hiddenClass}}">&#60;/div&#62;</p>
             <div style="display:flex; flex-direction: row-reverse;">
               <iron-ajax
@@ -310,6 +315,7 @@
         addImage: function() {
           console.log("Add image clicked");
           this.$.inputbox.value += "<img> image tag goes here <img>";
+          this.clicked();
         },
 
         addSwitch: function() {
@@ -319,16 +325,19 @@
       		this.$.inputbox.value +='simplified="insert simplified text here"'
       		this.$.inputbox.value +='emotional="insert image path here">'
       		this.$.inputbox.value +='</switch-view>';
+          this.clicked();
         },
 
         addMenu: function() {
           this.$.inputbox.value += '<menu-component id="main-menu">'
         	this.$.inputbox.value += 'insert menu-item here'
         	this.$.inputbox.value += '</menu-component>'
+          this.clicked();
         },
 
         addMenuItem: function() {
           this.$.inputbox.value += '<menu-item value="insert button name here" link="insert link here"></menu-item>'
+          this.clicked();
         },
 
         deleteverything: function(){
@@ -337,6 +346,7 @@
           this.$.title.value=" "
           this.$.title.value=""
           this.$["title-field-title"].style="";
+          this.clicked();
           // console.log(this.$.title);
         },
 
@@ -386,6 +396,7 @@
           this.$.inputbox.value += " "
           this.$.title.value = el.detail.response.title;
           this.$.articleid.childNodes[1].innerHTML = el.detail.response._id;
+          this.clicked();
         }
 
 
