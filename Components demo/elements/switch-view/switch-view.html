@@ -1,0 +1,158 @@
+<!-- Gianmarco Palazzi -->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/paper-button/paper-button.html">
+
+<dom-module id="switch-view">
+
+  <style>
+
+  :host{
+    --cont1: block;
+    --cont2: none;
+    --cont3: none;
+
+    --cc1:red; rosso
+    --cc2:#7be276; verde
+    --cc3:#4286f4; blu
+
+    --clickcolor:black;
+  }
+  paper-button {
+  text-transform: none;
+}
+
+  paper-button.custom {
+    --paper-button-ink-color: var(--clickcolor);
+  }
+  paper-button.normalbutton {
+    background-color: var(--cc1);
+  }
+  paper-button.simplifiedbutton {
+    background-color: var(--cc2);
+  }
+  paper-button.emotionalbutton {
+    background-color: var(--cc3);
+    }
+
+  .normal{
+    display: var(--cont1)
+  }
+  .simplified{
+    display:  var(--cont2);
+  }
+  .emotional{
+    display: var(--cont3);
+
+
+}
+.inline {
+display: inline-block;
+}
+
+.buttons {
+  float: right;
+}
+
+.topbar{
+  height: 20%;
+}
+
+.content{
+  height: 80%;
+}
+
+#article-content{
+  box-sizing: border-box;
+  padding: 16px;
+  width: 100%;
+  height: 400px;
+
+}
+.dim{
+width: 100%;
+height: 100%;
+overflow: scroll;
+
+}
+  </style>
+
+  <template>
+    <div id="article-content" background-color="red">
+      <div class = "topbar">
+      <font size ="6" style="vertical-align:middle;"> <b>{{title}}</b></font>
+      <div class="inline buttons">
+        <paper-button  class="custom normalbutton" raised on-tap="fxn">Normal</paper-button>
+        <paper-button  class="custom simplifiedbutton" raised on-tap="fxs">Simplified</paper-button>
+        <paper-button  class ="custom emotionalbutton" raised on-tap="fxv">Emotional</paper-button>
+      </div>
+    </div>
+    <div class="content">
+      <div class=" dim normal" style="word-wrap:break-word;">
+        {{normal}}
+      </div>
+       <div class="dim simplified">
+         {{simplified}}
+       </div>
+       <div class="dim emotional">
+         <img src="{{emotional}}" width="100%">
+      </div>
+    </div>
+  </div>
+</template>
+
+
+  <script>
+  (function () {
+    'use strict';
+    var init1= "#f4425f";
+    var init2="#7be276";
+    var init3="#4286f4";
+    var sel1="red";
+    var sel2="green";
+    var sel3="blue";
+
+    Polymer({
+      is: 'switch-view',
+      properties:{
+        normal: String,
+        simplified: String,
+        emotional: String
+      },
+      fxn: function(){
+        this.customStyle['--cc1'] = sel1;
+        this.customStyle['--cc2'] = init2;
+        this.customStyle['--cc3'] = init3;
+
+        this.customStyle['--cont1'] = 'block';
+        this.customStyle['--cont2'] = 'none';
+        this.customStyle['--cont3'] = 'none';
+
+        this.updateStyles();
+       },
+      fxs: function(){
+        this.customStyle['--cc1'] = init1;
+        this.customStyle['--cc2'] = sel2;
+        this.customStyle['--cc3'] = init3;
+
+        this.customStyle['--cont1'] = 'none';
+        this.customStyle['--cont2'] = 'block';
+        this.customStyle['--cont3'] = 'none';
+        this.updateStyles();
+      },
+      fxv: function(){
+        this.customStyle['--cc1'] = init1;
+        this.customStyle['--cc2'] = init2;
+        this.customStyle['--cc3'] = sel3;
+
+        this.customStyle['--cont1'] = 'none';
+        this.customStyle['--cont2'] = 'none';
+        this.customStyle['--cont3'] = 'block';
+        this.updateStyles();
+      }
+
+  });
+})();
+  </script>
+
+</dom-module>

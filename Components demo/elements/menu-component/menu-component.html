@@ -1,0 +1,101 @@
+<!-- Camillo Malnati, Riccardo Gabriele -->
+
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<!-- <link rel="import" href="../../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html"> -->
+<link rel="import" href="/bower_components/iron-menu-behavior/iron-menu-behavior.html">
+
+
+<dom-module id="menu-component">
+
+  <template>
+
+  <style>
+
+    div{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      padding: 5px;
+    }
+
+    p{
+      position: absolute !important;
+      clip: rect(1px, 1px, 1px, 1px);
+    }
+
+
+  </style>
+
+    <!-- <p aria-live="polite" tabindex="0" id="menu-text">You are on the menu, press n to read it.</p> -->
+    <!-- <div role="menu" aria-hidden="false" id="menu" tabindex="0" title="You are on the Menu." class="pText"> -->
+
+      <div id="menu" tabindex="0" title="You are on menu 2">
+        <content></content>
+      </div>
+
+    <!-- </div> -->
+
+  </template>
+
+  <script>
+  (function () {
+    'use strict';
+
+    Polymer({
+      is: 'menu-component',
+      behaviors: [Polymer.IronMenuBehavior],
+      keyBindings: {
+        'n': '_handleEnter',
+        'shift+e': '_handleExit',
+        '1 2 3 4 5': '_handleNumbers'
+      },
+
+      _handleEnter: function(e) {
+        console.log('funziona')
+
+      },
+      _handleExit: function(e) {
+
+      },
+      _handleNumbers: function(e) {
+        console.log(e.key)
+        console.log(e.target)
+        //console.log("bo: " + keyEventTarget)
+        if (e.target != null && (e.target.id == 'main-menu' || e.target.id == 'menu-text'))
+          {
+              if (e.key == "1")
+              {
+                  var a = this.shadowRoot.getElementById("menu-text")
+                  a.innerHTML = "prova1";
+                  this.shadowRoot.getElementById("menu-text").focus();
+              }
+              if (e.key == "2")
+              {
+                var a = this.shadowRoot.getElementById("menu-text")
+                a.innerHTML = "prova2";
+                this.shadowRoot.getElementById("menu-text").focus();
+              }
+              if (e.key == "3")
+                  console.log("prova");
+          }
+      },
+
+      ready: function()
+      {
+        this.addEventListener("keydown", this._handleNumbers, true);
+      },
+
+      properties: {
+        keyEventTarget: {
+          type: Object,
+          value: function() {
+            return document.body;
+          }
+        }
+      }
+
+    });
+})();
+  </script>
+
+</dom-module>
