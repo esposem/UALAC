@@ -10,7 +10,9 @@
       }
 
       .iron-selected {
-        color: #990000;
+        background: #e5cece;
+        color: #c60000;
+
       }
 
       a {
@@ -78,6 +80,7 @@
 
 
     <paper-menu class="list" selected="[[route]]" attr-for-selected="data-route">
+      <iron-selector selected="0">
 
       <a data-route="/" href="/" on-click="onDataRouteClick">
         <iron-icon icon="dashboard"></iron-icon>
@@ -88,6 +91,7 @@
         <iron-icon icon="add-circle"></iron-icon>
         <span>New Article</span>
       </a>
+    </iron-selector >
 
     </paper-menu>
 
