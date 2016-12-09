@@ -1,0 +1,106 @@
+<!-- Camillo Malnati, Riccardo Gabriele -->
+
+<link rel="import" href="../../bower_components/polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+
+
+<dom-module id="image-component">
+  <template>
+
+  <style>
+
+  p{
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+
+
+  </style>
+
+  <p aria-live="polite" tabindex="0" id="image-text">{{text}}</p>
+
+<!-- temporary -->
+<div tabindex="0">
+{{tags}}
+</div>
+<!-- /temp  -->
+
+  </template>
+
+  <script>
+  (function () {
+    'use strict';
+
+    Polymer({
+      is: 'image-component',
+
+      _hearDescription: function(e) {
+        console.log(e)
+        let a = this.shadowRoot.getElementById("image-text")
+        if (e.key == "1" && this.description1 !== undefined)
+        {
+            a.innerHTML = this.description1;
+            this.shadowRoot.getElementById("image-text");
+        }
+        if (e.key == "2" && this.description2 !== undefined)
+        {
+          a.innerHTML = this.description2;
+          this.shadowRoot.getElementById("image-text");
+        }
+        if (e.key == "3" && this.description3 !== undefined)
+        a.innerHTML = this.description3;
+        this.shadowRoot.getElementById("image-text");
+      },
+      ready: function() {
+        console.log(this.tags)
+
+        function htmlToElement(html) {
+            var template = document.createElement('template');
+            template.innerHTML = html;
+            return template.content.firstChild;
+        }
+
+        let a = this.shadowRoot.getElementById("image-text")
+
+        if (this.text === undefined)
+        {
+          // TODO: implements automatic text if the webmaster does not give it
+          a.innerHTML = "You are on an image, ";
+          if (description1 !== undefined)
+          {
+            a.innerHTML += "to hear the full description, press1. "
+          }
+
+        }
+
+        var image = htmlToElement("<img " + this.tags + "></img>")
+        this.appendChild(image);
+        this.addEventListener("keydown", this._hearDescription, true);
+      },
+      properties: {
+          tags:{
+            type: String,
+            default: false
+          },
+          text:{
+            type: String,
+            default: undefined
+          },
+          description1:{
+            type: String,
+            default: undefined
+          },
+          description2:{
+            type: String,
+            default: undefined
+          },
+          description3:{
+            type: String,
+            default: undefined
+          },
+        },
+    });
+})();
+  </script>
+
+</dom-module>
