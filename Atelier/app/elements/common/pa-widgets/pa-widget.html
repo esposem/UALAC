@@ -1,0 +1,73 @@
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<dom-module id="pa-widget">
+  <template>
+    <style include="shared-styles"></style>
+    <style is="custom-style">
+    paper-material{
+      box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+    }
+    </style>
+    <paper-material class="widget" elevation="1">
+      <iron-ajax
+      id="ajax"
+      url="/dashboard/{{art._id}}"
+
+      on-response="finished">
+    </iron-ajax>
+      <div style="display:flex; justify-content: space-between;">
+        <div style="margin:5px 0px 5px 0px" ><a href="/article" on-click="call">{{ art.title }} </a></div>
+        <div> <a href="#" on-click="del"> x </a> </div>
+      </div>
+      <div id="content">
+      <pa-about img={{art.image}} txt={{art.text}} ></pa-about></div>
+    </paper-material>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'pa-widget',
+        properties : {
+          art : {
+            type : Object,
+          }
+        },
+
+        modifytext : function(el){
+          let str;
+            if(el.length > 300){
+              str =  (el).substring(0,300)+ "...";
+            }else {
+              str =  (el).substring(0,300);
+            }
+            return str;
+        },
+
+        call : function() {
+          let ajaxel = this.$.ajax;
+          ajaxel.method = "GET"
+          ajaxel["handle-as"]="json"
+          ajaxel["content-type"] ="application/json"
+          ajaxel.generateRequest();
+          console.log("request generated for GET" + ajaxel.url);
+        },
+
+        del : function(){
+          let ajaxel = this.$.ajax;
+          ajaxel.method = "DELETE"
+          ajaxel.generateRequest();
+          console.log("request generated for DELETE" + ajaxel.url);
+        },
+
+        finished : function(res){
+          console.log("GOT ");
+          console.log(res.detail.response);
+        }
+
+      });
+    })();
+  </script>
+
+</dom-module>

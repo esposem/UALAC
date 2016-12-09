@@ -2,12 +2,13 @@
 <link rel="import" href="widgets/pa-radio-buttons.html">
 <link rel="import" href="widgets/pa-text-inputs.html">
 <link rel="import" href="widgets/pa-inputs-validation.html">
+<link rel="import" href="/elements/common/pa-widgets/pa-widget.html">
+<link rel="import" href="/elements/common/pa-simple-grid.html">
 
 <dom-module id="pa-form-elements">
   <template>
-    <style include="shared-styles"></style>
-
-    <pa-widgets widgets="{{widgets}}" cols="{{cols}}"></pa-widgets>
+    <style is="custom-style" include="shared-styles"></style>
+        <pa-text-inputs> </pa-text-inputs>
   </template>
 
   <script>
@@ -16,20 +17,6 @@
 
       Polymer({
         is: 'pa-form-elements',
-
-        properties: {
-          widgets: {
-            type: Array,
-            value: [
-              {
-                title: '',
-                component: 'pa-text-inputs'
-              },
-
-
-            ]
-          }
-        }
       });
     })();
   </script>

@@ -68,7 +68,7 @@
 
       <br></br>
       <div style="display:flex; flex-direction: column;">
-        <paper-button tabindex="0" toggles raised noink style= "width:0%; text-align: center;">HTML</paper-button>
+        <paper-button tabindex="0" id="htmlbutton" toggles raised noink click="[[check()]]" style= "width:0%; text-align: center;">HTML</paper-button>
         <paper-textarea id="ciao" rows="1" label="Write the article here" onClick="[[clicked()]]"  ></paper-textarea>
       </div>
     </div>
@@ -87,14 +87,40 @@
 
       Polymer({
         is: 'pa-text-inputs',
+        properties : {
+          checked : {
+            type : Boolean,
+            value : false,
+          },
+        },
+
+        listeners: {
+          "click" : 'check',
+        },
+
+
+        check: function(el) {
+          if(el){
+            if(el.target.id === 'htmlbutton'){
+              this.checked = !(this.checked);
+              console.log(this.checked);
+            }
+          }
+        },
+
+        fun : function(){
+          let x = document.getElementById("ciao").value;
+          let text = x || "Nothing to show";
+          // if(this.checked === false){
+            // console.log(this.checked);
+            text = text.split("\n").join("<br>");
+          // }
+          document.getElementById("demo").innerHTML = text;
+        },
 
         clicked: function() {
-	          setInterval(function(){
-            let x = document.getElementById("ciao").value;
-            let text = x || "Nothing to show";
-            text = text.split("\n").join("<br>");
-            document.getElementById("demo").innerHTML = text;
-          },100);
+          // let a = this.checked;
+	          setInterval(this.fun ,100);
         },
 
       });

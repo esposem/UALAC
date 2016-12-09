@@ -1,0 +1,81 @@
+<dom-module id="pa-about">
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+      :host {
+        display: block;
+        @apply(--layout);
+        @apply(--layout-horizontal);
+      }
+
+
+      .team-photo img {
+        max-width: 70px;
+        max-height: 70px;
+      }
+
+      .team-info {
+        box-sizing: border-box;
+        padding-left: 24px;
+        font-size: 14px;
+      }
+
+      .team-info paper-button {
+        display: block;
+        margin: 24px 0;
+        max-width: 250px;
+        box-sizing: border-box;
+      }
+
+      /*@media (max-width: 1120px) and (min-width: $resXS) {
+        @include layout-collapsed();
+      }*/
+
+      @media (max-width: 1420px) and (min-width: 1221px), (max-width: 870px) and (min-width: 770px), (max-width: 575px) {
+        .team-photo {
+          max-width: 200px;
+          overflow: hidden;
+        }
+        .team-photo img {
+          margin-left: -46px
+        }
+      }
+
+      @media (max-width: 1220px) and (min-width: 992px), (max-width: 770px) and (min-width: 641px) {
+        .team-photo {
+          display: none;
+        }
+        .team-info {
+          padding-left: 0;
+        }
+      }
+    </style>
+
+
+    <div class="team-photo">
+      <img src={{img}} >
+    </div>
+    <div class="team-info flex">
+       {{txt}}
+    </div>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'pa-about',
+        properties : {
+          img : {
+            type : String,
+          },
+          txt : {
+            type : String,
+          },
+        }
+      });
+    })();
+  </script>
+
+</dom-module>

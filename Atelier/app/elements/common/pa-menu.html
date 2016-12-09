@@ -1,3 +1,5 @@
+<link rel="import" href="/bower_components/polymer/polymer.html">
+<link rel="import" href="/bower_components/iron-menu-behavior/iron-menu-behavior.html">
 <dom-module id="pa-menu">
   <template>
     <style include="shared-styles"></style>
@@ -70,6 +72,10 @@
       }
     </style>
 
+
+
+
+
     <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
 
       <a data-route="dashboard" href="/" on-click="onDataRouteClick">
@@ -77,12 +83,13 @@
         <span>Article Manager</span>
       </a>
 
-      <a data-route="form" href="/form-elements" id="ciao" on-click="onDataRouteClick">
+      <a data-route="form" href="/article" id="ciao" on-click="onDataRouteClick">
         <iron-icon icon="add-circle"></iron-icon>
         <span>New Article</span>
       </a>
 
     </paper-menu>
+
   </template>
 
   <script>
@@ -92,25 +99,48 @@
       Polymer({
         is: 'pa-menu',
 
+        behaviors: [Polymer.IronMenuBehavior],
+
+        properties: {
+          routers : {
+            type: String,
+          },
+
+          // drawerPanel : {
+          //   type : String,
+          //
+          // },
+        },
+
         toggleSubmenu: function(e) {
           e.target.parentNode.classList.toggle('submenu-expanded');
         },
 
         onDataRouteClick: function() {
           // Close drawer after menu item is selected if drawerPanel is narrow
-          var drawerPanel = document.querySelector('#paperDrawerPanel');
-          if (drawerPanel.narrow) {
-            drawerPanel.closeDrawer();
-          }
+          // var drawerPanel = document.querySelector('#paperDrawerPanel');
+          //
+          // if (this.drawerPanel.narrow) {
+          //   this.drawerPanel.closeDrawer();
+          // }
 
           // adjust charts to widgets size
           // var charts = document.getElementsByTagName('google-chart');
-          setTimeout(function(){
-            for (var i = 0; i < charts.length; i++) {
-              charts[i].drawChart();
-            }
-          }, 0);
-        }
+          // setTimeout(function(){
+          //   for (var i = 0; i < charts.length; i++) {
+          //     charts[i].drawChart();
+          //   }
+          // }, 0);
+        },
+
+        toggleDrawer : function() {
+          // var drawerPanel = document.getElementById('paperDrawerPanel');
+          // if (drawerPanel.narrow) {
+          //   drawerPanel.togglePanel();
+          // } else {
+          //   drawerPanel.classList.toggle('collapsed-menu');
+          // }
+        },
       });
     })();
   </script>

@@ -1,0 +1,66 @@
+<link rel="import" href="widgets/pa-todo/pa-todo.html">
+<link rel="import" href="widgets/pa-about.html">
+<link rel="import" href="widgets/pa-combo-chart.html">
+<link rel="import" href="widgets/pa-news.html">
+<link rel="import" href="/elements/common/pa-simple-grid.html">
+<link rel="import" href="/elements/common/pa-widgets/pa-widget.html">
+
+<dom-module id="pa-dashboard">
+  <template>
+    <style is="custom-style" include="shared-styles">
+      pa-widget{
+        box-sizing: border-box;
+        display: block;
+        padding: 0 15px;
+        width: 100%;
+        }
+
+        pa-simple-grid{
+          margin-left: -15px;
+          margin-right: -15px;
+          box-sizing: border-box;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+
+        }
+
+    </style>
+
+
+    <pa-simple-grid sm-cols="1">
+
+    <template is="dom-repeat" items="{{artic}}" as="article">
+      <pa-widget widget="{{ widgets.about }}" art="{{article}}"></pa-widget>
+    </template>
+    </pa-simple-grid>
+
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'pa-dashboard',
+
+        properties: {
+          widgets: {
+            type: Array,
+            value: {
+              about: {
+                title: '',
+                component: 'pa-about'
+              }
+            }
+          },
+          artic : {
+            type: Array,
+          },
+        },
+
+      });
+    })();
+  </script>
+
+</dom-module>

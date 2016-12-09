@@ -1,0 +1,110 @@
+<link rel="import" href="/elements/common/pa-page-title.html">
+<link rel="import" href="/elements/pages/pa-dashboard/pa-dashboard.html">
+<link rel="import" href="/elements/pages/pa-form-elements/pa-form-elements.html">
+<link rel="import" href="/elements/pages/pa-not-found/pa-not-found.html">
+<link rel="import" href="/elements/common/pa-menu.html">
+<link rel="import" href="/bower_components/iron-pages/iron-pages.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/webcomponentsjs/webcomponents.js">
+<!-- <link rel="import" href="/elements/common/ws-element.html"> -->
+
+<link rel="import" href="/styles/shared-styles.html">
+
+<dom-module id="pa-pages">
+  <template>
+    <style include="shared-styles"></style>
+    <style>
+      iron-pages {
+        padding: 24px 16px 56px;
+        min-height: 100%;
+        box-sizing: border-box;
+      }
+
+      @media (min-width: 640px) {
+        iron-pages {
+          padding: 24px 36px 56px;
+        }
+      }
+    </style>
+
+
+
+    <iron-pages attr-for-selected="data-route" selected="{{routers}}" fallback-selection="not-found">
+
+      <section data-route="dashboard">
+        <iron-ajax
+        id="ajax"
+        auto
+        url="/dashboard"
+        params = "{{routers}}"
+        method="GET"
+        handle-as="json"
+        content-type ="application/json"
+        on-response="finished">
+      </iron-ajax>
+        <!-- <ws-element id="wsel" url="ws://localhost:3000" protocol="echo-protocol"></ws-element> -->
+
+        <pa-page-title title="Manage Articles"></pa-page-title>
+        <pa-dashboard artic={{articles}}></pa-dashboard>
+      </section>
+
+      <section data-route="article">
+        <pa-page-title title="Create Article" ></pa-page-title>
+        <pa-form-elements ></pa-form-elements>
+      </section>
+
+      <section data-route="not-found">
+        <pa-page-title title="Page Not Found"></pa-page-title>
+        <pa-not-found></pa-not-found>
+      </section>
+
+    </iron-pages>
+  </template>
+
+  <script>
+    (function() {
+      'use strict';
+
+      Polymer({
+        is: 'pa-pages',
+        socket : null,
+
+        properties : {
+          routers : {
+            type : String,
+          },
+          articles : {
+            type : Array,
+          },
+        },
+
+        // ready : function(){
+        //   var wsElement = this.$.wsel;
+        //   // console.log(wsElement);
+        //
+        //   wsElement.addEventListener('onerror', function (error){
+        //     console.log("GOT ERROR");
+        //     console.log(error);
+        //     throw new Error(error);
+        //   });
+        //   wsElement.addEventListener('onopen', function () {
+        //     wsElement.send('msg');
+        //   });
+        //   wsElement.addEventListener('onmessage', function (message) {
+        //     // hello from the server
+        //     console.log(message.detail);
+        //   });
+        //
+        //   },
+
+        finished : function(el){
+          // let socket = io();
+          // socket.emit('mess', {})
+          this.articles = el.detail.response;
+        },
+
+      });
+    })();
+  </script>
+
+</dom-module>
