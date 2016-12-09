@@ -1,0 +1,80 @@
+body.homepage div.maincontent { padding-top:210px; }
+#imgPager, div.embdVideo { max-height: 299px !important; height: 299px;  }
+div.txtSize {display:none !important}
+
+ul.toptoolsmenu {
+width:32.2%;
+float:right !important;
+}
+
+ul.toptoolsmenu li.searchmobile { display:inline; }
+ul.toptoolsmenu li.searchdesktop { display:none; }
+
+div.homeBoxes > div > div.homeBox div.bgSet { position:absolute; background:#000; opacity: 0.75; position:absolute; left: 0%; width: 100%; height: 54%; bottom: 0%; }
+div.homeBoxes > div > div.homeBox div.infoSet { position:absolute; left:1%; width:96%; height:48%; bottom:2%; padding:2%; color:#fff; overflow:hidden; }
+
+div.leftText {
+margin:0px 1% 0px 0px;
+width:36%;
+}
+div.pText { position: relative; float:right; width:63%; top:0px; margin-top:0px;  }
+div.newsbox div {margin-top: 6px;}
+div.newsbox div {margin-bottom: 6px;}
+
+div.newsbox div span  {position:relative; width:100%; float:left; clear:both; }
+div.evList > div img.bClick {margin:-98px 10px 10px 10px; }
+
+body.searchpage div.leftText { margin:0px; width:100%; }
+body.searchpage div.pText {  width:100%; top:0px; margin-top:-150px;  }
+body.searchpage form.evSearch { width:96%; padding:2% 2% 2% 2%; background:#878787; margin:0px 0px; min-height:20px; margin-top:0px  }
+
+body.homepage .ui-datepicker table { 	width: 99%; }
+
+div.homeBoxes_double > div.arw {width:2.5% !important; height:27px; }
+div.grayBoxSingle div.boxImage img { min-height:256px; }
+
+div.whiteBoxSingle div.boxImage { position:relative; float:left; width:97%; margin-right:0%; margin-bottom:10px; height:140px; }
+div.whiteBoxSingle div.boxImage img { background-size: 100% auto; }
+div.whiteBoxSingle div.boxPartner {left:4%; width:95%;}
+div.whiteBoxSingle div.boxText { position: relative; margin-left:-12px; margin-top:0px; float:left; width: 100%; padding:0px;  }
+div.whiteBoxSingle > p  {margin-left:0%; width:100%}
+div.homeEvents div.container  { width:91%; left:7%; top:50px; }
+div.homeEvents img.bClick { margin-top:-15px; }
+div.newsbox  > div { background: transparent; }
+div.whiteBoxText { border-left: solid 1px #d0d0d0 !important; border-right: solid 1px #d0d0d0 !important; width: 31.6%; padding-left:0.2% !important; }
+div.whiteBoxText img { max-width:216px;}
+
+img.mmob {display:none  } 
+#bottomFixed div.band2 ul.mainMenu, #bottomFixed div.band1 ul.mainMenu  { margin: 7px 0px 0px 4.3%; width:61%; }
+
+#language_menu { width:140px; min-width:140px; }
+#mainmenu_set ul.mainMenu {
+width:90%;
+display:inline; 
+}
+
+div.countdown_container { bottom:0px; max-height:168px !important; min-height:160px !important; overflow:hidden }
+
+div.normalPage h1.titolo { max-width:65%; }
+
+#TicketcornerShopContainer { margin-left:-60%; background:#fff; z-index:100; width:128%; min-width:750px !important;}
+div.rightControls {position:absolute; right:0px; top:12px;  }
+
+div.progContainer {width: 105%; clear: both;}
+a.prgramma {  width: 20.5%; min-width: 100px; font-size: 26px !important;}
+
+div.homeBoxes > div > div.homeBox div.dtHome { display:inline; text-align:left; -ms-transform: none; 
+    -webkit-transform: none; background: rgba(157,157,157,0.3);
+    transform: none; top:0px!important; left:0px !important; padding-left:4px; width:100%;font-size:22px !important;  letter-spacing:0px;}
+div.homeBoxes > div > div.homeBox div.dtHome > span {font-size:18px; }
+div.homeBoxes > div > div.homeBox div.dhdate { left:0 !important; width:96% !important; }
+div.homeBoxes > div > div.homeBox div.infoSet p.msubt { font-size:15px; line-height:16px} 
+		
+#TicketcornerShopContainer iframe { width:100%;
+		-ms-zoom: 0.65;
+        -moz-transform: scale(0.65);
+        -moz-transform-origin: 0 0;
+        -o-transform: scale(0.65);
+        -o-transform-origin: 0 0;
+        -webkit-transform: scale(0.65);
+        -webkit-transform-origin: 0 0;}

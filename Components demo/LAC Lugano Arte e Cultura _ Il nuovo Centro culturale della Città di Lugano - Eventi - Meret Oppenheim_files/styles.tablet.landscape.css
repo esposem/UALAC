@@ -1,0 +1,36 @@
+body.homepage div.maincontent { padding-top:170px; }
+#imgPager, div.embdVideo   { min-width:524px !important; min-height:450px; max-height:450px; height:450px; }
+/*body.event img.imgPage   { background-size:100% auto !important; }*/
+#mainLogo img { width:18%; margin:0px; cursor:pointer; max-width:170px; min-width: 90px; }
+div.txtSize { display:none !important; }
+#language_menu { width:12.5%; margin-right:0.5%; width:140px; min-width:140px; }
+
+#mainmenu_set ul.mainMenu {
+width:82%
+}
+
+ul.toptoolsmenu {
+width:32.2%;
+float:right !important;
+}
+
+ul.toptoolsmenu li.searchmobile { display:inline }
+ul.toptoolsmenu li.searchdesktop { display:none }
+div.grayBoxSingle div.boxImage img { min-height:256px; }
+div.grayBoxSingle div.boxText iframe { max-width:280px;}
+
+body.searchpage div.leftText { margin:0px; width:100%; }
+body.searchpage div.pText {  width:100%; top:0px; margin-top:-220px;  }
+body.searchpage form.evSearch { width:96%; padding:2% 2% 2% 2%; background:#878787; margin:0px 0px; min-height:20px; margin-top:0px  }
+div.countdown_container { bottom:0px;  }
+
+div.countdown_container { max-height:138px !important; min-height:120px !important; overflow:hidden }
+
+div.normalPage h1.titolo { max-width:75%;}
+
+div.homeBoxes > div > div.homeBox div.dtHome { display:inline; bottom:-21px; left:9px; width:125px;font-size:26px; padding:1px 4px 0px 1px; -webkit-transform-origin: 0 0;  -moz-transform-origin: 0;  -o-transform-origin: 0 0;}
+div.homeBoxes > div > div.homeBox div.dtHome > span {font-size:18px; }
+div.homeBoxes > div > div.homeBox div.exHome { font-size:24px !important; padding:1px 4px 0px 1px;}
+div.homeBoxes > div > div.homeBox div.exHome  > span { font-size:14px !important; }
+div.homeBoxes > div > div.homeBox div.dhdate { left:13%; width:80%; }
+div.homeBoxes > div > div.homeBox div.infoSet p.msubt { font-size:15px; line-height:16px} 
