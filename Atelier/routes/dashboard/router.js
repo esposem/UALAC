@@ -8,7 +8,6 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const Article = mongoose.model('Article');
 const config = require("../../config");
-const pubsub = require('../../pubsub');
 
 //fields we don't want to show to the client
 const fieldsFilter = { '__v': 0 };
@@ -68,7 +67,6 @@ router.put('/', function(req, res, next) {
       article.save();
       res.status(201);
       res.send();
-      pubsub.emit('article.updated', {})
     }
     else{
       console.log("ERROR");
@@ -94,7 +92,6 @@ router.delete('/:articleid', function(req, res, next) {
     article.remove(function(err, removed){
       if (err) return next (err);
       res.status(204).end();
-      pubsub.emit('article.deleted', {})
     })
   });
 });

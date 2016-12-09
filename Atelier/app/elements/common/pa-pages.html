@@ -5,7 +5,6 @@
 <link rel="import" href="/elements/common/pa-menu.html">
 <link rel="import" href="/bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
-<link rel="import" href="/bower_components/web-socket/web-socket.html">
 
 <link rel="import" href="/styles/shared-styles.html">
 
@@ -41,14 +40,6 @@
         content-type ="application/json"
         on-response="finished">
       </iron-ajax>
-
-      <!-- <web-socket url="ws://localhost:3000"
-          auto json
-          on-open="_onOpen"
-          on-close="_onClose"
-          on-message="_onMessage"
-          on-error="_onError">
-        </web-socket> -->
 
         <pa-page-title title="Manage Articles"></pa-page-title>
         <pa-dashboard artic={{articles}}></pa-dashboard>
@@ -101,8 +92,6 @@
         },
 
         finished : function(el){
-          // let socket = io();
-          // socket.emit('mess', {})
           this.articles = el.detail.response;
         },
 
