@@ -11,11 +11,8 @@
 
     .item{
       flex-grow: 1;
-      background: #CCC;
       color: #FFF;
       display: inline-block;
-      border-radius: 4px;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.2);
       font-family: Arial, sans-serif;
       line-height: 2.5em;
       padding: 0 3em;
@@ -25,8 +22,8 @@
 
 
   </style>
-<a aria-hidden="false" class="item" tabindex="1" href$="{{link}}">
-    <div id="link" aria-hidden="true">
+<a aria-hidden="false" class="item" href$="{{link}}">
+    <div title="{{value}}" id="link" aria-hidden="false">
       {{value}}
     </div>
 
