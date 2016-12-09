@@ -23,6 +23,17 @@
           padding: 24px 36px 56px;
         }
       }
+      paper-input {
+        width:30%;
+        margin: auto;
+        position:absolute;
+        top:0;
+        right:0;
+        --paper-input-container-color: #c60000;
+--paper-input-container-focus-color: #5c92e8;
+
+          }
+      }
     </style>
 
 
@@ -42,6 +53,8 @@
       </iron-ajax>
 
         <pa-page-title title="Manage Articles"></pa-page-title>
+        <paper-input  label="search here!"></paper-input>
+
         <pa-dashboard artic={{articles}}></pa-dashboard>
       </section>
 
