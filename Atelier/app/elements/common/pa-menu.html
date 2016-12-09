@@ -70,20 +70,21 @@
         height: auto;
         max-height: 300px;
       }
+
     </style>
 
 
 
 
 
-    <paper-menu class="list" attr-for-selected="data-route" selected="[[route]]">
+    <paper-menu class="list" selected="[[route]]" attr-for-selected="data-route">
 
-      <a data-route="dashboard" href="/" on-click="onDataRouteClick">
+      <a data-route="/" href="/" on-click="onDataRouteClick">
         <iron-icon icon="dashboard"></iron-icon>
         <span>Article Manager</span>
       </a>
 
-      <a data-route="form" href="/article" id="ciao" on-click="onDataRouteClick">
+      <a data-route="/article" href="/article" id="ciao" on-click="onDataRouteClick">
         <iron-icon icon="add-circle"></iron-icon>
         <span>New Article</span>
       </a>

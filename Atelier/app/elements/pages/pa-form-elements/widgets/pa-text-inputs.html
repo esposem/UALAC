@@ -286,6 +286,8 @@
             text = text.split("<").join("&#60;");
             text = text.split(">").join("&#62;");
             text = text.split("\n").join("<br>");
+          } else {
+            text = text.split("\n").join("<br>");
           }
           // console.log(this.$.demo.childNodes[1]);
           this.$.demo.childNodes[1].innerHTML =  text;
