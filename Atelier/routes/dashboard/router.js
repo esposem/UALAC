@@ -22,8 +22,8 @@ router.get('/', function(req, res, next) {
   Article.find({}, fieldsFilter).lean().populate('').exec(function(err, articles){
     if (err) return next (err);
     res.json(articles);
-    res.status(200);
-    res.send();
+    // res.status(200);
+    // res.send();
   });
 });
 
@@ -35,13 +35,12 @@ router.post('/', function(req, res, next) {
     newArticle.save();
     res.json(newArticle._id)
     // console.log(newArticle._id);
-    res.status(201);
-    res.send();
 });
 
 
 //get a album
 router.get('/:articleid', function(req, res, next) {
+  // console.log("Hope");
   Article.findById(req.params.articleid, fieldsFilter).lean().populate('').exec(function(err, article){
     if (err) return next (err);
     if (!article) {
@@ -53,8 +52,6 @@ router.get('/:articleid', function(req, res, next) {
       return;
     }
     res.json(article);
-    res.status(200);
-    res.send();
   });
 });
 

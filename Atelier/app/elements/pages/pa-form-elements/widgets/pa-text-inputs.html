@@ -149,7 +149,18 @@
         <paper-toast id="toast">
         </paper-toast>
 
-          </div>
+        <app-location route="{{route}}"></app-location>
+            <app-route
+               route="{{route}}"
+               pattern="/:page"
+               data="{{routeData}}"
+               tail="{{subroute}}">
+            </app-route>
+            <app-route
+               route="{{subroute}}"
+               pattern="/:articleid"
+               data="{{subrouteData}}">
+            </app-route>
 
           <br></br>
           <div style="display:flex; flex-direction: column;">
@@ -165,6 +176,14 @@
               content-type ="application/json"
               on-response="finished">
             </iron-ajax>
+            <iron-ajax
+            id="ajax2"
+            url="/dashboard"
+            handle-as="json"
+            content-type ="application/json"
+            on-response="loaded">
+          </iron-ajax>
+
               <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "width:0%; text-align: center; margin-top: 20px;">Submit</paper-button>
             </div>
           </div>
@@ -209,23 +228,40 @@
           hiddenClass: {
             type : String,
             value : "hidden"
+          },
+
+          page : {
+            type : String,
+            reflectToAttribute : true,
+            // observer: '_pageChanged',
+          },
+          subpage: {
+            type : String,
+            reflectToAttribute : true,
+          },
+        },
+
+        observers: [
+          '_subroutePageChanged(subrouteData.articleid)',
+          '_routePageChanged(routeData.page)',
+        ],
+
+        _routePageChanged: function(page) {
+          // console.log(page)
+          this.page = page;
+        },
+
+        _subroutePageChanged: function(subroute) {
+          // console.log(subroute);
+          if(this.page === "article" && subroute){
+            let ajaxel = this.$.ajax2;
+            ajaxel.url = "/dashboard/" + subroute
+            ajaxel.method = "GET"
+            ajaxel.generateRequest();
           }
         },
 
-        // ishtml: function() {
-        //   this.html_clicked = !(this.html_clicked);
-        //   // console.log(this.html_clicked);
-        //   if (this.html_clicked) {
-        //     // this.wrotebefore = this.$.inputbox.value;
-        //     this.$.inputbox.value = this.$.demo.innerHTML
-        //   } else {
-        //     // if(this.wrotebefore) {
-        //     //   this.$.inputbox.value = this.wrotebefore;
-        //     // }else{
-        //     this.$.inputbox.value = this.$.demo.childNodes[1].innerHTML;
-        //     // }
-        //   }
-        // },
+
 
         ishtml: function() {
           this.html_clicked = !(this.html_clicked);
@@ -304,9 +340,15 @@
             this.$.toast.text = 'Article ' + id + " updated!";
             this.$.toast.show();
           }
-
-
         },
+
+        loaded : function(el){
+          // console.log(el.detail.response);
+          this.$.inputbox.value = el.detail.response.text;
+          this.$.inputbox.value += " "
+          this.$.title.value = el.detail.response.title;
+          this.$.articleid.childNodes[1].innerHTML = el.detail.response._id;
+        }
 
 
       });
