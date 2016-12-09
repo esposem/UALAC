@@ -13,9 +13,10 @@ router.all('/', middleware.supportedMethods('GET, OPTIONS'));
 router.get('/', function(req, res, next) {
 
   const options = {
-      root: __dirname + '/app/',        
+      root: __dirname + '/app/',
     };
   res.sendFile('index.html');
 });
+
 /** router for / */
 module.exports = router;
