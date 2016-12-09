@@ -5,6 +5,8 @@
 <link rel="import" href="/elements/common/pa-menu.html">
 <link rel="import" href="/bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
+<link rel="import" href="/bower_components/webcomponentsjs/webcomponents.js">
+<!-- <link rel="import" href="/elements/common/ws-element.html"> -->
 
 <link rel="import" href="/styles/shared-styles.html">
 
@@ -40,6 +42,7 @@
         content-type ="application/json"
         on-response="finished">
       </iron-ajax>
+        <!-- <ws-element id="wsel" url="ws://localhost:3000" protocol="echo-protocol"></ws-element> -->
 
         <pa-page-title title="Manage Articles"></pa-page-title>
         <pa-dashboard artic={{articles}}></pa-dashboard>
@@ -64,6 +67,7 @@
 
       Polymer({
         is: 'pa-pages',
+        socket : null,
 
         properties : {
           routers : {
@@ -74,7 +78,28 @@
           },
         },
 
+        // ready : function(){
+        //   var wsElement = this.$.wsel;
+        //   // console.log(wsElement);
+        //
+        //   wsElement.addEventListener('onerror', function (error){
+        //     console.log("GOT ERROR");
+        //     console.log(error);
+        //     throw new Error(error);
+        //   });
+        //   wsElement.addEventListener('onopen', function () {
+        //     wsElement.send('msg');
+        //   });
+        //   wsElement.addEventListener('onmessage', function (message) {
+        //     // hello from the server
+        //     console.log(message.detail);
+        //   });
+        //
+        //   },
+
         finished : function(el){
+          // let socket = io();
+          // socket.emit('mess', {})
           this.articles = el.detail.response;
         },
 
