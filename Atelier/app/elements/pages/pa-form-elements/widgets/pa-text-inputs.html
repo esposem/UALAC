@@ -80,7 +80,7 @@
         min-height: 70px;
         max-height: 300px;
         overflow-y: scroll;
-        margin-top: 50px;
+        /*margin-top: 50px;*/
       }
 
       .fit{
@@ -113,6 +113,10 @@
         align-self: center;
         padding-top: 16px;
         width:40%;
+      }
+
+      .hidden {
+        display: none;
       }
 
     </style>
@@ -149,9 +153,10 @@
 
           <br></br>
           <div style="display:flex; flex-direction: column;">
-            <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml"
-              style= "width:0%; text-align: center;">HTML</paper-button>
-            <paper-textarea  id="inputbox"  label="Write the article here" on-input="clicked"></paper-textarea>
+            <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml" style= "width:0%; text-align: center;">HTML</paper-button>
+            <p class$="{{hiddenClass}}">&#60;div&#62;</p>
+            <paper-textarea id="inputbox" label="Write the article here" on-input="clicked"></paper-textarea>
+            <p class$="{{hiddenClass}}">&#60;/div&#62;</p>
             <div style="display:flex; flex-direction: row-reverse;">
               <iron-ajax
               id="ajax"
@@ -160,8 +165,7 @@
               content-type ="application/json"
               on-response="finished">
             </iron-ajax>
-              <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest"  raised noink
-                  style= "width:0%; text-align: center; margin-top: 20px;">Submit</paper-button>
+              <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "width:0%; text-align: center; margin-top: 20px;">Submit</paper-button>
             </div>
           </div>
         </div>
@@ -178,7 +182,7 @@
 
       <div id= "demo" style="word-wrap: break-word;">
         <div>
-        Nothing to show
+          Nothing to show
         </div>
       </div>
     </paper-material>
@@ -192,35 +196,59 @@
       Polymer({
         is: 'pa-text-inputs',
         properties : {
+
           html_clicked : {
             type : Boolean,
             value : false,
           },
+
           wrotebefore : {
             type : String,
           },
+
+          hiddenClass: {
+            type : String,
+            value : "hidden"
+          }
         },
 
+        // ishtml: function() {
+        //   this.html_clicked = !(this.html_clicked);
+        //   // console.log(this.html_clicked);
+        //   if (this.html_clicked) {
+        //     // this.wrotebefore = this.$.inputbox.value;
+        //     this.$.inputbox.value = this.$.demo.innerHTML
+        //   } else {
+        //     // if(this.wrotebefore) {
+        //     //   this.$.inputbox.value = this.wrotebefore;
+        //     // }else{
+        //     this.$.inputbox.value = this.$.demo.childNodes[1].innerHTML;
+        //     // }
+        //   }
+        // },
+
         ishtml: function() {
-              this.html_clicked = !(this.html_clicked);
-              // console.log(this.html_clicked);
-              if(this.html_clicked){
-                // this.wrotebefore = this.$.inputbox.value;
-                this.$.inputbox.value = this.$.demo.innerHTML
-              }else{
-                // if(this.wrotebefore) {
-                //   this.$.inputbox.value = this.wrotebefore;
-                // }else{
-                  this.$.inputbox.value = this.$.demo.childNodes[1].innerHTML;
-                // }
-              }
+          this.html_clicked = !(this.html_clicked);
+          if (this.html_clicked) {
+            this.hiddenClass = "";
+            this.$.demo.childNodes[1].innerHTML = this.$.inputbox.value;
+          } else {
+            this.hiddenClass = "hidden";
+            if(this.$.demo.childNodes[1].innerHTML) {
+              let text = this.$.demo.childNodes[1].innerHTML.split("<").join("&#60;");
+              text.split(">").join("&#62;");
+              this.$.demo.childNodes[1].innerHTML = text;
+            };
+          }
         },
 
         clicked: function() {
           // console.log(this.$.inputbox);
           let x = this.$.inputbox.value;
           let text = x || "Nothing to show";
-          if(!this.html_clicked){
+          if(!this.html_clicked) {
+            text = text.split("<").join("&#60;");
+            text = text.split(">").join("&#62;");
             text = text.split("\n").join("<br>");
           }
           // console.log(this.$.demo.childNodes[1]);
