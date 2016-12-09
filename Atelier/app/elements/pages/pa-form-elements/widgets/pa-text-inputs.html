@@ -5,6 +5,12 @@
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="/styles/shared-styles.html">
 <link rel="import" href="/bower_components/paper-toast/paper-toast.html">
+<link rel="import" href="/bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<link rel="import" href="/elements/menu-item/menu-item.html">
+<link rel="import" href="/elements/menu-component/menu-component.html">
+<link rel="import" href="/elements/article-item/article-item.html">
+<link rel="import" href="/elements/switch-view/switch-view.html">
+<link rel="import" href="/elements/image-component/image-component.html">
 <dom-module id="pa-text-inputs" is="dom-bind">
   <template>
     <style include="shared-styles"></style>
@@ -308,17 +314,21 @@
 
         addSwitch: function() {
           console.log("Add image clicked");
-          this.$.inputbox.value += "<tag> switch view tag goes here <tag>";
+          this.$.inputbox.value += '<switch-view title="insert title here"'
+      		this.$.inputbox.value +='normal="insert normal text here"'
+      		this.$.inputbox.value +='simplified="insert simplified text here"'
+      		this.$.inputbox.value +='emotional="insert image path here">'
+      		this.$.inputbox.value +='</switch-view>';
         },
 
         addMenu: function() {
-          console.log("Add image clicked");
-          this.$.inputbox.value += "<tag> menu tag goes here <tag>";
+          this.$.inputbox.value += '<menu-component id="main-menu">'
+        	this.$.inputbox.value += 'insert menu-item here'
+        	this.$.inputbox.value += '</menu-component>'
         },
 
         addMenuItem: function() {
-          console.log("Add image clicked");
-          this.$.inputbox.value += "<tag> menu item tag goes here <tag>";
+          this.$.inputbox.value += '<menu-item value="insert button name here" link="insert link here"></menu-item>'
         },
 
         deleteverything: function(){
