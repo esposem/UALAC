@@ -164,7 +164,13 @@
 
           <br></br>
           <div style="display:flex; flex-direction: column;">
-            <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml" style= "width:0%; text-align: center;">HTML</paper-button>
+            <div style="display: flex; flex-direction: row;">
+              <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml" style= "width:0%; text-align: center;">HTML</paper-button>
+              <paper-button tabindex="0" raised on-click="addImage" style="width:0%; text-align: center;">Image</paper-button>
+              <paper-button tabindex="0" raised on-click="addSwitch" style="width: auto; text-align: center;">Switch View</paper-button>
+              <paper-button tabindex="0" raised on-click="addMenu" style="width:0%; text-align: center;">Menu</paper-button>
+              <paper-button tabindex="0" raised on-click="addMenuItem" style="width:auto; text-align: center;">Menu Item</paper-button>
+            </div>
             <p class$="{{hiddenClass}}">&#60;div&#62;</p>
             <paper-textarea id="inputbox" label="Write the article here" on-input="clicked"></paper-textarea>
             <p class$="{{hiddenClass}}">&#60;/div&#62;</p>
@@ -287,12 +293,32 @@
             text = text.split(">").join("&#62;");
             text = text.split("\n").join("<br>");
           } else {
-            text = text.split("\n").join("<br>");
+            text = text.split("<br>").join("\n");
           }
           // console.log(this.$.demo.childNodes[1]);
           this.$.demo.childNodes[1].innerHTML =  text;
           this.wrotebefore = text;
           // this.$.inputbox.value = "a" + this.$.inputbox.value;
+        },
+
+        addImage: function() {
+          console.log("Add image clicked");
+          this.$.inputbox.value += "<img> image tag goes here <img>";
+        },
+
+        addSwitch: function() {
+          console.log("Add image clicked");
+          this.$.inputbox.value += "<tag> switch view tag goes here <tag>";
+        },
+
+        addMenu: function() {
+          console.log("Add image clicked");
+          this.$.inputbox.value += "<tag> menu tag goes here <tag>";
+        },
+
+        addMenuItem: function() {
+          console.log("Add image clicked");
+          this.$.inputbox.value += "<tag> menu item tag goes here <tag>";
         },
 
         deleteverything: function(){
