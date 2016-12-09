@@ -41,5 +41,6 @@ app.use('*', function(req,res, next){
 // json serving routes
 app.use('/dashboard', routers.dashboard);
 app.use('/article', routers.dashboard);
+app.use('/preview', routers.preview);
 
 module.exports = app;

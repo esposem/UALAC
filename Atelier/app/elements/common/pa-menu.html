@@ -9,11 +9,7 @@
         opacity: 0.51;
       }
 
-      .iron-selected {
-        background: #e5cece;
-        color: #c60000;
 
-      }
 
       a {
         text-decoration: none;
@@ -76,18 +72,15 @@
     </style>
 
 
-
-
-
-    <paper-menu class="list" selected="[[route]]" attr-for-selected="data-route">
+    <paper-menu class="list"  selected="{{routea}}" attr-for-selected="data-route">
       <iron-selector selected="0">
 
-      <a data-route="/" href="/" on-click="onDataRouteClick">
+      <a data-route="/dashboard" href="/dashboard" on-click="onDataRouteClick" id="dashboard" >
         <iron-icon icon="dashboard"></iron-icon>
         <span>Article Manager</span>
       </a>
 
-      <a data-route="/article" href="/article" id="ciao" on-click="onDataRouteClick">
+      <a data-route="/article" href="/article" id="article" on-click="onDataRouteClick">
         <iron-icon icon="add-circle"></iron-icon>
         <span>New Article</span>
       </a>
@@ -111,10 +104,24 @@
             type: String,
           },
 
-          // drawerPanel : {
-          //   type : String,
-          //
-          // },
+          routea : {
+            type : String,
+          },
+        },
+
+        observers: [
+          'pagechanged(routea)',
+        ],
+
+        pagechanged : function(page){
+          console.log(page);
+          if(page === "dashboard"){
+            this.$.dashboard.style = "background: #e5cece; color: #c60000;"
+            this.$.article.style = "";
+          }else{
+            this.$.dashboard.style = ""
+            this.$.article.style = "background: #e5cece; color: #c60000;";
+          }
         },
 
         toggleSubmenu: function(e) {

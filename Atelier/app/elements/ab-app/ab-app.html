@@ -41,6 +41,21 @@
 
 <dom-module id="ab-app">
   <template>
+  <app-location route="{{route}}"></app-location>
+  <app-route
+     route="{{route}}"
+     pattern="/:page"
+     data="{{routeData}}"
+     tail="{{subroute}}">
+  </app-route>
+  <app-route
+     route="{{subroute}}"
+     pattern="/:playlistid"
+     data="{{subrouteData}}">
+  </app-route>
+
+  <template is="dom-if" if="{{isnormalroute(page)}}">
+  <!-- <template> -->
     <style is="custom-style" include="shared-styles ab-app-styles"></style>
     <style is="custom-style">
       paper-toolbar {
@@ -49,18 +64,7 @@
       }
     </style>
 
-    <app-location route="{{route}}"></app-location>
-    <app-route
-       route="{{route}}"
-       pattern="/:page"
-       data="{{routeData}}"
-       tail="{{subroute}}">
-    </app-route>
-    <app-route
-       route="{{subroute}}"
-       pattern="/:playlistid"
-       data="{{subrouteData}}">
-    </app-route>
+
 
     <paper-scroll-header-panel fixed>
 
@@ -75,7 +79,7 @@
       <paper-drawer-panel id="paperDrawerPanel">
 
         <paper-scroll-header-panel drawer>
-          <pa-menu route="{{route}}" user="{{user}}"></pa-menu>
+          <pa-menu routea="{{page}}"></pa-menu>
         </paper-scroll-header-panel>
 
         <paper-scroll-header-panel main>
@@ -86,6 +90,11 @@
       </paper-drawer-panel>
 
     </paper-scroll-header-panel>
+  </template>
+
+<template is="dom-if" if="{{isnotnormalroute(page)}}">
+  {{redirect()}}
+</template>
 
   </template>
 
@@ -115,11 +124,31 @@
         },
 
         _pageChanged: function(page) {
-          const acceptedPages = ['dashboard', 'article', 'view404']
+          const acceptedPages = ['dashboard', 'article', 'preview', 'view404']
           if(acceptedPages.indexOf(page) < 0){
             this.page = 'view404';
           }
         },
+
+        isnormalroute : function(page){
+          // console.log(page);
+          if(page !== "preview"){
+            return true;
+          }
+          return false;
+        },
+
+        isnotnormalroute : function(page){
+          // console.log(page);
+          if(page !== "preview"){
+            return false;
+          }
+          return true;
+        },
+
+        redirect : function(){
+            window.location.href = '/LAC_page_index.html';
+        }
       });
 
     })();
