@@ -184,7 +184,7 @@
               <paper-button tabindex="0" raised on-click="addMenuItem" style="width:auto; text-align: center;">Menu Item</paper-button>
             </div>
             <p class$="{{hiddenClass}}">&#60;div&#62;</p>
-            <paper-textarea id="inputbox" label="Write the article here" on-input="clicked" value=" "></paper-textarea>
+            <paper-textarea id="inputbox" label="Write the article here" on-keypress="checkBr" on-input="clicked" value=" "></paper-textarea>
             <p class$="{{hiddenClass}}">&#60;/div&#62;</p>
             <div style="display:flex; flex-direction: row-reverse;">
               <iron-ajax
@@ -308,21 +308,27 @@
           }
         },
 
-        clicked: function() {
-          // console.log(this.$.inputbox);
+        clicked: function(e) {
+          // console.log(e.keyCode);
           let x = this.$.inputbox.value;
           let text = x || "Nothing to show";
-          if(!this.html_clicked) {
+          if(this.html_clicked) {
             text = text.split("<").join("&#60;");
             text = text.split(">").join("&#62;");
             text = text.split("\n").join("<br>");
           } else {
-            text = text.split("<br>").join("\n");
+            // text = text.split("<br>").join("\n");
           }
-          // console.log(this.$.demo.childNodes[1]);
           this.$.demo.childNodes[1].innerHTML =  text;
           this.wrotebefore = text;
           // this.$.inputbox.value = "a" + this.$.inputbox.value;
+        },
+
+        checkBr: function(e) {
+          if (this.br_clicked && e.keyCode == 13) {
+            e.preventDefault();
+            this.$.inputbox.value += "<br>\n";
+          }
         },
 
         addImage: function() {
