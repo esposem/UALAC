@@ -19,7 +19,7 @@
         text-decoration: none;
         color: #222;
       }
-      
+
       paper-button {
         display: block;
         margin-bottom: 0px;
@@ -176,7 +176,8 @@
           <br></br>
           <div style="display:flex; flex-direction: column;">
             <div style="display: flex; flex-direction: row;">
-              <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml" style= "width:0%; text-align: center;">HTML</paper-button>
+              <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml" style= "width:auto; text-align: center;">Text Only</paper-button>
+              <paper-button tabindex="0" class$="{{hiddenClass}}" toggles raised noink on-click="toggleAutoBr" style= "width:auto; text-align: center;">Auto &#60;br&#62;</paper-button>
               <paper-button tabindex="0" raised on-click="addImage" style="width:0%; text-align: center;">Image</paper-button>
               <paper-button tabindex="0" raised on-click="addSwitch" style="width: auto; text-align: center;">Switch View</paper-button>
               <paper-button tabindex="0" raised on-click="addMenu" style="width:0%; text-align: center;">Menu</paper-button>
@@ -238,13 +239,18 @@
             value : false,
           },
 
+          br_clicked : {
+            type : Boolean,
+            value : false,
+          },
+
           wrotebefore : {
             type : String,
           },
 
           hiddenClass: {
             type : String,
-            value : "hidden"
+            value : ""
           },
 
           page : {
@@ -278,11 +284,9 @@
           }
         },
 
-
-
         ishtml: function() {
           this.html_clicked = !(this.html_clicked);
-          if (this.html_clicked) {
+          if (!this.html_clicked) {
             this.hiddenClass = "";
             this.$.demo.childNodes[1].innerHTML = this.$.inputbox.value;
           } else {
@@ -292,6 +296,15 @@
               text.split(">").join("&#62;");
               this.$.demo.childNodes[1].innerHTML = text;
             };
+          }
+        },
+
+        toggleAutoBr : function() {
+          this.br_clicked = !(this.br_clicked);
+          if (this.br_clicked) {
+            this.$.inputbox.value += "<p>";
+          } else {
+            this.$.inputbox.value += "</p>";
           }
         },
 
