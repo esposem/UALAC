@@ -89,11 +89,11 @@ max-height: 100%;
       </div>
     </div>
     <div class="content">
-      <div class=" dim normal" style="word-wrap:break-word;">
-        {{normal}}
+      <div id="normaldescription" class=" dim normal" style="word-wrap:break-word;">
+        {{parse(normal, 'n')}}
       </div>
-       <div class="dim simplified">
-         {{simplified}}
+       <div id="simplifieddescription" class="dim simplified">
+         {{parse(simplified, 's')}}
        </div>
        <div class="dim emotional">
          <img src="{{emotional}}" width="100%">
@@ -150,6 +150,15 @@ max-height: 100%;
         this.customStyle['--cont2'] = 'none';
         this.customStyle['--cont3'] = 'block';
         this.updateStyles();
+      },
+      parse: function(text, flag) {
+        let p = document.createElement('div');
+        p.innerHTML = text.replace("\n", "<br/>");
+        if (flag == 'n') {
+          this.$.normaldescription.appendChild(p);
+        } else {
+          this.$.simplifieddescription.appendChild(p);
+        }
       }
 
   });
