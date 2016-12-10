@@ -153,7 +153,7 @@ max-height: 100%;
       },
       parse: function(text, flag) {
         let p = document.createElement('div');
-        p.innerHTML = text.replace("\n", "<br/>");
+        p.innerHTML = text.split("\n").join("<br/>");
         if (flag == 'n') {
           this.$.normaldescription.appendChild(p);
         } else {
