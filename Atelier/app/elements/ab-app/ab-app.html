@@ -1,6 +1,4 @@
 <link rel="import" href="/bower_components/polymer/polymer.html">
-
-<!-- build:remove -->
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout-classes.html">
 <link rel="import" href="/bower_components/iron-flex-layout/iron-flex-layout.html">
@@ -8,21 +6,15 @@
 <link rel="import" href="/bower_components/iron-icons/image-icons.html">
 <link rel="import" href="/bower_components/iron-icons/iron-icons.html">
 <link rel="import" href="/bower_components/iron-pages/iron-pages.html">
-
-<!-- /build -->
-
-
 <link rel="import" href="/bower_components/app-route/app-location.html">
 <link rel="import" href="/bower_components/app-route/app-route.html">
-
-
 <link rel="import" href="/styles/app-theme.html">
 <link rel="import" href="/styles/shared-styles.html">
 <link rel="import" href="ab-app-styles.html">
 <!-- build:remove -->
 
 <link rel="import" href="/bower_components/paper-toast/paper-toast.html">
-
+<link rel="import" href="/elements/article/the-temp.html">
 <link rel="import" href="/bower_components/paper-scroll-header-panel/paper-scroll-header-panel.html">
 <link rel="import" href="/bower_components/paper-toolbar/paper-toolbar.html">
 <link rel="import" href="/bower_components/paper-icon-button/paper-icon-button.html">
@@ -34,10 +26,7 @@
 
 <link rel="import" href="/bower_components/app-route/app-location.html">
 <link rel="import" href="/bower_components/app-route/app-route.html">
-<!-- /build -->
 
-<!-- the following script can help you formatting the dates -->
-<script type="text/javascript" src="../../js/utils.js"></script>
 
 <dom-module id="ab-app">
   <template>
@@ -93,7 +82,8 @@
   </template>
 
 <template is="dom-if" if="{{isnotnormalroute(page)}}">
-  {{redirect()}}
+  <!-- {{redirect()}} -->
+  <the-temp> </the-temp>
 </template>
 
   </template>
@@ -147,7 +137,7 @@
         },
 
         redirect : function(){
-            window.location.href = '/LAC_page_index.html';
+            window.location.href = '/Template.html';
         }
       });
 

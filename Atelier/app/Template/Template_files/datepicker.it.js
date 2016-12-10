@@ -8,7 +8,7 @@
 	} else {
 
 		// Browser globals
-		factory( jQuery.datepicker );
+		// factory( jQuery.datepicker );
 	}
 }(function( datepicker ) {
 
