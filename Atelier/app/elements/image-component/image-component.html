@@ -19,12 +19,6 @@
 
   <p aria-live="polite" tabindex="0" id="image-text">{{text}}</p>
 
-<!-- temporary -->
-<div tabindex="0">
-{{tags}}
-</div>
-<!-- /temp  -->
-
   </template>
 
   <script>
@@ -64,17 +58,25 @@
 
         if (this.text === undefined)
         {
-          // TODO: implements automatic text if the webmaster does not give it
-          a.innerHTML = "You are on an image, ";
+          a.innerHTML = "You are on an image";
           if (description1 !== undefined)
           {
-            a.innerHTML += "to hear the full description, press1. "
+            a.innerHTML += ", to hear the full description, press 1"
           }
+          if (description2 !== undefined)
+          {
+            a.innerHTML += ", to hear the concise description, press 2"
+          }
+          if (description3 !== undefined)
+          {
+            a.innerHTML += ", to hear the emotional description, press 3"
+          }
+          a.innerHTML += "."
 
         }
 
-        var image = htmlToElement("<img " + this.tags + "></img>")
-        this.appendChild(image);
+        let image = htmlToElement("<img " + this.tags + ">")
+        this.shadowRoot.appendChild(image);
         this.addEventListener("keydown", this._hearDescription, true);
       },
       properties: {
