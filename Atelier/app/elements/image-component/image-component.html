@@ -9,15 +9,19 @@
 
   <style>
 
-  p{
+  :host{
+    max-width: 100%;
+  },
+
+  .porcamadonna{
     position: absolute !important;
-    clip: rect(1px, 1px, 1px, 1px);
+    clip: rect(1px, 1px, 1px, 1px) !important;
   }
 
 
   </style>
 
-  <p aria-live="polite" tabindex="0" id="image-text">{{text}}</p>
+  <p class="porcamadonna" style=aria-live="polite" tabindex="0" id="image-text">{{text}}</p>
 
   </template>
 
@@ -75,7 +79,7 @@
 
         }
 
-        let image = htmlToElement("<img " + this.tags + ">")
+        let image = htmlToElement("<img id=\"imgPager\"" + this.tags + " style='max-height: 400px; width: 100%; object-fit: contain' >")
         this.shadowRoot.appendChild(image);
         this.addEventListener("keydown", this._hearDescription, true);
       },
