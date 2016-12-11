@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const app = express();
 let formidable = require('formidable');
 const fs = require('fs');
+let JSZip = require("jszip");
 
 // Connect to MongoDB here
 const mongoose   = require('mongoose');
@@ -40,6 +41,11 @@ app.post('/upload', function(req, res) {
 
 });
 
+// app.get('/download', function(req, res){
+//   console.log(req);
+//
+// });
+
 const routers = require('./routes/routers');
 app.use('/', routers.root);
 
@@ -60,5 +66,6 @@ app.use('*', function(req,res, next){
 app.use('/dashboard', routers.dashboard);
 app.use('/article', routers.dashboard);
 app.use('/preview', routers.preview);
+app.use('/download', routers.download);
 
 module.exports = app;

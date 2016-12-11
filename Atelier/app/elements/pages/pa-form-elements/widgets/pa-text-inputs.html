@@ -224,8 +224,17 @@
             content-type ="application/json"
             on-response="loaded">
           </iron-ajax>
+
+          <iron-ajax
+          id="ajax3"
+          url="/download"
+          method="POST"
+          content-type ="application/json"
+          on-response="downloaded">
+        </iron-ajax>
               <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "display: inline-block; text-align: center; margin-top: 20px;">Save/Create</paper-button>
                <paper-button id="prev"  raised="" disabled="" style= "width:0%; text-align: center; margin-top: 20px;"><a target="_blank" href="/preview/" > preview </a></paper-button>
+               <paper-button id="exp"  raised=""  style= "width:0%; text-align: center; margin-top: 20px;" on-click="export"> Export </paper-button>
             </div>
           </div>
         </div>
@@ -495,6 +504,19 @@
              range.select();
           }
          },
+
+         export : function(){
+          let ajaxel = this.$.ajax3;
+          ajaxel.body = JSON.stringify({"text" : this.$.inputbox.value});
+          // console.log(ajaxel.body);
+          // console.log(this.$.inputbox.value);
+          ajaxel.generateRequest();
+         },
+
+         downloaded : function(){
+           console.log("success");
+          //  window.location = '/out.zip';
+         }
 
 
 

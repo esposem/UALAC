@@ -175,6 +175,7 @@
   on-response="loaded">
 </iron-ajax>
 <!-- Rendered HERE -->
+{{text}}
 </div>
 </div>
 
@@ -195,13 +196,19 @@
       properties: {
         rout : {
           type: String,
-        }
+        },
+        text : {
+          type : String,
+          value : undefined,
+        },
+
       },
 
       ready: function(){
-        // console.log(this.rout);
-        let ajaxel = this.$.ajax;
-        ajaxel.generateRequest();
+        if(!(text)){
+          let ajaxel = this.$.ajax;
+          ajaxel.generateRequest();
+        }
 
       },
 
