@@ -31,18 +31,18 @@
       _hearDescription: function(e) {
         console.log(e)
         let a = this.shadowRoot.getElementById("image-text")
-        if (e.key == "1" && this.description1 !== undefined)
+        if (e.key == "1" && this.normal !== undefined)
         {
-            a.innerHTML = this.description1;
+            a.innerHTML = this.normal;
             this.shadowRoot.getElementById("image-text");
         }
-        if (e.key == "2" && this.description2 !== undefined)
+        if (e.key == "2" && this.simplified !== undefined)
         {
-          a.innerHTML = this.description2;
+          a.innerHTML = this.simplified;
           this.shadowRoot.getElementById("image-text");
         }
-        if (e.key == "3" && this.description3 !== undefined)
-        a.innerHTML = this.description3;
+        if (e.key == "3" && this.emotional !== undefined)
+        a.innerHTML = this.emotional;
         this.shadowRoot.getElementById("image-text");
       },
       ready: function() {
@@ -59,15 +59,15 @@
         if (this.text === undefined)
         {
           a.innerHTML = "You are on an image";
-          if (description1 !== undefined)
+          if (normal !== undefined)
           {
             a.innerHTML += ", to hear the full description, press 1"
           }
-          if (description2 !== undefined)
+          if (simplified !== undefined)
           {
             a.innerHTML += ", to hear the concise description, press 2"
           }
-          if (description3 !== undefined)
+          if (emotional !== undefined)
           {
             a.innerHTML += ", to hear the emotional description, press 3"
           }
@@ -88,15 +88,15 @@
             type: String,
             default: undefined
           },
-          description1:{
+          normal:{
             type: String,
             default: undefined
           },
-          description2:{
+          simplified:{
             type: String,
             default: undefined
           },
-          description3:{
+          emotional:{
             type: String,
             default: undefined
           },
