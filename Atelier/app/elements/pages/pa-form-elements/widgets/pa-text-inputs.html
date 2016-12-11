@@ -135,7 +135,7 @@
         height: 300px;
       }
 
-      .upload{
+      .uploaddiv{
         height: 40px;
       }
 
@@ -188,7 +188,7 @@
 
           <br></br>
           <div style="display:flex; flex-direction: column;">
-            <div class="upload" style="display: flex; flex-direction: row;">
+            <div class="uploaddiv" style="display: flex; flex-direction: row;">
               <!-- <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml" style= "width:auto; text-align: center;">Text Only</paper-button> -->
               <!-- <paper-button tabindex="0" class$="{{hiddenClass}}" toggles raised noink on-click="toggleAutoBr" style= "width:auto; text-align: center;">Auto &#60;br&#62;</paper-button> -->
               <!-- <paper-button tabindex="0" raised on-click="addImage" style="width:0%; text-align: center;">Image</paper-button> -->
@@ -196,7 +196,7 @@
               <paper-button tabindex="0" raised on-click="addMenu" style="width:0%; text-align: center;">Menu</paper-button>
               <paper-button tabindex="0" raised on-click="addMenuItem" style="width:auto; text-align: center;">Menu Item</paper-button>
               <div>
-                <file-upload raised class="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry" >Choose File</file-upload>
+                <file-upload id="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry" >Upload File</file-upload>
               </div>
             </div><br>
             <!-- <p class$="{{hiddenClass}}">&#60;div&#62;</p> -->
@@ -217,7 +217,7 @@
             content-type ="application/json"
             on-response="loaded">
           </iron-ajax>
-              <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "width:0%; text-align: center; margin-top: 20px;">create</paper-button>
+              <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "display: inline-block; text-align: center; margin-top: 20px;">Save/Create</paper-button>
                <paper-button id="prev"  raised="" disabled="" style= "width:0%; text-align: center; margin-top: 20px;"><a target="_blank" href="/preview/" > preview </a></paper-button>
             </div>
           </div>
