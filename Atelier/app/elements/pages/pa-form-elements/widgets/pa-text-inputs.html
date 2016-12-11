@@ -11,7 +11,6 @@
 <link rel="import" href="/elements/article-item/article-item.html">
 <link rel="import" href="/elements/switch-view/switch-view.html">
 <link rel="import" href="/elements/image-component/image-component.html">
-<link rel="import" href="/bower_components/iron-ajax/iron-request.html">
 <link rel="import" href="/bower_components/file-upload/file-upload.html">
 
 <dom-module id="pa-text-inputs" is="dom-bind">
@@ -181,18 +180,13 @@
             <div style="display: flex; flex-direction: row;">
               <!-- <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml" style= "width:auto; text-align: center;">Text Only</paper-button> -->
               <!-- <paper-button tabindex="0" class$="{{hiddenClass}}" toggles raised noink on-click="toggleAutoBr" style= "width:auto; text-align: center;">Auto &#60;br&#62;</paper-button> -->
-              <paper-button tabindex="0" raised on-click="addImage" style="width:0%; text-align: center;">Image</paper-button>
+              <!-- <paper-button tabindex="0" raised on-click="addImage" style="width:0%; text-align: center;">Image</paper-button> -->
               <paper-button tabindex="0" raised on-click="addSwitch" style="width: auto; text-align: center;">Switch View</paper-button>
               <paper-button tabindex="0" raised on-click="addMenu" style="width:0%; text-align: center;">Menu</paper-button>
               <paper-button tabindex="0" raised on-click="addMenuItem" style="width:auto; text-align: center;">Menu Item</paper-button>
-<div>
-  <!-- <iron-request id="ajaxreq"></iron-request> -->
-  <!-- <form id="upl-form" method="POST" enctype="multipart/form-data">
-    <input type="file" id="inputcoso" on-change="changes"></input>
-    <input type="submit" value="Submit">
-  </form> -->
-  <file-upload target="/preview" method="POST">Choose File</file-upload>
-</div>
+              <div>
+                <file-upload id="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry" >Choose File</file-upload>
+              </div>
             </div>
             <!-- <p class$="{{hiddenClass}}">&#60;div&#62;</p> -->
             <paper-textarea id="inputbox" label="Write the article here" on-keypress="checkBr" on-input="clicked" value=" "></paper-textarea>
@@ -212,10 +206,8 @@
             content-type ="application/json"
             on-response="loaded">
           </iron-ajax>
-
               <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "width:0%; text-align: center; margin-top: 20px;">create</paper-button>
                <paper-button id="prev"  raised="" disabled="" style= "width:0%; text-align: center; margin-top: 20px;"><a target="_blank" href="/preview/" > preview </a></paper-button>
-
             </div>
           </div>
         </div>
@@ -271,22 +263,23 @@
             reflectToAttribute : true,
             // observer: '_pageChanged',
           },
-          subpage: {
-            type : String,
-            reflectToAttribute : true,
-          },
         },
 
 
 
-        changes : function(e){
-
+        fun : function(page){
+          console.log(page);
+          return "/upload/" + page;
         },
 
         observers: [
           '_subroutePageChanged(subrouteData.articleid)',
           '_routePageChanged(routeData.page)',
         ],
+
+        listeners: {
+        'upload.success': 'fuck'
+      },
 
         _hiddenprev : function(){
           let id = this.$.articleid;
@@ -365,8 +358,8 @@
           }
         },
 
-        addImage: function() {
-          this.$.inputbox.value += "<image-component tags='src=\"image URL\" alt=\"image\"' normal=\"normal description\" simplified=\"simplified description\" emotional=\"emotional description\" text=\"text to speak\"></image-component>";
+        addImage: function(img) {
+          this.$.inputbox.value += "<image-component tags='src= \"" + img + "\" alt=\"image\"' normal=\"normal description\" simplified=\"simplified description\" emotional=\"emotional description\" text=\"text to speak\"></image-component>";
           this.clicked();
         },
 
@@ -450,7 +443,15 @@
           this.$.title.value = el.detail.response.title;
           this.$.articleid.childNodes[1].innerHTML = el.detail.response._id;
           this.clicked();
-        }
+        },
+
+        fuck : function(e){
+          let img = "/images/" + JSON.parse(e.detail.xhr.response).name;
+          // console.log("success");
+          this.addImage(img)
+        },
+
+
 
 
       });

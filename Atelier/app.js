@@ -23,7 +23,7 @@ app.use(bodyParser.json());    // parse application/json
 app.use(express.static(path.join(__dirname, 'app')));
 
 // Initialize routers here
-app.post('/preview', function(req, res) {
+app.post('/upload', function(req, res) {
   let form = new formidable.IncomingForm(
     {
       uploadDir: __dirname + '/app/images/',
@@ -34,6 +34,7 @@ app.post('/preview', function(req, res) {
       let fileName = files.file.name;
       fs.rename(files.file.path, __dirname + '/app/images/' + fileName);
       // res.writeHead(302, {'Location': '/explore/'});
+      res.json({name : fileName});
       res.end();
     });
 
