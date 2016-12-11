@@ -23,7 +23,8 @@
         -ms-flex-align: center;
         -webkit-align-items: center;
         align-items: center;
-        font-family: 'Roboto', 'Noto', sans-serif;
+        /*'Roboto', 'Noto',*/
+        font-family:  sans-serif;
         -webkit-font-smoothing: antialiased;
         text-rendering: optimizeLegibility;
         font-size: 14px;
@@ -75,12 +76,12 @@
     <paper-menu class="list"  selected="{{routea}}" attr-for-selected="data-route">
       <iron-selector selected="0">
 
-      <a data-route="/dashboard" href="/dashboard" on-click="onDataRouteClick" id="dashboard" >
+      <a data-route="/dashboard" href="/dashboard"  id="dashboard" >
         <iron-icon icon="dashboard"></iron-icon>
         <span>Article Manager</span>
       </a>
 
-      <a data-route="/article" href="/article" id="article" on-click="onDataRouteClick">
+      <a data-route="/article" href="/article" id="article" >
         <iron-icon icon="add-circle"></iron-icon>
         <span>New Article</span>
       </a>
@@ -114,7 +115,7 @@
         ],
 
         pagechanged : function(page){
-          console.log(page);
+          // console.log(page);
           if(page === "dashboard"){
             this.$.dashboard.style = "background: #e5cece; color: #c60000;"
             this.$.article.style = "";
@@ -128,31 +129,6 @@
           e.target.parentNode.classList.toggle('submenu-expanded');
         },
 
-        onDataRouteClick: function() {
-          // Close drawer after menu item is selected if drawerPanel is narrow
-          // var drawerPanel = document.querySelector('#paperDrawerPanel');
-          //
-          // if (this.drawerPanel.narrow) {
-          //   this.drawerPanel.closeDrawer();
-          // }
-
-          // adjust charts to widgets size
-          // var charts = document.getElementsByTagName('google-chart');
-          // setTimeout(function(){
-          //   for (var i = 0; i < charts.length; i++) {
-          //     charts[i].drawChart();
-          //   }
-          // }, 0);
-        },
-
-        toggleDrawer : function() {
-          // var drawerPanel = document.getElementById('paperDrawerPanel');
-          // if (drawerPanel.narrow) {
-          //   drawerPanel.togglePanel();
-          // } else {
-          //   drawerPanel.classList.toggle('collapsed-menu');
-          // }
-        },
       });
     })();
 

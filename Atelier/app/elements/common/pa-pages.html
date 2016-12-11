@@ -24,12 +24,13 @@
         }
       }
       paper-button.custom {
-    width:10%;
-    margin: auto;
-    position:absolute;
-    top:22px;
-    right:40px;
-    }
+        width:10%;
+        margin: auto;
+        position:absolute;
+        top:22px;
+        right:40px;
+      }
+
       paper-input {
         width:30%;
         margin: auto;
@@ -39,7 +40,17 @@
         --paper-input-container-color: #c60000;
         --paper-input-container-focus-color: #5c92e8;
 
-          }
+      }
+
+      a {
+        text-decoration: none;
+        font-weight: 400;
+        color: #222;
+      }
+
+      a:hover {
+        text-decoration: underline;
+        /*font-weight: #AAA;*/
       }
     </style>
 
@@ -66,8 +77,6 @@
 
       <section data-route="article">
         <pa-page-title title="Create Article" ></pa-page-title>
-        <paper-button raised class="custom">preview</paper-button>
-
         <pa-form-elements ></pa-form-elements>
       </section>
 
@@ -94,22 +103,6 @@
           articles : {
             type : Array,
           },
-        },
-
-        _onOpen : function(){
-          console.log("Opened connection");
-        },
-
-        _onClose : function() {
-          console.log("Closed connection");
-        },
-
-        _onMessage : function() {
-          console.log("Message");
-        },
-
-        _onError : function(){
-          console.log("Error");
         },
 
         finished : function(el){

@@ -69,9 +69,12 @@ router.put('/', function(req, res, next) {
       res.send();
     }
     else{
-      console.log("ERROR");
-      res.status(500);
-      res.send();
+      // console.log("ERROR");
+      // res.status(500);
+      // res.send();
+      const newArticle = new Article(req.body);
+      newArticle.save();
+      res.json(newArticle._id)
     }
 
   });

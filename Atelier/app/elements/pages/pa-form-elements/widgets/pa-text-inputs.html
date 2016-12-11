@@ -147,12 +147,12 @@
                   ID
               </div>
 
-            <div id="articleid">
+            <div id="articleid" >
               <i style="font-weight: bold;">No id yet</i>
             </div>
 
-            <paper-button tabindex="0" id="submitbutton" on-click="deleteverything"  raised noink
-                style= "width:20%; text-align: center; margin-top: 20px;"><a href="/article"> New Article</a></paper-button>
+          <a href="/article" style= "width:20%; text-align: center; margin-top: 20px;"> <paper-button tabindex="0" id="submitbutton" on-click="deleteverything"  raised noink
+                > New Article</paper-button> </a>
 
           </div>
 
@@ -202,7 +202,9 @@
             on-response="loaded">
           </iron-ajax>
 
-              <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "width:0%; text-align: center; margin-top: 20px;">Submit</paper-button>
+              <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "width:0%; text-align: center; margin-top: 20px;">create</paper-button>
+               <paper-button id="prev"  raised="" disabled="" style= "width:0%; text-align: center; margin-top: 20px;"><a target="_blank" href="/preview/" > preview </a></paper-button>
+
             </div>
           </div>
         </div>
@@ -269,6 +271,20 @@
           '_routePageChanged(routeData.page)',
         ],
 
+        _hiddenprev : function(){
+          let id = this.$.articleid;
+          // console.log(id);
+          let prevbutt = this.$.prev;
+          this.$.prev.setAttribute("disabled","")
+        },
+
+        _shownprev: function(id){
+            let prevbutt = this.$.prev;
+            this.$.prev.childNodes[0].href = id;
+            this.$.prev.removeAttribute("disabled")
+          // }
+        },
+
         _routePageChanged: function(page) {
           // console.log(page)
           this.page = page;
@@ -281,6 +297,7 @@
             ajaxel.url = "/dashboard/" + subroute
             ajaxel.method = "GET"
             ajaxel.generateRequest();
+            this._shownprev("/preview/" + subroute);
           }
         },
 
@@ -364,6 +381,7 @@
           this.$.title.value=""
           this.$["title-field-title"].style="";
           this.clicked();
+          this._hiddenprev();
           // console.log(this.$.title);
         },
 
@@ -401,6 +419,7 @@
             this.$.articleid.childNodes[1].innerHTML = el.detail.response;
             this.$.toast.text = 'Created a new Article!';
             this.$.toast.show();
+            this._shownprev("/preview/" + el.detail.response);
           }else{
             this.$.toast.text = 'Article ' + id + " updated!";
             this.$.toast.show();

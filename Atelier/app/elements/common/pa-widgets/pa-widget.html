@@ -28,10 +28,13 @@
       <div style="display:flex; justify-content: space-between;">
         <div style="margin:5px 0px 5px 0px" ><a href="/article/{{art._id}}" >{{ art.title }} </a></div>
         <div> <a href="#" on-click="del"> x </a> </div>
+
       </div>
       <div id="content">
       <pa-about img={{art.image}} txt={{art.text}} ></pa-about></div>
     </paper-material>
+    <paper-toast id="toast">
+    </paper-toast>
   </template>
 
   <script>
@@ -61,15 +64,15 @@
           let ajaxel = this.$.ajax;
           ajaxel.method = "DELETE"
           ajaxel.generateRequest();
-          console.log("request generated for DELETE" + ajaxel.url);
+          // console.log("request generated for DELETE" + ajaxel.url);
           let deleter = el.target.parentNode.parentNode.parentNode.parentNode;
           let toremove = el.target.parentNode.parentNode.parentNode;
           deleter.removeChild(toremove);
         },
 
         finished : function(res){
-          console.log("GOT ");
-          console.log(res.detail.response);
+          this.$.toast.text = 'Deleted article '+ this.art._id ;
+          this.$.toast.show();
         }
 
       });
