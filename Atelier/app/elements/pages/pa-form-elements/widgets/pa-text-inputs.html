@@ -178,8 +178,8 @@
           <br></br>
           <div style="display:flex; flex-direction: column;">
             <div style="display: flex; flex-direction: row;">
-              <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml" style= "width:auto; text-align: center;">Text Only</paper-button>
-              <paper-button tabindex="0" class$="{{hiddenClass}}" toggles raised noink on-click="toggleAutoBr" style= "width:auto; text-align: center;">Auto &#60;br&#62;</paper-button>
+              <!-- <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml" style= "width:auto; text-align: center;">Text Only</paper-button> -->
+              <!-- <paper-button tabindex="0" class$="{{hiddenClass}}" toggles raised noink on-click="toggleAutoBr" style= "width:auto; text-align: center;">Auto &#60;br&#62;</paper-button> -->
               <paper-button tabindex="0" raised on-click="addImage" style="width:0%; text-align: center;">Image</paper-button>
               <paper-button tabindex="0" raised on-click="addSwitch" style="width: auto; text-align: center;">Switch View</paper-button>
               <paper-button tabindex="0" raised on-click="addMenu" style="width:0%; text-align: center;">Menu</paper-button>
@@ -192,9 +192,9 @@
   </form>
 </div>
             </div>
-            <p class$="{{hiddenClass}}">&#60;div&#62;</p>
+            <!-- <p class$="{{hiddenClass}}">&#60;div&#62;</p> -->
             <paper-textarea id="inputbox" label="Write the article here" on-keypress="checkBr" on-input="clicked" value=" "></paper-textarea>
-            <p class$="{{hiddenClass}}">&#60;/div&#62;</p>
+            <!-- <p class$="{{hiddenClass}}">&#60;/div&#62;</p> -->
             <div style="display:flex; flex-direction: row-reverse;">
               <iron-ajax
               id="ajax"
@@ -316,52 +316,52 @@
           }
         },
 
-        ishtml: function() {
-          this.html_clicked = !(this.html_clicked);
-          if (!this.html_clicked) {
-            this.hiddenClass = "";
-            this.$.demo.childNodes[1].innerHTML = this.$.inputbox.value;
-          } else {
-            this.hiddenClass = "hidden";
-            if(this.$.demo.childNodes[1].innerHTML) {
-              let text = this.$.demo.childNodes[1].innerHTML.split("<").join("&#60;");
-              text.split(">").join("&#62;");
-              this.$.demo.childNodes[1].innerHTML = text;
-            };
-          }
-        },
-
-        toggleAutoBr : function() {
-          this.br_clicked = !(this.br_clicked);
-          if (this.br_clicked) {
-            this.$.inputbox.value += "<p>";
-          } else {
-            this.$.inputbox.value += "</p>";
-          }
-        },
-
-        clicked: function(e) {
-          // console.log(e.keyCode);
-          let x = this.$.inputbox.value;
-          let text = x || "Nothing to show";
-          if(this.html_clicked) {
-            text = text.split("<").join("&#60;");
-            text = text.split(">").join("&#62;");
-            text = text.split("\n").join("<br>");
-          } else {
-            // text = text.split("<br>").join("\n");
-          }
-          this.$.demo.childNodes[1].innerHTML =  text;
-          this.wrotebefore = text;
-          // this.$.inputbox.value = "a" + this.$.inputbox.value;
-        },
-
-        checkBr: function(e) {
-          if (this.br_clicked && !this.html_clicked && e.keyCode == 13) {
-            e.preventDefault();
-            this.$.inputbox.value += "<br>\n";
-          }
-        },
+        // ishtml: function() {
+        //   this.html_clicked = !(this.html_clicked);
+        //   if (!this.html_clicked) {
+        //     this.hiddenClass = "";
+        //     this.$.demo.childNodes[1].innerHTML = this.$.inputbox.value;
+        //   } else {
+        //     this.hiddenClass = "hidden";
+        //     if(this.$.demo.childNodes[1].innerHTML) {
+        //       let text = this.$.demo.childNodes[1].innerHTML.split("<").join("&#60;");
+        //       text.split(">").join("&#62;");
+        //       this.$.demo.childNodes[1].innerHTML = text;
+        //     };
+        //   }
+        // },
+        //
+        // toggleAutoBr : function() {
+        //   this.br_clicked = !(this.br_clicked);
+        //   if (this.br_clicked) {
+        //     this.$.inputbox.value += "<p>";
+        //   } else {
+        //     this.$.inputbox.value += "</p>";
+        //   }
+        // },
+        //
+        // clicked: function(e) {
+        //   // console.log(e.keyCode);
+        //   let x = this.$.inputbox.value;
+        //   let text = x || "Nothing to show";
+        //   if(this.html_clicked) {
+        //     text = text.split("<").join("&#60;");
+        //     text = text.split(">").join("&#62;");
+        //     text = text.split("\n").join("<br>");
+        //   } else {
+        //     // text = text.split("<br>").join("\n");
+        //   }
+        //   this.$.demo.childNodes[1].innerHTML =  text;
+        //   this.wrotebefore = text;
+        //   // this.$.inputbox.value = "a" + this.$.inputbox.value;
+        // },
+        //
+        // checkBr: function(e) {
+        //   if (this.br_clicked && !this.html_clicked && e.keyCode == 13) {
+        //     e.preventDefault();
+        //     this.$.inputbox.value += "<br>\n";
+        //   }
+        // },
 
         addImage: function() {
           this.$.inputbox.value += "<img> image tag goes here <img>";
