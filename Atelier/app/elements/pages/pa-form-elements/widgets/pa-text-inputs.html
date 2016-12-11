@@ -203,7 +203,7 @@
               <paper-button tabindex="0" raised on-click="addMenu" style="width:0%; text-align: center;">Menu</paper-button>
               <paper-button tabindex="0" raised on-click="addMenuItem" style="width:auto; text-align: center;">Menu Item</paper-button>
               <div>
-                <file-upload id="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry" >Upload File</file-upload>
+                <file-upload raised id="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry" >Upload File</file-upload>
               </div>
             </div><br>
             <!-- <p class$="{{hiddenClass}}">&#60;div&#62;</p> -->
@@ -377,7 +377,7 @@
         },
 
         addImage: function(img) {
-          let value = "<image-component "+ '\n' +
+          let value = "\n<image-component "+ '\n' +
           "tags='src= \"" + img + "\" alt=\"image\"' "+ '\n'+
           " normal=\"normal description\" "+ '\n' +
           " simplified=\"simplified description\" " + '\n'+ " emotional=\"emotional description\" "+ '\n' +
@@ -386,7 +386,7 @@
         },
 
         addSwitch: function() {
-          let value = '<switch-view title="insert title here"' + '\n'
+          let value = '\n<switch-view title="insert title here"' + '\n'
       		+'normal="insert normal text here"' + '\n'
       		+ 'simplified="insert simplified text here"' + '\n'
       		+ 'emotional="insert image path here">' + '\n'
@@ -396,7 +396,7 @@
         },
 
         addMenu: function() {
-          let value = '<menu-component id="main-menu">' + '\n' +
+          let value = '\n<menu-component id="main-menu">' + '\n' +
           'insert menu-item here' + '\n' +
         	'</menu-component>' + '\n';
           this.insertTextAtCursor(this.$.inputbox, value);
@@ -404,7 +404,7 @@
         },
 
         addMenuItem: function() {
-          let value = '<menu-item value="insert button name here" link="insert link here"></menu-item>';
+          let value = '\n<menu-item'+ '\n' +'value="insert button name here" '+ '\n' + 'link="insert link here">'+ '\n' +'</menu-item>';
           this.insertTextAtCursor(this.$.inputbox, value);
           this.clicked();
         },
