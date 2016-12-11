@@ -9,19 +9,15 @@
 
   <style>
 
-  :host{
-    max-width: 100%;
-  },
-
-  .porcamadonna{
+  p{
     position: absolute !important;
-    clip: rect(1px, 1px, 1px, 1px) !important;
+    clip: rect(1px, 1px, 1px, 1px);
   }
 
 
   </style>
 
-  <p class="porcamadonna" style=aria-live="polite" tabindex="0" id="image-text">{{text}}</p>
+  <p aria-live="polite" tabindex="0" id="image-text">{{text}}</p>
 
   </template>
 
@@ -33,7 +29,7 @@
       is: 'image-component',
 
       _hearDescription: function(e) {
-        // console.log(e)
+        console.log(e)
         let a = this.shadowRoot.getElementById("image-text")
         if (e.key == "1" && this.normal !== undefined)
         {
@@ -50,7 +46,7 @@
         this.shadowRoot.getElementById("image-text");
       },
       ready: function() {
-        // console.log(this.tags)
+        console.log(this.tags)
 
         function htmlToElement(html) {
             var template = document.createElement('template');
@@ -79,7 +75,7 @@
 
         }
 
-        let image = htmlToElement("<img id=\"imgPager\"" + this.tags + " style='max-height: 400px; width: 100%; object-fit: contain' >")
+        let image = htmlToElement("<img " + this.tags + " aria-hidden=\"true\"")
         this.shadowRoot.appendChild(image);
         this.addEventListener("keydown", this._hearDescription, true);
       },
