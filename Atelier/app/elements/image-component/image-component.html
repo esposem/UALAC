@@ -29,7 +29,7 @@
       is: 'image-component',
 
       _hearDescription: function(e) {
-        console.log(e)
+        // console.log(e)
         let a = this.shadowRoot.getElementById("image-text")
         if (e.key == "1" && this.normal !== undefined)
         {
@@ -46,7 +46,7 @@
         this.shadowRoot.getElementById("image-text");
       },
       ready: function() {
-        console.log(this.tags)
+        // console.log(this.tags)
 
         function htmlToElement(html) {
             var template = document.createElement('template');

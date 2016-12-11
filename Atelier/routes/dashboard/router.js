@@ -28,8 +28,6 @@ router.get('/', function(req, res, next) {
 
 //create new album
 router.post('/', function(req, res, next) {
-  console.log("NOOOOOOO");
-  console.log(req.body);
     const newArticle = new Article(req.body);
     newArticle.save();
     res.json(newArticle._id)

@@ -4,6 +4,8 @@ const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
+let formidable = require('formidable');
+const fs = require('fs');
 
 // Connect to MongoDB here
 const mongoose   = require('mongoose');
@@ -21,6 +23,21 @@ app.use(bodyParser.json());    // parse application/json
 app.use(express.static(path.join(__dirname, 'app')));
 
 // Initialize routers here
+app.post('/preview', function(req, res) {
+  let form = new formidable.IncomingForm(
+    {
+      uploadDir: __dirname + '/app/images/',
+      keepExtensions: true
+    }
+  );
+    form.parse(req, function(err, fields, files) {
+      let fileName = files.file.name;
+      fs.rename(files.file.path, __dirname + '/app/images/' + fileName);
+      // res.writeHead(302, {'Location': '/explore/'});
+      res.end();
+    });
+
+});
 
 const routers = require('./routes/routers');
 app.use('/', routers.root);
