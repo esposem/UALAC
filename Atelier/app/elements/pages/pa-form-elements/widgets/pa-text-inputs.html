@@ -128,6 +128,17 @@
         width:40%;
       }
 
+      #inputbox{
+        cursor: text;
+        font-size: 18px;
+        width: 100%;
+        height: 300px;
+      }
+
+      .upload{
+        height: 40px;
+      }
+
       .hidden {
         display: none;
       }
@@ -177,7 +188,7 @@
 
           <br></br>
           <div style="display:flex; flex-direction: column;">
-            <div style="display: flex; flex-direction: row;">
+            <div class="upload" style="display: flex; flex-direction: row;">
               <!-- <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml" style= "width:auto; text-align: center;">Text Only</paper-button> -->
               <!-- <paper-button tabindex="0" class$="{{hiddenClass}}" toggles raised noink on-click="toggleAutoBr" style= "width:auto; text-align: center;">Auto &#60;br&#62;</paper-button> -->
               <!-- <paper-button tabindex="0" raised on-click="addImage" style="width:0%; text-align: center;">Image</paper-button> -->
@@ -185,7 +196,7 @@
               <paper-button tabindex="0" raised on-click="addMenu" style="width:0%; text-align: center;">Menu</paper-button>
               <paper-button tabindex="0" raised on-click="addMenuItem" style="width:auto; text-align: center;">Menu Item</paper-button>
               <div>
-                <file-upload id="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry" >Choose File</file-upload>
+                <file-upload raised class="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry" >Choose File</file-upload>
               </div>
             </div><br>
             <!-- <p class$="{{hiddenClass}}">&#60;div&#62;</p> -->
