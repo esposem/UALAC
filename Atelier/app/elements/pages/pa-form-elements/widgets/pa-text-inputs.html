@@ -359,23 +359,27 @@
         },
 
         addImage: function(img) {
-          this.$.inputbox.value += "<image-component tags='src= \"" + img + "\" alt=\"image\"' normal=\"normal description\" simplified=\"simplified description\" emotional=\"emotional description\" text=\"text to speak\"></image-component>";
-          this.clicked();
+          this.$.inputbox.value += "<image-component "+ '\n' +
+          "tags='src= \"" + img + "\" alt=\"image\"' "+ '\n'+
+          " normal=\"normal description\" "+ '\n' +
+          " simplified=\"simplified description\" " + '\n'+ " emotional=\"emotional description\" "+ '\n' +
+          " text=\"text to speak\"> " + '\n' + "</image-component>";
+
         },
 
         addSwitch: function() {
-          this.$.inputbox.value += '<switch-view title="insert title here"'
-      		this.$.inputbox.value +='normal="insert normal text here"'
-      		this.$.inputbox.value +='simplified="insert simplified text here"'
-      		this.$.inputbox.value +='emotional="insert image path here">'
-      		this.$.inputbox.value +='</switch-view>';
+          this.$.inputbox.value += '<switch-view title="insert title here"' + '\n'
+      		this.$.inputbox.value +='normal="insert normal text here"' + '\n'
+      		this.$.inputbox.value +='simplified="insert simplified text here"' + '\n'
+      		this.$.inputbox.value +='emotional="insert image path here">' + '\n'
+      		this.$.inputbox.value +='</switch-view>' + '\n';
           this.clicked();
         },
 
         addMenu: function() {
-          this.$.inputbox.value += '<menu-component id="main-menu">'
-        	this.$.inputbox.value += 'insert menu-item here'
-        	this.$.inputbox.value += '</menu-component>'
+          this.$.inputbox.value += '<menu-component id="main-menu">' + '\n'
+        	this.$.inputbox.value += 'insert menu-item here' + '\n'
+        	this.$.inputbox.value += '</menu-component>' + '\n'
           this.clicked();
         },
 
@@ -448,7 +452,8 @@
         fuck : function(e){
           let img = "/images/" + JSON.parse(e.detail.xhr.response).name;
           // console.log("success");
-          this.addImage(img)
+          this.addImage(img);
+          this.clicked();
         },
 
 
