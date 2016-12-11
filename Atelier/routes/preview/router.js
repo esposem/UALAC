@@ -13,8 +13,8 @@ const config = require("../../config");
 const fieldsFilter = { '__v': 0 };
 
 //supported methods
-router.all('/:articleid', middleware.supportedMethods('GET'));
-router.all('/', middleware.supportedMethods('GET'));
+router.all('/:articleid', middleware.supportedMethods('GET, PUT'));
+router.all('/', middleware.supportedMethods('GET, PUT'));
 
 //list albums
 // router.get('/', function(req, res, next) {
@@ -26,6 +26,10 @@ router.all('/', middleware.supportedMethods('GET'));
 //   });
 // });
 
+router.put('/images', function(req, res, next) {
+  // console.log("FINALLY GOT");
+  console.log(req.body);
+});
 //create new album
 // router.post('/', function(req, res, next) {
 //   console.log("dashboard");

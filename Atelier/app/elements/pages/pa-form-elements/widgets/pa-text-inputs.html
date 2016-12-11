@@ -11,6 +11,8 @@
 <link rel="import" href="/elements/article-item/article-item.html">
 <link rel="import" href="/elements/switch-view/switch-view.html">
 <link rel="import" href="/elements/image-component/image-component.html">
+<link rel="import" href="/bower_components/iron-ajax/iron-request.html">
+
 <dom-module id="pa-text-inputs" is="dom-bind">
   <template>
     <style include="shared-styles"></style>
@@ -182,6 +184,13 @@
               <paper-button tabindex="0" raised on-click="addSwitch" style="width: auto; text-align: center;">Switch View</paper-button>
               <paper-button tabindex="0" raised on-click="addMenu" style="width:0%; text-align: center;">Menu</paper-button>
               <paper-button tabindex="0" raised on-click="addMenuItem" style="width:auto; text-align: center;">Menu Item</paper-button>
+<div>
+  <!-- <iron-request id="ajaxreq"></iron-request> -->
+  <form id="upl-form" method="POST" enctype="multipart/form-data">
+    <input type="file" id="inputcoso" on-change="changes"></input>
+    <input type="submit" value="Submit">
+  </form>
+</div>
             </div>
             <p class$="{{hiddenClass}}">&#60;div&#62;</p>
             <paper-textarea id="inputbox" label="Write the article here" on-keypress="checkBr" on-input="clicked" value=" "></paper-textarea>
@@ -264,6 +273,12 @@
             type : String,
             reflectToAttribute : true,
           },
+        },
+
+        changes : function(){
+          // console.log(this.$.inputcoso.files[0]);
+
+
         },
 
         observers: [

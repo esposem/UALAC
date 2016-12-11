@@ -28,7 +28,7 @@ router.get('/', function(req, res, next) {
 
 //create new album
 router.post('/', function(req, res, next) {
-  console.log("dashboard");
+  console.log("NOOOOOOO");
   console.log(req.body);
     const newArticle = new Article(req.body);
     newArticle.save();
@@ -79,6 +79,8 @@ router.put('/', function(req, res, next) {
 
   });
 });
+
+
 
 //remove a album
 router.delete('/:articleid', function(req, res, next) {
