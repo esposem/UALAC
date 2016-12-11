@@ -187,9 +187,9 @@
               <div>
                 <file-upload id="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry" >Choose File</file-upload>
               </div>
-            </div>
+            </div><br>
             <!-- <p class$="{{hiddenClass}}">&#60;div&#62;</p> -->
-            <paper-textarea id="inputbox" label="Write the article here" on-keypress="checkBr" on-input="clicked" value=" "></paper-textarea>
+            <textarea id="inputbox" label="Write the article here" on-keypress="checkBr" on-input="clicked" value=" "></textarea>
             <!-- <p class$="{{hiddenClass}}">&#60;/div&#62;</p> -->
             <div style="display:flex; flex-direction: row-reverse;">
               <iron-ajax
@@ -359,32 +359,35 @@
         },
 
         addImage: function(img) {
-          this.$.inputbox.value += "<image-component "+ '\n' +
+          let value = "<image-component "+ '\n' +
           "tags='src= \"" + img + "\" alt=\"image\"' "+ '\n'+
           " normal=\"normal description\" "+ '\n' +
           " simplified=\"simplified description\" " + '\n'+ " emotional=\"emotional description\" "+ '\n' +
           " text=\"text to speak\"> " + '\n' + "</image-component>";
-
+          this.insertTextAtCursor(this.$.inputbox, value);
         },
 
         addSwitch: function() {
-          this.$.inputbox.value += '<switch-view title="insert title here"' + '\n'
-      		this.$.inputbox.value +='normal="insert normal text here"' + '\n'
-      		this.$.inputbox.value +='simplified="insert simplified text here"' + '\n'
-      		this.$.inputbox.value +='emotional="insert image path here">' + '\n'
-      		this.$.inputbox.value +='</switch-view>' + '\n';
+          let value = '<switch-view title="insert title here"' + '\n'
+      		+'normal="insert normal text here"' + '\n'
+      		+ 'simplified="insert simplified text here"' + '\n'
+      		+ 'emotional="insert image path here">' + '\n'
+          + '</switch-view>' + '\n';
+          this.insertTextAtCursor(this.$.inputbox, value);
           this.clicked();
         },
 
         addMenu: function() {
-          this.$.inputbox.value += '<menu-component id="main-menu">' + '\n'
-        	this.$.inputbox.value += 'insert menu-item here' + '\n'
-        	this.$.inputbox.value += '</menu-component>' + '\n'
+          let value = '<menu-component id="main-menu">' + '\n' +
+          'insert menu-item here' + '\n' +
+        	'</menu-component>' + '\n';
+          this.insertTextAtCursor(this.$.inputbox, value);
           this.clicked();
         },
 
         addMenuItem: function() {
-          this.$.inputbox.value += '<menu-item value="insert button name here" link="insert link here"></menu-item>'
+          let value = '<menu-item value="insert button name here" link="insert link here"></menu-item>';
+          this.insertTextAtCursor(this.$.inputbox, value);
           this.clicked();
         },
 
@@ -394,6 +397,7 @@
           this.$.title.value=" "
           this.$.title.value=""
           this.$["title-field-title"].style="";
+          this.insertTextAtCursor(this.$.inputbox, value);
           this.clicked();
           this._hiddenprev();
           // console.log(this.$.title);
@@ -455,6 +459,25 @@
           this.addImage(img);
           this.clicked();
         },
+
+        insertTextAtCursor: function(el, text)
+        {
+          var val = el.value, endIndex, range;
+          if (typeof el.selectionStart != "undefined" && typeof el.selectionEnd != "undefined")
+          {
+             endIndex = el.selectionEnd;
+             el.value = val.slice(0, el.selectionStart) + text + val.slice(endIndex);
+             el.selectionStart = el.selectionEnd = endIndex + text.length;
+          } else if (typeof document.selection != "undefined" && typeof document.selection.createRange != "undefined")
+          {
+             el.focus();
+             range = document.selection.createRange();
+             range.collapse(false);
+             range.text = text;
+             range.select();
+          }
+         },
+
 
 
 
