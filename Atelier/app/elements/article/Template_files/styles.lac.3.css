@@ -25,8 +25,8 @@
 }
 
 body {
-border:0px; margin:0px; text-align:center; 
-font-family: 'akzidenz-grotesk', 'akz-light', Helvetica, Arial, sans-serif; 
+border:0px; margin:0px; text-align:center;
+font-family: 'akzidenz-grotesk', 'akz-light', Helvetica, Arial, sans-serif;
 font-weight: 300;
 -webkit-font-smoothing: antialiased;
 -moz-font-smoothing: antialiased;
@@ -40,7 +40,7 @@ image-rendering: webkit-optimize-contrast;
 image-rendering: optimizeQuality;
 -ms-interpolation-mode: bicubic;
 text-rendering:geometricPrecision;
-width:100%; 
+width:100%;
 min-width:580px;
 font-size:16px;
 -webkit-text-size-adjust: none;
@@ -64,7 +64,7 @@ div.skins img, div.skinsr img { width:100%}
 }
 
 
-hr { 
+hr {
 border: 0;
 color: #e8e8e8;
 background-color: #e8e8e8;
@@ -86,7 +86,7 @@ div.countdown_container > div { position:relative; float:right; width:100%; marg
 div.countdown_container > div.addw {position:absolute; display:none; opacity:0.8; filter:alpha(opacity=80); top:19px; padding:2px 0px; text-align:right; font-weight:500; font-size:14px;background:#fff; color:#ed1c24}
 div.countdown_container > div span {background:transparent; margin-right:4px;}
 #coverLoad { position:fixed; left:0px; width:100%; height:100%; background:#fff; z-index:10000; }
-#mainFixed  { position:fixed; left:0px; top:0px; width:100%; z-index:12; text-align:center; max-width:1920px; } 
+#mainFixed  { position:fixed; left:0px; top:0px; width:100%; z-index:12; text-align:center; max-width:1920px; }
 
 
 #bottomFixed { position: fixed; left: 0px; bottom: 0px !important; background: url(/images/bg_bottomfixed.png) left 3px repeat-x; border-top: 0px; height: 75px; width: 100%;max-width:1920px; z-index: 12; text-align: center; padding-top:30px; }
@@ -114,12 +114,12 @@ div.divShare img:hover { opacity:0.7; filter: alpha(opacity=70)}
 body.homepage #bottomFixed { background:transparent; border-top:solid 0px #fff !important; padding-top:0px; }
 body.homepage #bottomFixed div.band2 { border-top:solid 3px #fff !important; }
 
-#header { position:relative; z-index:2; width:99.98%; margin:0px auto; height:50px; background:#9d9d9d; white-space:nowrap; } 
+#header { position:relative; z-index:2; width:99.98%; margin:0px auto; height:50px; background:#9d9d9d; white-space:nowrap; }
 #mainLogo { position:relative; float:left; clear:both; width:100%; margin:0px; background:#fff; padding-top:24px; display:none;}
 #mainLogo img{ width:22%; margin:0px; cursor:pointer; max-width:230px; min-width: 90px; }
 #whiteLogo { position:relative; float:left; width:5%; display:inline-block; height:100%}
 #whiteLogo img { width:42px; margin:5px 9px;  display:inline }
-img.mmob {display:none;} 
+img.mmob {display:none;}
 
 
 div.maincontent { padding-top:80px; }
@@ -168,7 +168,7 @@ margin:0px;
 padding:0px;
 height:19px;
 margin-right:4.2%;
-float:left; 
+float:left;
 }
 
 #bottomFixed div.band3 ul.mainMenu  { float:left; margin: -2px 0px 0px 4%; width:25%; min-width:140px; }
@@ -189,7 +189,7 @@ ul.toolsmenu li.ico:hover {
 opacity:0.65; filter: alpha(opacity=65);
 }
 
-ul.toolsmenu li.ico img, ul.toptoolsmenu li.ico img{ 
+ul.toolsmenu li.ico img, ul.toptoolsmenu li.ico img{
 float:left; margin-top:-6px;
 width:24px;
 
@@ -200,10 +200,10 @@ display:none
 }
 
 ul.mainMenu li a {
-font-size: 15px; 
-line-height:20px; 
+font-size: 15px;
+line-height:20px;
 text-decoration:none;
-cursor:pointer; 
+cursor:pointer;
 text-align:center;
 padding:0px;
 color: #fff;
@@ -217,7 +217,7 @@ ul.mainMenu li a:hover, ul li a.innerCurrent {
 color: #dddddd;
 }
 
-#bottomFixed div.band1 ul.mainMenu li a { color: #000; font-family: 'akzidenz-grotesk','akz-med'; font-weight: 500; } 
+#bottomFixed div.band1 ul.mainMenu li a { color: #000; font-family: 'akzidenz-grotesk','akz-med'; font-weight: 500; }
 #language_menu { position:absolute; white-space:nowrap; background: #9d9d9d; right:0px; top:12px; width:180px; height:120%; min-width:180px;  cursor:pointer; color:#fff; }
 #language_menu div { float:left; display:inline-block; margin:12px 0px 0px 8px; }
 #language_menu div a {color:#fff; font-size: 14px; text-transform:capitalize; }
@@ -231,7 +231,7 @@ div.homeBoxesContainer {width:100%; position:relative; float:left; border-top: s
 div.homeBoxes { position:relative; width:100%; white-space: nowrap; }
 div.homeBoxes > div { position:relative; width:32%; height:335px;   overflow:hidden; float:left; margin-right:2%; white-space: normal; }
 div.homeBoxes > div:last-child { margin-right:0;}
-div.homeBoxes > div > p { margin:6px 0px; font-family: 'akzidenz-grotesk','akz-med'; font-weight: 500; font-size:20px; background: url(/images/sel_home.png) right 4px no-repeat; cursor:pointer;} 
+div.homeBoxes > div > p { margin:6px 0px; font-family: 'akzidenz-grotesk','akz-med'; font-weight: 500; font-size:20px; background: url(/images/sel_home.png) right 4px no-repeat; cursor:pointer;}
 div.homeBoxes > div > div.homeBox { position:absolute; cursor:pointer; left:0%; top:100%; width:100%; height:300px; overflow:hidden; background-color:#efefef; background-size:auto 100.5%; -webkit-background-size:auto 100.5%; background-position:center center; background-repeat: no-repeat; }
 
 div.homeBoxes > div > div.homeBox div.bgSetO { position:absolute; display:none; background:#000; opacity:0.35; position:absolute; left:0%; width:100%; height:100%; top:0%; filter: alpha(opacity=35)}
@@ -242,28 +242,28 @@ div.homeBoxes > div > div.homeBox div.infoSet span, div.homeEvents div.infoSet s
 div.homeBoxes > div > div.homeBox div.infoSet p, div.homeEvents div.infoSet p { font-size:18px; line-height:20px; margin:10px 0px 10px 0px; padding-top:4px; border-top:solid 1px #fff; }
 div.homeBoxes > div > div.homeBox div.dhdate { left: 11%; width:80%; }
 
-div.homeBoxes > div > div.homeBox div.infoSet p.msubt { font-size:17px; line-height:18px} 
+div.homeBoxes > div > div.homeBox div.infoSet p.msubt { font-size:17px; line-height:18px}
 div.homeBoxes > div > div.homeBox div.infoSet p strong, div.homeEvents div.infoSet p strong { font-weight:normal; font-family: 'akzidenz-grotesk','akz-med'; font-weight: 500; line-height:18px; }
 
 div.homeBoxes > div > div.homeBox div.dtHome { position:absolute; bottom:-20px; text-align:right; left:12px; height:30px; width:129px; z-index:2; white-space:nowrap; font-weight:300; padding:2px 3px 0px 0px;margin:0px; font-size:28px; color:rgba(250,250,250,0.5); background: rgba(157,157,157,0.4);
 mix-blend-mode: lighten;  line-height:24px;
--ms-transform: rotate(-90deg); 
-    -webkit-transform: rotate(-90deg); 
+-ms-transform: rotate(-90deg);
+    -webkit-transform: rotate(-90deg);
     transform: rotate(-90deg);
 	letter-spacing:-1px;
 	transform-origin: 0 0; -webkit-transform-origin: 0 0;  -moz-transform-origin: 0 0;  -o-transform-origin: 0 0; -ms-transform-origin: 0 0;
 	}
-	
+
 div.homeBoxes > div > div.homeBox div.dtHomeie { position:absolute; top:12px; text-align:left; left:10px; height:30px; width:129px; z-index:2; white-space:nowrap; font-weight:300; padding:2px 3px 0px 0px;margin:0px; font-size:28px; color:rgba(250,250,250,0.5); background: transparent;
 mix-blend-mode: none;  line-height:24px;
--ms-transform: none; 
-    -webkit-transform: none; 
+-ms-transform: none;
+    -webkit-transform: none;
     transform: none;
 	letter-spacing:0px;
-	}	
+	}
 
-	
-	
+
+
 div.homeBoxes > div > div.homeBox div.dtHome > span {font-size:20px; background:transparent; text-transform:capitalize;}
 div.homeBoxes > div > div.homeBox div.exHome { font-size:24px; width:124px; padding:2px 8px 0px 0px;}
 div.homeBoxes > div > div.homeBox div.exHome  > span { font-size:16px; letter-spacing:0px; }
@@ -313,12 +313,12 @@ div.whiteBoxSingle div.boxPartner {position:absolute; z-index:100; bottom:-9px; 
 div.grayBoxSingle { position:relative; float:left; border:0px; border-top: solid 1px #d0d0d0 !important; }
 div.grayBoxSingleDub { width:65.9% !important;; height:300px !important; overflow:hidden;}
 
-div.grayBoxSingle > p { 
-position:relative; float:left; 
-margin:0px 0px 5px 0px; width:90%; 
-padding:18px 5% 0px 5%; 
-font-size:15px; line-height:15px; 
-text-transform: uppercase; font-family: 'akzidenz-grotesk','akz-med'; font-weight: 500; 
+div.grayBoxSingle > p {
+position:relative; float:left;
+margin:0px 0px 5px 0px; width:90%;
+padding:18px 5% 0px 5%;
+font-size:15px; line-height:15px;
+text-transform: uppercase; font-family: 'akzidenz-grotesk','akz-med'; font-weight: 500;
 }
 
 div.boxImage img {display:none; }
@@ -338,12 +338,12 @@ div.newsbox  { border-left: solid 1px #d0d0d0; margin-right:-1%; border-right: s
 div.newsbox  > p { text-decoration: underline; font-family: 'akzidenz-grotesk','akz-med'; font-weight: 500; }
 div.newsbox  > div { position:relative; width:81%; padding: 2px 12% 0px 0px; margin:18px 5%; cursor:pointer; background:url(/images/arrow_news.png) 97% 0px no-repeat; background-size:28px; }
 div.newsbox  > div:hover { background:url(/images/arrow_news.png) 100% 0px no-repeat; background-size:28px; }
-div.newsbox  > div span { color:#ff3e32; font-family: 'akzidenz-grotesk','akz-med'; font-weight: 500; } 
+div.newsbox  > div span { color:#ff3e32; font-family: 'akzidenz-grotesk','akz-med'; font-weight: 500; }
 div.newsbox  > div strong {font-weight:normal; font-family: 'akzidenz-grotesk','akz-med'; font-weight: 500;}
 
 div.datepicker { float:left; position:relative; width:50%; height:100%;  }
 div.tLeft div.datepicker { width:100%; height:auto; }
-div.datepicker div.icoCal { position:absolute; z-index:100; right: 10px; bottom:10px; width:28px; height:30px; background: #fff url(/images/ico_cal.png) left top no-repeat; background-size:28px auto; cursor: pointer ; opacity:0.85 }
+div.datepicker div.icoCal { position:absolute; z-index:100; right: 10px; bottom:10px; width:28px; height:30px; background: #fff url(./images/ico_cal.png) left top no-repeat; background-size:28px auto; cursor: pointer ; opacity:0.85 }
 body.event div.datepicker div.icoCal { right: 0px;}
 div.datepicker div.icoCal:hover { opacity: 1.0; filter: alpha(opacity=100) }
 body.searchevent div.datepicker div.icoCal {display:none}
@@ -409,7 +409,7 @@ div.tLeft ul li ul.subli {float:left; clear:both; width:102.5%; margin:4px 0px -
 div.tLeft ul li ul.active { display: inline; padding:0px; }
 div.tLeft ul.subli:hover li {background:#fff}
 div.tLeft ul.subli  li {width:93.5%; padding: 6px 0px 5px 6.5%; background:#fff}
-div.tLeft ul.subli  li:last-child { border-bottom:0px;} 
+div.tLeft ul.subli  li:last-child { border-bottom:0px;}
 div.tLeft ul li img { float:right; width:13px; opacity:0.4; filter: alpha(opacity=40); margin:2px 8px; }
 div.tLeft ul > li.active img { display:none }
 div.tLeft ul li a { color: #646363; text-decoration:none }
@@ -420,24 +420,24 @@ div.tLeft ul.subli  li:hover, div.tLeft ul.subli  li.active {background: #e5e5e5
 div.tLeft img.menuImg {float:left; clear:both; width:89%; margin:40px 0px 20px 0px; margin-left:1%; max-width:350px; }
 
 div.textLeft0 {
-position:relative; 
-width:44%; 
-float:left; 
-font-size:14px; 
-line-height:17px; 
+position:relative;
+width:44%;
+float:left;
+font-size:14px;
+line-height:17px;
 padding-bottom: 20px;
 }
 
 div.textLeft {
 position:relative;
-width:56%; float:right; 
-font-size:14px; 
-line-height:17px; 
+width:56%; float:right;
+font-size:14px;
+line-height:17px;
 padding-bottom: 20px;
 }
 
-div.lnn { 
-max-height:336px; 
+div.lnn {
+max-height:336px;
 overflow:hidden;
 }
 
@@ -468,15 +468,15 @@ p.addsponsors span img { width:90%; margin-top:16px; }
 div.wDates { position:relative; float:left; width:100%; min-height:110px; overflow:hidden; border-bottom: solid 1px #e3e2e2; }
 
 p.dateEvent {
-color:#646363; 
+color:#646363;
 font-family: 'akzidenz-grotesk','akz-med'; font-weight: 500;
-font-size:20px; 
-margin:4px 0px 0px 0px; 
-line-height:22px; 
-float:left; 
-width:44%; 
-overflow:hidden; 
-text-transform: capitalize; 
+font-size:20px;
+margin:4px 0px 0px 0px;
+line-height:22px;
+float:left;
+width:44%;
+overflow:hidden;
+text-transform: capitalize;
 }
 
 p.dateEvent span { font-family: 'akzidenz-grotesk'; font-weight: 300;}
@@ -565,7 +565,7 @@ div.rightControls div.active { background: #696969; }
 div.normalPage {
 position:relative;
 float:left;
-margin:0px; padding:20px 0px 0px 0px; width:100%; background:#fff; 
+margin:0px; padding:20px 0px 0px 0px; width:100%; background:#fff;
 }
 
 div.normalPage img.pTicket {cursor:pointer; float:right; width:32px; margin-top:-10px;}
@@ -577,7 +577,7 @@ margin-top:4px;
 }
 
 div.normalPage p.adtag {float:left; clear:both; width:90%; margin:0px 0px 0px 0px; height:23px;}
-div.normalPage p.adtag span { position:relative; float:left; color:#fff; background: #ff3e32; font-size:13px; text-transform:uppercase; padding:4px 4px 0px 4px; margin-right:10px; } 
+div.normalPage p.adtag span { position:relative; float:left; color:#fff; background: #ff3e32; font-size:13px; text-transform:uppercase; padding:4px 4px 0px 4px; margin-right:10px; }
 
 /*div.pageText a { color:#333 !important; text-decoration:underline}*/
 
@@ -608,7 +608,7 @@ form.evSearch div.sPicker div { display:inline-block; float:left; width:auto; ma
 form.evSearch div.sPicker img { float:left; width:22px; display:inline-block; margin-top:0px; margin-right:4px; }
 form.evSearch div.sPicker span { margin-top:6px; display:inline-block; margin-left:5px; margin-right:6px; cursor:pointer; }
 form.evSearch div.sPicker input { border:0px; background:transparent; width:1px; float:left; opacity:0; filter: alpha(opacity=0) }
-div.searchResults {position:relative; float:left; margin-left:-3.1%; width:103.1%} 
+div.searchResults {position:relative; float:left; margin-left:-3.1%; width:103.1%}
 
 div.boxSearch {position:relative; float:left; width:30%; margin:10px 0% 24px 3.1%; height:276px; overflow:hidden; cursor:pointer; border-bottom: solid 3px #e3e2e2;}
 div.boxSearch img { width:100%; height:53%; background-repeat:no-repeat; background-color: #e3e2e2; background-position:center center; background-size:100% auto;}
@@ -630,7 +630,7 @@ body.noflash div.issuucontainer {background:#fff; }
 
 div.tLeft ul li.adPmenu {display:none;}
 
-@media only screen 
+@media only screen
 and (max-width : 1300px) {
 
 #mainmenu_set ul.mainMenu {
@@ -648,7 +648,7 @@ div.homeBoxes > div > div.homeBox div.exHome { padding-right:11px;  }
 
 }
 
-@media only screen 
+@media only screen
 and (max-width : 1000px) {
 
 /* #mainmenu_set ul.mainMenu { margin: 22px 0px 0px 20%;  } */
@@ -711,10 +711,10 @@ div.newsbox  > div p { font-size: 12px !important; }
 form.evSearch div div { font-size:13px; width:49%}
 }
 
-@media only screen 
+@media only screen
 and (max-width : 850px) {
 #mainmenu_set ul.mainMenu { display:none; }
-img.mmob {position:absolute; width:32px; top:14px; left: 17.5%; display:inline; z-index:1000; cursor:pointer; display:inline  } 
+img.mmob {position:absolute; width:32px; top:14px; left: 17.5%; display:inline; z-index:1000; cursor:pointer; display:inline  }
 div.MenuMobile {height:auto !important; padding-bottom:20px;}
 div.MenuMobile ul { list-style-type:none; color:#fff; width:100%; margin:12px 0px ; padding:0px;}
 div.MenuMobile ul li { float:left; clear:left; width:auto; width:81%; padding-left:17%; padding-bottom:8px; margin: 5px 0px 5px 0px; border-bottom:solid 1px #9d9d9d}
@@ -730,12 +730,12 @@ ul.toolsmenu {width:33%}
 #bottomFixed div.band2 ul.mainMenu  { float:left; margin: 7px 0px 0px 0%; width:66%; min-width:320px; }
 }
 
-@media only screen 
+@media only screen
 and (min-width : 1300px) {
 div.MenuMobile {display:none }
 }
 
-@media only screen 
+@media only screen
 and (min-width : 1300px) {
 
 #imgPager, div.embdVideo  {height:550px; }
@@ -753,7 +753,7 @@ body.smalltext #bottomFixed div.band3 { font-size:12px;}
 body.smalltext div.divTogl input { font-size:11px;}
 body.smalltext ul.mainMenu li a { font-size: 11px;  line-height:16px; }
 body.smalltext #language_menu div a { font-size: 10px;}
-body.smalltext div.homeBoxes > div > p { font-size:16px;} 
+body.smalltext div.homeBoxes > div > p { font-size:16px;}
 body.smalltext div.homeBoxes > div > div.homeBox div.infoSet span, body.smalltext div.homeEvents div.infoSet span {font-size:11px;}
 body.smalltext div.homeBoxes > div > div.homeBox div.infoSet p, body.smalltext div.homeEvents div.infoSet p { font-size:16px; line-height:18px;  }
 body.smalltext div.homeBoxes div.mmain > ul  li  a { font-size:16px; }
@@ -783,12 +783,12 @@ body.smalltext div.evList > div div.lf {font-size:18px; }
 body.smalltext div.evList > div div.lf span {font-size:16px; }
 body.smalltext div.evList > div div.lr span {  font-size:11px; }
 body.smalltext form.evSearch input, body.smalltext form.evSearch select { font-size:12px; line-height:12px; }
-body.smalltext div.normalPage h1.titolo { font-size:22px; line-height:22px; } 
-body.smalltext .normalPage p.subtitle,body.smalltext .normalPage h2.subtitle   { font-size:22px; line-height:22px;} 
-body.smalltext .normalPage p.abstract { font-size:16px; line-height:20px;  } 
+body.smalltext div.normalPage h1.titolo { font-size:22px; line-height:22px; }
+body.smalltext .normalPage p.subtitle,body.smalltext .normalPage h2.subtitle   { font-size:22px; line-height:22px;}
+body.smalltext .normalPage p.abstract { font-size:16px; line-height:20px;  }
 body.smalltext .normalPage p { font-size:14px; line-height:17px;}
 body.smalltext .normalPage p strong{ font-size:14px; line-height:17px; }
-body.smalltext .normalPage p.titolo, body.smalltext .normalPage p.titolo strong { font-size:26px; line-height:22px;} 
+body.smalltext .normalPage p.titolo, body.smalltext .normalPage p.titolo strong { font-size:26px; line-height:22px;}
 body.smalltext div.download { font-size:10px; }
 body.smalltext .ui-datepicker {		font-size: 14px}
 
@@ -799,7 +799,7 @@ body.largetext #bottomFixed div.band3 { font-size:16px;}
 body.largetext div.divTogl input { font-size:15px;}
 body.largetext ul.mainMenu li a { font-size: 17px;  line-height:20px; }
 body.largetext #language_menu div a { font-size: 14px;}
-body.largetext div.homeBoxes > div > p { font-size:22px;} 
+body.largetext div.homeBoxes > div > p { font-size:22px;}
 body.largetext div.homeBoxes > div > div.homeBox div.infoSet span, body.largetext div.homeEvents div.infoSet span {font-size:15px;}
 body.largetext div.homeBoxes > div > div.homeBox div.infoSet p, body.largetext div.homeEvents div.infoSet p { font-size:20px; line-height:22px;  }
 body.largetext div.homeBoxes div.mmain > ul  li  a { font-size:20px; }
@@ -830,18 +830,18 @@ body.largetext div.evList > div div.lf {font-size:22px; }
 body.largetext div.evList > div div.lf span {font-size:20px; }
 body.largetext div.evList > div div.lr span {  font-size:15px; }
 body.largetext form.evSearch input, body.largetext form.evSearch select { font-size:16px; line-height:16px; }
-body.largetext div.normalPage h1.titolo { font-size:26px; line-height:26px; } 
-body.largetext .normalPage p.subtitle,body.largetext .normalPage h2.subtitle   { font-size:26px; line-height:26px;} 
-body.largetext .normalPage p.abstract { font-size:20px; line-height:24px;  } 
+body.largetext div.normalPage h1.titolo { font-size:26px; line-height:26px; }
+body.largetext .normalPage p.subtitle,body.largetext .normalPage h2.subtitle   { font-size:26px; line-height:26px;}
+body.largetext .normalPage p.abstract { font-size:20px; line-height:24px;  }
 body.largetext .normalPage p { font-size:18px; line-height:21px;}
 body.largetext .normalPage p strong{ font-size:18px; line-height:21px; }
-body.largetext .normalPage p.titolo, body.largetext .normalPage p.titolo strong { font-size:30px; line-height:26px;} 
+body.largetext .normalPage p.titolo, body.largetext .normalPage p.titolo strong { font-size:30px; line-height:26px;}
 body.largetext div.download { font-size:14px; }
 body.largetext .ui-datepicker {		font-size: 22px}
 
-@media only screen 
-and (min-device-width : 768px) 
-and (max-device-width : 1024px)  { 
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)  {
 #bottomFixed { bottom:0px }
 }
 
@@ -854,7 +854,7 @@ a.prgramma:hover { background:#ec2027; color:#fff; }
 @import url("/css/styles.tablet.portrait.css") only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait);
 @import url("/css/styles.phone.css") only screen and (min-device-width: 320px) and (max-device-width: 540px);
 
-@media only screen 
+@media only screen
 and (max-width : 1000px) and (max-height : 768px) {
 div.homeBoxes > div > div.homeBox div.dtHome { bottom:-20px !important; left:9px !important; width:139px; height:25px !important; font-size:22px !important; padding-top:1px}
 div.homeBoxes > div > div.homeBox div.dtHome > span {font-size:16px !important; }
@@ -863,7 +863,7 @@ div.homeBoxes > div > div.homeBox div.exHome  > span { font-size:16px !important
 
 }
 
-@media only screen 
+@media only screen
 and (max-width : 900px) {
 div.homeBoxes > div > div.homeBox div.dtHome {display:none;}
 div.homeBoxes > div > div.homeBox div.dhdate { left: 4% !important; width:88% !important; }

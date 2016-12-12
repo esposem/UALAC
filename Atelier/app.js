@@ -34,17 +34,11 @@ app.post('/upload', function(req, res) {
     form.parse(req, function(err, fields, files) {
       let fileName = files.file.name;
       fs.rename(files.file.path, __dirname + '/app/images/' + fileName);
-      // res.writeHead(302, {'Location': '/explore/'});
       res.json({name : fileName});
       res.end();
     });
 
 });
-
-// app.get('/download', function(req, res){
-//   console.log(req);
-//
-// });
 
 const routers = require('./routes/routers');
 app.use('/', routers.root);

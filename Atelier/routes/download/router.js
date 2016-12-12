@@ -10,6 +10,7 @@ const Article = mongoose.model('Article');
 const config = require("../../config");
 const fs = require('fs');
 let JSZip = require("jszip");
+const URL = require('url');
 
 //fields we don't want to show to the client
 const fieldsFilter = { '__v': 0 };
@@ -21,7 +22,7 @@ router.all('/', middleware.supportedMethods('GET, POST'));
 
 //get a album
 router.post('/', function(req, res, next) {
-  // console.log(req.body);
+  console.log(req.body.text);
   let filetoread = ['./app/elements/menu-item/menu-item.html', './app/elements/menu-component/menu-component.html',
   './app/elements/article-item/article-item.html', './app/elements/switch-view/switch-view.html',
   './app/elements/image-component/image-component.html'];
@@ -42,12 +43,46 @@ router.post('/', function(req, res, next) {
   './app/elements/article/Template_files/ico_text_2.png'	,				'./app/elements/article/Template_files/styles.tablet.landscape.css',
   './app/elements/article/Template_files/ico_text_3.png'	,				'./app/elements/article/Template_files/styles.tablet.portrait.css',
   './app/elements/article/Template_files/ico_text_min.png',				'./app/elements/article/Template_files/vuoto.gif']
+  let stylesel = ['./app/styles/app-theme.html','./app/styles/shared-styles.html']
+  let cssel = ['./app/css/app.css','./app/css/standardize.css']
   let zip = new JSZip();
   let folder = zip.folder("export");
   let appf = folder.folder("app");
   let elements = appf.folder("elements");
+  let styles = appf.folder("styles");
+  let css = appf.folder("css");
+  let images = appf.folder("images");
   let article = elements.folder("article");
   let templ_file = article.folder("Template_files");
+
+  stylesel.forEach(function(el){
+    let contentPromise8 = new JSZip.external.Promise(function (resolve, reject) {
+        fs.readFile(el, function(err, data) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+    let name = el.split('/')
+    styles.file(name[name.length -1], contentPromise8);
+  });
+
+  cssel.forEach(function(el){
+    let contentPromise8 = new JSZip.external.Promise(function (resolve, reject) {
+        fs.readFile(el, function(err, data) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+    let name = el.split('/')
+    css.file(name[name.length -1], contentPromise8);
+  });
+
   filetoread.forEach(function(el){
     let contentPromise = new JSZip.external.Promise(function (resolve, reject) {
         fs.readFile(el, function(err, data) {
@@ -85,7 +120,7 @@ router.post('/', function(req, res, next) {
       });
   });
   let name4 = './bower.json'.split('/');
-  folder.file(name4[name4.length -1], contentPromise4);
+  appf.file(name4[name4.length -1], contentPromise4);
 
 
   subsubtoread.forEach(function(el){
@@ -102,46 +137,51 @@ router.post('/', function(req, res, next) {
     templ_file.file(name3[name3.length -1], contentPromise3);
   });
 
-  appf.file("index.html", "<html> "+
-    "<head> " +
-      "<title> " +
-      "  Export " +
-      "</title>" +
-      "<link rel=\"import\" href=\"./article/the-temp.html\">" +
-    "</head> "+
-    "<body>" +
-    `<the-temp text="`+ req.body.text +`"> </the-temp>` +
-    "</body>" +
-  "</html>");
-  // fs.createWriteStream('out.zip').pipe(res)
+  appf.file("index.html", "<html>  \n "+
+    "<head>  \n " +
+      "<title>  \n " +
+      "  Export  \n " +
+      "</title> \n " +
+      "<script src=\"/bower_components/webcomponentsjs/webcomponents-lite.js\"></script> \n " +
+      "<script> window.Polymer = window.Polymer || {}; window.Polymer.dom = 'shadow'; </script> \n " +
+      "<link rel=\"stylesheet\" href=\"./css/standardize.css\">  \n " +
+      "<link rel=\"stylesheet\" href=\"./css/app.css\"> \n " +
+      "<!-- This file contains theming for your app --> \n " +
+      "<link rel=\"import\" href=\"./styles/app-theme.html\"> \n " +
+      "<!-- shared styles for all modules --> \n " +
+      "<link rel=\"import\" href=\"./styles/shared-styles.html\"> \n " +
+      "<style is=\"custom-style\" include=\"shared-styles\"></style> \n " +
+      "<link rel=\"import\" href=\"./elements/article/the-temp.html\"> \n " +
+    "</head>  \n "+
+    "<body> \n " +
+    `<the-temp  \n text=\"false\" >  \n`  + req.body.text.ob  + `\n</the-temp>` +
+    "</body> \n " +
+  "</html> \n ");
   zip
   .generateNodeStream({type:'nodebuffer',streamFiles:true})
   .pipe(fs.createWriteStream('./out.zip'))
   .on('finish', function () {
-    // JSZip generates a readable stream with a "end" event,
-    // but is piped here in a writable stream which emits a "finish" event.
-    // console.log("out.zip written.");
-  //   var filePath =  "./out.zip" // or any file format
-  //
-  // // Check if file specified by the filePath exists
-  // fs.exists(filePath, function(exists){
-  //     if (exists) {
-  //       // Content-type is very interesting part that guarantee that
-  //       // Web browser will handle res in an appropriate manner.
-  //       res.writeHead(200, {
-  //         "Content-Type": "application/zip",
-  //         "Content-Disposition" : "attachment; filename= 'download'"});
-  //       fs.createReadStream(filePath).pipe(res);
-  //     } else {
-  //       res.writeHead(400, {"Content-Type": "text/plain"});
-  //       res.end("ERROR File does NOT Exists");
-  //     }
-  //   });
-
+    console.log("out.zip written.");
+    res.sendStatus(201);
+    res.end();
   });
-  //
-  // res.sendFile('/Users/Emanuele/UALAC/Atelier/out.zip');
-  res.end();
+});
+
+router.get('/', function(req,res, next){
+  // res.download('./out.zip', "download.zip");
+
+  var filePath =  "./out.zip" // or any file format
+  fs.exists(filePath, function(exists){
+    if (exists) {
+      res.writeHead(200, {
+        "Content-Type": "application/zip",
+        "Content-Disposition" : "attachment; filename= download.zip"});
+      fs.createReadStream(filePath).pipe(res);
+    } else {
+      res.writeHead(400, {"Content-Type": "text/plain"});
+      res.end("ERROR File does NOT Exists");
+    }
+  })
 });
 
 

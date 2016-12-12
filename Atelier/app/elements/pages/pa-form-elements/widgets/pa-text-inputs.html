@@ -228,9 +228,16 @@
           <iron-ajax
           id="ajax3"
           url="/download"
-          method="POST"
+          method="post"
           content-type ="application/json"
           on-response="downloaded">
+          </iron-ajax>
+          <iron-ajax
+          id="ajax4"
+          url="/download"
+          handle-as="document"
+          method="GET"
+          on-response="fff">
         </iron-ajax>
               <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "display: inline-block; text-align: center; margin-top: 20px;">Save/Create</paper-button>
                <paper-button id="prev"  raised="" disabled="" style= "width:0%; text-align: center; margin-top: 20px;"><a target="_blank" href="/preview/" > preview </a></paper-button>
@@ -395,11 +402,11 @@
         },
 
         addSwitch: function() {
-          let value = '\n<switch-view title="insert title here"' + '\n'
-      		+'normal="insert normal text here"' + '\n'
-      		+ 'simplified="insert simplified text here"' + '\n'
-      		+ 'emotional="insert image path here">' + '\n'
-          + '</switch-view>' + '\n';
+          let value = "\n<switch-view title='insert title here'" + '\n'
+      		+ "normal='insert normal text here'" + '\n'
+      		+ "simplified='insert simplified text here'" + '\n'
+      		+ "emotional='insert image path here'>" + '\n'
+          + "</switch-view>" + '\n';
           this.insertTextAtCursor(this.$.inputbox, value);
           this.clicked();
         },
@@ -507,15 +514,22 @@
 
          export : function(){
           let ajaxel = this.$.ajax3;
-          ajaxel.body = JSON.stringify({"text" : this.$.inputbox.value});
-          // console.log(ajaxel.body);
-          // console.log(this.$.inputbox.value);
+          ajaxel.body = JSON.stringify({"text" :   { "ob" : this.$.inputbox.value}});
           ajaxel.generateRequest();
          },
 
-         downloaded : function(){
-           console.log("success");
+         downloaded : function(res){
+          let ajaxel = this.$.ajax4;
+          ajaxel.method="GET"
+          ajaxel.generateRequest();
           //  window.location = '/out.zip';
+        },
+
+         fff : function(res) {
+          //  console.log(res);
+          //  console.log(res.detail);
+          //  console.log(res.detail.response);
+          //  uriContent = "data:application/octet-stream," + encodeURIComponent(dataFromServer);
          }
 
 

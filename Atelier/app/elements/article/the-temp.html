@@ -175,7 +175,7 @@
   on-response="loaded">
 </iron-ajax>
 <!-- Rendered HERE -->
-{{text}}
+<content> </content>
 </div>
 </div>
 
@@ -205,7 +205,7 @@
       },
 
       ready: function(){
-        if(!(text)){
+        if(!(this.text)){
           let ajaxel = this.$.ajax;
           ajaxel.generateRequest();
         }
