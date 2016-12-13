@@ -9,15 +9,17 @@
 
   <style>
 
-  p{
+  p
+  {
     position: absolute !important;
     clip: rect(1px, 1px, 1px, 1px);
   }
 
-  :host{
-    width:100%;
-  },
-
+  /*:host
+  {
+    display: block;
+    width: 100%;
+  }*/
 
   </style>
 
@@ -50,7 +52,6 @@
         this.shadowRoot.getElementById("image-text");
       },
       ready: function() {
-        console.log(this.tags)
 
         function htmlToElement(html) {
             var template = document.createElement('template');
@@ -79,15 +80,11 @@
 
         }
 
-        let image = htmlToElement("<img " + this.tags + " aria-hidden=\"true\" style='max-height: 400px; width: 100%; object-fit: contain'>")
+        let image = htmlToElement("<img src=\"" + this.src + "\" alt=\"" + this.alt + "\" width=\"100%\" aria-hidden=\"true\">")
         this.shadowRoot.appendChild(image);
         this.addEventListener("keydown", this._hearDescription, true);
       },
       properties: {
-          tags:{
-            type: String,
-            default: false
-          },
           text:{
             type: String,
             default: undefined
@@ -104,6 +101,15 @@
             type: String,
             default: undefined
           },
+          src:{
+            type: String,
+            default: undefined
+          },
+          alt:{
+            type: String,
+            default: ""
+          },
+
         },
     });
 })();

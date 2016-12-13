@@ -200,10 +200,11 @@
               <!-- <paper-button tabindex="0" class$="{{hiddenClass}}" toggles raised noink on-click="toggleAutoBr" style= "width:auto; text-align: center;">Auto &#60;br&#62;</paper-button> -->
               <!-- <paper-button tabindex="0" raised on-click="addImage" style="width:0%; text-align: center;">Image</paper-button> -->
               <paper-button tabindex="0" raised on-click="addSwitch" style="width: auto; text-align: center;">Switch View</paper-button>
-              <paper-button tabindex="0" raised on-click="addMenu" style="width:0%; text-align: center;">Menu</paper-button>
-              <paper-button tabindex="0" raised on-click="addMenuItem" style="width:auto; text-align: center;">Menu Item</paper-button>
+              <!-- <paper-button tabindex="0" raised on-click="addMenu" style="width:0%; text-align: center;">Menu</paper-button>
+              <paper-button tabindex="0" raised on-click="addMenuItem" style="width:auto; text-align: center;">Menu Item</paper-button> -->
+              <paper-button tabindex="0" raised on-click="addVideo" style="width: auto; text-align: center;">Embed Video</paper-button>
               <div>
-                <file-upload raised id="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry" >Upload File</file-upload>
+                <file-upload raised id="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry" >Upload Image</file-upload>
               </div>
             </div><br>
             <!-- <p class$="{{hiddenClass}}">&#60;div&#62;</p> -->
@@ -363,10 +364,11 @@
 
         addImage: function(img) {
           let value = "\n<image-component "+ '\n' +
-          "tags='src= \"" + img + "\" alt=\"image\"' "+ '\n'+
+          "src= \"" + img + "\"\nalt=\"image\""+ '\n'+
           " normal=\"normal description\" "+ '\n' +
           " simplified=\"simplified description\" " + '\n'+ " emotional=\"emotional description\" "+ '\n' +
-          " text=\"text to speak\"> " + '\n' + "</image-component>";
+          " text=\"text to speak\"\n" +
+          "style=\"display: block; width: 100%;\"" + "\n></image-component>";
           this.insertTextAtCursor(this.$.inputbox, value);
         },
 
@@ -390,6 +392,14 @@
 
         addMenuItem: function() {
           let value = '\n<menu-item'+ '\n' +'value="insert button name here" '+ '\n' + 'link="insert link here">'+ '\n' +'</menu-item>';
+          this.insertTextAtCursor(this.$.inputbox, value);
+          this.clicked();
+        },
+
+        addVideo: function()
+        {
+          //let value = '\n<menu-item'+ '\n' +'value="insert button name here" '+ '\n' + 'link="insert link here">'+ '\n' +'</menu-item>';
+          let value = "WIP VIDEO";
           this.insertTextAtCursor(this.$.inputbox, value);
           this.clicked();
         },
