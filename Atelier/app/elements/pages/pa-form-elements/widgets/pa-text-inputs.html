@@ -312,7 +312,7 @@
         ],
 
         listeners: {
-        'upload.success': 'fuck'
+        'upload.success': 'successfulupload'
       },
 
         _hiddenprev : function(){
@@ -461,6 +461,8 @@
               this.$.title.value = " "; // Done to show the error in the paper-input
               this.$.title.value = "";
               this.$["title-field-title"].style="color: red;";
+              this.$.toast.text = 'Please insert a title!';
+              this.$.toast.show();
           }
 
         },
@@ -487,7 +489,7 @@
           this.clicked();
         },
 
-        fuck : function(e){
+        successfulupload : function(e){
           let img = "/images/" + JSON.parse(e.detail.xhr.response).name;
           // console.log("success");
           this.addImage(img);
