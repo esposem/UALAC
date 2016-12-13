@@ -232,13 +232,6 @@
           content-type ="application/json"
           on-response="downloaded">
           </iron-ajax>
-          <iron-ajax
-          id="ajax4"
-          url="/download"
-          handle-as="document"
-          method="GET"
-          on-response="fff">
-        </iron-ajax>
               <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "display: inline-block; text-align: center; margin-top: 20px;">Save/Create</paper-button>
                <paper-button id="prev"  raised="" disabled="" style= "width:0%; text-align: center; margin-top: 20px;"><a target="_blank" href="/preview/" > preview </a></paper-button>
                <paper-button id="exp"  raised=""  style= "width:0%; text-align: center; margin-top: 20px;" on-click="export"> Export </paper-button>
@@ -302,7 +295,7 @@
 
 
         fun : function(page){
-          console.log(page);
+          // console.log(page);
           return "/upload/" + page;
         },
 
@@ -345,30 +338,6 @@
           }
         },
 
-        // ishtml: function() {
-        //   this.html_clicked = !(this.html_clicked);
-        //   if (!this.html_clicked) {
-        //     this.hiddenClass = "";
-        //     this.$.demo.childNodes[1].innerHTML = this.$.inputbox.value;
-        //   } else {
-        //     this.hiddenClass = "hidden";
-        //     if(this.$.demo.childNodes[1].innerHTML) {
-        //       let text = this.$.demo.childNodes[1].innerHTML.split("<").join("&#60;");
-        //       text.split(">").join("&#62;");
-        //       this.$.demo.childNodes[1].innerHTML = text;
-        //     };
-        //   }
-        // },
-        //
-        // toggleAutoBr : function() {
-        //   this.br_clicked = !(this.br_clicked);
-        //   if (this.br_clicked) {
-        //     this.$.inputbox.value += "<p>";
-        //   } else {
-        //     this.$.inputbox.value += "</p>";
-        //   }
-        // },
-        //
         clicked: function(e) {
           // console.log(e.keyCode);
           let x = this.$.inputbox.value;
@@ -521,18 +490,8 @@
          },
 
          downloaded : function(res){
-          let ajaxel = this.$.ajax4;
-          ajaxel.method="GET"
-          ajaxel.generateRequest();
-          //  window.location = '/out.zip';
+           window.location = '/download';
         },
-
-         fff : function(res) {
-          //  console.log(res);
-          //  console.log(res.detail);
-          //  console.log(res.detail.response);
-          //  uriContent = "data:application/octet-stream," + encodeURIComponent(dataFromServer);
-         }
 
 
 

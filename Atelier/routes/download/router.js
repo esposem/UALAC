@@ -160,7 +160,7 @@ router.post('/', function(req, res, next) {
 
   appf.file("how_to_run.txt", " With terminal, go in /app and then write `bower install`. After all the files are created \n" +
   "run polyserve. The result will be in localhost:8080.");
-  
+
   zip
   .generateNodeStream({type:'nodebuffer',streamFiles:true})
   .pipe(fs.createWriteStream('./out.zip'))
@@ -170,25 +170,6 @@ router.post('/', function(req, res, next) {
     res.end();
   });
 });
-
-router.get('/', function(req,res, next){
-  // res.download('./out.zip', "download.zip");
-
-  var filePath =  "./out.zip" // or any file format
-  fs.exists(filePath, function(exists){
-    if (exists) {
-      res.writeHead(200, {
-        "Content-Type": "application/zip",
-        "Content-Disposition" : "attachment; filename= download.zip"});
-      fs.createReadStream(filePath).pipe(res);
-    } else {
-      res.writeHead(400, {"Content-Type": "text/plain"});
-      res.end("ERROR File does NOT Exists");
-    }
-  })
-});
-
-
 
 /** router for /albums */
 module.exports = router;

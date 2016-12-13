@@ -40,6 +40,10 @@ app.post('/upload', function(req, res) {
 
 });
 
+app.get('/download', function(req,res, next){
+  res.download('./out.zip', "download.zip");
+});
+
 const routers = require('./routes/routers');
 app.use('/', routers.root);
 
