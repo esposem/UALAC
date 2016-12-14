@@ -1,0 +1,168 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0">
+
+    <title>Login</title>
+
+    <!-- <link rel="stylesheet" href="./styles/standardize.css"> -->
+    <link rel="stylesheet" href="./css/base.css">
+    <!-- <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"> -->
+    <!-- <link rel="import" href="elements/elements.html"> -->
+
+    <style>
+
+      * {
+        box-sizing: border-box;
+      }
+
+      .login-body {
+        background-color: #D32F2F;
+        margin: 0;
+      }
+
+      .vertical-align-wrapper {
+        height: 100%;
+        text-align: center;
+      }
+
+      .vertical-align-box {
+        display: inline-block;
+        vertical-align: middle;
+        width: 600px;
+      }
+
+      .form-login-wrapper {
+        width: 450px;
+        margin: 0 auto;
+        display: inline-block;
+        background: #fff;
+        box-shadow: 0 1px 11px rgba(0, 0, 0, 0.27);
+        vertical-align: middle;
+        position: relative;
+        box-sizing: border-box;
+        text-align: left;
+        padding: 3em;
+      }
+
+      .slogan {
+        margin-bottom: 50px;
+        width: 100%;
+        text-align: center;
+        font-size: 32px;
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+        font-weight: 300;
+      }
+
+      .form-control {
+        display: block;
+        width: 100%;
+        height: 34px;
+        padding: 6px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        color: #555;
+        background-color: #fff;
+        background-image: none;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+        -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+        -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+      }
+
+      .form-stacked {
+        font-size: 24px;
+        border-radius: 0;
+        height: auto;
+        padding: 12px 24px;
+        font-weight: 300;
+        text-align: center;
+      }
+
+      .form-stacked.last {
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        margin-bottom: 10px;
+      }
+
+      button, input, select, textarea {
+        font-family: inherit;
+        font-size: 100%;
+        font-weight: inherit;
+        margin: 0;
+        padding: 0;
+      }
+
+      input[type=button].btn-block {
+        width: 100%;
+      }
+
+      input[type="text"].form-stacked:first-of-type, input[type="password"].form-stacked:first-of-type, .form-stacked.first {
+        margin-bottom: -1px;
+        border-top-left-radius: 4px;
+        border-top-right-radius: 4px;
+      }
+
+      .btn-login {
+        color: #fff;
+        background-color: #d50000;
+        border-color: #131c4a;
+      }
+
+      h1.fat {
+        font-weight: 700;
+        color: white;
+      }
+
+      .bottom-right {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+    }
+
+      .btn-beats {
+        color: #fff;
+        background-color: #d50000;
+        border: none;
+      }
+
+      .btn-beats:hover {
+        color: #fff;
+        background-color: #b40000;
+        border: none;
+      }
+
+    </style>
+
+  </head>
+  <body class="login-body">
+    <div class="vertical-align-wrapper">
+      <div class="vertical-align-box">
+        <div class="form-login-wrapper">
+          <form action="library.html" method="POST" class="form-login">
+            <h1 class="slogan">Welcome to UALAC</h1>
+            <input class="form-control form-stacked" name="username" onblur="restoreField(this, 'Username')" onfocus="blankField(this)" type="text" placeholder="Username">
+            <input class="form-control form-stacked last" name="password" onblur="restoreField(this, 'Password')" onfocus="blankField(this)" type="password" placeholder="Password">
+            <input class="btn btn-beats btn-block btn-stacked" value="Log in" type="submit" id="">
+          </form>
+        </div>
+      </div>
+    </div>
+    <h1 class="fat blue-glow bottom-right">Web Atelier 2016</h1>
+  </body>
+
+  <script>
+
+  function blankField(field) {
+    field.placeholder = '';
+  }
+
+  function restoreField(field, placeholder) {
+    field.placeholder = placeholder;
+  }
+  </script>
+</html>
