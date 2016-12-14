@@ -2,9 +2,10 @@
 
 <link rel="import" href="../../bower_components/polymer/polymer.html">
 <link rel="import" href="../../bower_components/iron-a11y-keys-behavior/iron-a11y-keys-behavior.html">
+<link rel="import" href="../../bower_components/google-youtube/google-youtube.html">
 
 
-<dom-module id="image-component">
+<dom-module id="video-component">
   <template>
 
   <style>
@@ -23,7 +24,7 @@
 
   </style>
 
-  <p aria-live="polite" tabindex="0" id="image-text" onfocusout="this._resetText">{{text}}</p>
+  <p aria-live="polite" tabindex="0" id="video-text">{{text}}</p>
 
   </template>
 
@@ -32,10 +33,11 @@
     'use strict';
 
     Polymer({
-      is: 'image-component',
+      is: 'video-component',
 
       _hearDescription: function(e) {
-        let a = this.shadowRoot.getElementById("image-text")
+        console.log(e)
+        let a = this.shadowRoot.getElementById("video-text")
         if (e.key == "1" && this.normal !== undefined)
         {
             a.innerHTML = this.normal;
@@ -45,20 +47,8 @@
           a.innerHTML = this.simplified;
         }
         if (e.key == "3" && this.emotional !== undefined)
-        {
           a.innerHTML = this.emotional;
-        }
       },
-
-      _resetText: function(e)
-      {
-        console.log("prova")
-        let a = this.shadowRoot.getElementById("image-text")
-        a.removeAttribute("aria-live");
-        a.innerHTML = this.text;
-        a.setAttribute("aria-live", "polite");
-      },
-
       ready: function() {
 
         function htmlToElement(html) {
@@ -67,11 +57,11 @@
             return template.content.firstChild;
         }
 
-        let a = this.shadowRoot.getElementById("image-text")
+        let a = this.shadowRoot.getElementById("video-text")
 
         if (this.text === undefined)
         {
-          a.innerHTML = "You are on an image";
+          a.innerHTML = "You are on an video";
           if (normal !== undefined)
           {
             a.innerHTML += ", to hear the full description, press 1"
@@ -85,12 +75,11 @@
             a.innerHTML += ", to hear the emotional description, press 3"
           }
           a.innerHTML += "."
-          this.text = a.innerHTML;
 
         }
 
-        let image = htmlToElement("<img src=\"" + this.src + "\" alt=\"" + this.alt + "\" width=\"100%\" aria-hidden=\"true\">")
-        this.shadowRoot.appendChild(image);
+        let video = htmlToElement("<img src=\"" + this.src + "\" alt=\"" + this.alt + "\" width=\"100%\" aria-hidden=\"true\">")
+        this.shadowRoot.appendChild(video);
         this.addEventListener("keydown", this._hearDescription, true);
       },
       properties: {
