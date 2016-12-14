@@ -24,7 +24,7 @@
 
   </style>
 
-  <p aria-live="polite" tabindex="0" id="video-text"></p>
+  <p aria-live="polite" tabindex="0" id="video-text">Ciao, benvenuto nel video component</p>
 
   </template>
 
@@ -58,17 +58,11 @@
 
       _handleKey: function(e) {
         if (e.key == "1")
-          _ariaSpeak("Questo è un testo di prova. Le mucche fanno mOO")
+          this._ariaSpeak("Questo è un testo di prova. Le mucche fanno mOO")
       },
 
 
       ready: function() {
-
-        function htmlToElement(html) {
-            var template = document.createElement('template');
-            template.innerHTML = html;
-            return template.content.firstChild;
-        }
 
         let a = this.shadowRoot.getElementById("video-text")
 
@@ -124,13 +118,13 @@
         {
           text.innerHTML = textToSpeak;
           ytv.pause();
-          setTimeout(function(){ytv.play()}, this.calcoloBo(textToSpeak))
+          setTimeout(function(){ytv.play();clearTimeout(this);}, this.calcoloBo(textToSpeak))
         }
         else
         {
           text.innerHTML = textToSpeak;
           ytv.mute();
-          setTimeout(function(){ytv.unmute()}, this.calcoloBo(textToSpeak))
+          setTimeout(function(){ytv.unMute();clearTimeout(this);}, this.calcoloBo(textToSpeak))
         }
 
 
@@ -138,10 +132,10 @@
         calcoloBo: function(textToSpeak)
         {
           let calcoloDellaVita = textToSpeak.length * 6;
-          calcoloDellaVita += (textToSpeak.match(/./g) || []).length * 100;
-          calcoloDellaVita += (textToSpeak.match(/!/g) || []).length * 100;
-          calcoloDellaVita += (textToSpeak.match(/?/g) || []).length * 100;
-          calcoloDellaVita += (textToSpeak.match(/,/g) || []).length * 50;
+          calcoloDellaVita += (textToSpeak.match(new RegExp(".", "g")) || []).length * 80;
+          calcoloDellaVita += (textToSpeak.match(new RegExp("!", "g")) || []).length * 80;
+          //calcoloDellaVita += (textToSpeak.match(new RegExp("\?", "g")) || []).length * 100;
+          calcoloDellaVita += (textToSpeak.match(new RegExp("\,", "g")) || []).length * 50;
           return calcoloDellaVita;
         }
     });
