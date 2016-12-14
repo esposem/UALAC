@@ -12,6 +12,7 @@
 <link rel="import" href="/elements/switch-view/switch-view.html">
 <link rel="import" href="/elements/image-component/image-component.html">
 <link rel="import" href="/bower_components/file-upload/file-upload.html">
+<link rel="import" href="/elements/video-component/video-component.html">
 
 <dom-module id="pa-text-inputs" is="dom-bind">
   <template>
@@ -390,6 +391,15 @@
           this.insertTextAtCursor(this.$.inputbox, value);
         },
 
+        addVideo: function() {
+          let value = "\n<video-component "+ '\n' +
+          "videoid= \"insert youtube id here" + "\"\n"+
+          "autoplay= \"ms delay" + "\"\n"+
+
+          "style=\"display: block; width: 100%;\"" + "\n></video-component>";
+          this.insertTextAtCursor(this.$.inputbox, value);
+        },
+
         addSwitch: function() {
           let value = "\n<switch-view title='insert title here'" + '\n'
       		+ "normal='insert normal text here'" + '\n'
@@ -410,14 +420,6 @@
 
         addMenuItem: function() {
           let value = '\n<menu-item'+ '\n' +'value="insert button name here" '+ '\n' + 'link="insert link here">'+ '\n' +'</menu-item>';
-          this.insertTextAtCursor(this.$.inputbox, value);
-          this.clicked();
-        },
-
-        addVideo: function()
-        {
-          //let value = '\n<menu-item'+ '\n' +'value="insert button name here" '+ '\n' + 'link="insert link here">'+ '\n' +'</menu-item>';
-          let value = "WIP VIDEO";
           this.insertTextAtCursor(this.$.inputbox, value);
           this.clicked();
         },

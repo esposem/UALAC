@@ -24,31 +24,44 @@
 
   </style>
 
-  <p aria-live="polite" tabindex="0" id="video-text">{{text}}</p>
+  <p aria-live="polite" tabindex="0" id="video-text"></p>
 
   </template>
 
   <script>
+  var ytv;
   (function () {
     'use strict';
 
     Polymer({
       is: 'video-component',
+      properties: {
+        videoid:{
+         type : String,
+        default: "Iy_5pUStzaE"},
 
-      _hearDescription: function(e) {
-        console.log(e)
-        let a = this.shadowRoot.getElementById("video-text")
-        if (e.key == "1" && this.normal !== undefined)
-        {
-            a.innerHTML = this.normal;
+        pauseOnAria:{
+          type: Boolean,
+        default: true},
+
+        autoplay:{
+          type: Number,
+        default: 0},
+
+        volume:{
+          type: Number,
+          default: 100
         }
-        if (e.key == "2" && this.simplified !== undefined)
-        {
-          a.innerHTML = this.simplified;
-        }
-        if (e.key == "3" && this.emotional !== undefined)
-          a.innerHTML = this.emotional;
+
+
       },
+
+      _handleKey: function(e) {
+        if (e.key == "1")
+          _ariaSpeak("Questo è un testo di prova. Le mucche fanno mOO")
+      },
+
+
       ready: function() {
 
         function htmlToElement(html) {
@@ -59,56 +72,78 @@
 
         let a = this.shadowRoot.getElementById("video-text")
 
-        if (this.text === undefined)
-        {
-          a.innerHTML = "You are on an video";
-          if (normal !== undefined)
-          {
-            a.innerHTML += ", to hear the full description, press 1"
-          }
-          if (simplified !== undefined)
-          {
-            a.innerHTML += ", to hear the concise description, press 2"
-          }
-          if (emotional !== undefined)
-          {
-            a.innerHTML += ", to hear the emotional description, press 3"
-          }
-          a.innerHTML += "."
+        // if (this.text === undefined)
+        // {
+        //   a.innerHTML = "You are on an video";
+        //   if (normal !== undefined)
+        //   {
+        //     a.innerHTML += ", to hear the full description, press 1"
+        //   }
+        //   if (simplified !== undefined)
+        //   {
+        //     a.innerHTML += ", to hear the concise description, press 2"
+        //   }
+        //   if (emotional !== undefined)
+        //   {
+        //     a.innerHTML += ", to hear the emotional description, press 3"
+        //   }
+        //   a.innerHTML += "."
+        //
+        // }
 
+        let auto = "0";
+        if (this.volume > 100)
+          this.volume = 100;
+        if (this.volume < 0)
+          this.volume = 0;
+
+
+        if (this.autoplay === 1)
+          auto = "1"
+        this.shadowRoot.innerHTML += "<br><google-youtube aria-hidden=\"true\"id=\"video\" width=\"100%\" autoplay=\"" + auto + "\" video-id=\""+ this.videoid + "\" ></google-youtube>";
+        //video.mute();
+        setTimeout(this._getYtv.bind(null, this), 5)
+        this.addEventListener("keydown", this._handleKey, true);
+        if (this.autoplay > 1)
+        {
+          let vol = this.volume;
+          setTimeout(function(){ytv.play();ytv.setVolume(vol);}, this.autoplay)
+        }
+      },
+
+      _getYtv: function(el)
+      {
+        ytv = el.shadowRoot.getElementById("video");
+      },
+
+      _ariaSpeak: function(textToSpeak)
+      {
+        let text = this.shadowRoot.getElementById("video-text")
+        console.log(this.calcoloBo(textToSpeak))
+        if (this.pauseOnAria)
+        {
+          text.innerHTML = textToSpeak;
+          ytv.pause();
+          setTimeout(function(){ytv.play()}, this.calcoloBo(textToSpeak))
+        }
+        else
+        {
+          text.innerHTML = textToSpeak;
+          ytv.mute();
+          setTimeout(function(){ytv.unmute()}, this.calcoloBo(textToSpeak))
         }
 
-        let video = htmlToElement("<img src=\"" + this.src + "\" alt=\"" + this.alt + "\" width=\"100%\" aria-hidden=\"true\">")
-        this.shadowRoot.appendChild(video);
-        this.addEventListener("keydown", this._hearDescription, true);
-      },
-      properties: {
-          text:{
-            type: String,
-            default: undefined
-          },
-          normal:{
-            type: String,
-            default: undefined
-          },
-          simplified:{
-            type: String,
-            default: undefined
-          },
-          emotional:{
-            type: String,
-            default: undefined
-          },
-          src:{
-            type: String,
-            default: undefined
-          },
-          alt:{
-            type: String,
-            default: ""
-          },
 
-        },
+      },
+        calcoloBo: function(textToSpeak)
+        {
+          let calcoloDellaVita = textToSpeak.length * 6;
+          calcoloDellaVita += (textToSpeak.match(/./g) || []).length * 100;
+          calcoloDellaVita += (textToSpeak.match(/!/g) || []).length * 100;
+          calcoloDellaVita += (textToSpeak.match(/?/g) || []).length * 100;
+          calcoloDellaVita += (textToSpeak.match(/,/g) || []).length * 50;
+          return calcoloDellaVita;
+        }
     });
 })();
   </script>
