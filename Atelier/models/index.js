@@ -10,5 +10,4 @@ require('./Article');
 
 module.exports = {
   'Article' : mongoose.model('Article'),
-  
 }

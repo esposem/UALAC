@@ -28,6 +28,10 @@ router.get('/', function(req, res, next) {
 
 //create new album
 router.post('/', function(req, res, next) {
+  console.log("POST ");
+  if(req.body.image.length == 0){
+    req.body.image = ['/images/blank-user.jpg']
+  }
     const newArticle = new Article(req.body);
     newArticle.save();
     res.json(newArticle._id)
@@ -55,6 +59,7 @@ router.get('/:articleid', function(req, res, next) {
 //update a album
 router.put('/', function(req, res, next) {
   const data = req.body;
+  console.log("PUT " + req.body);
 
   Article.findById(req.body._id, fieldsFilter , function(err, article){
     if (err) return next (err);

@@ -4,16 +4,20 @@ const path = require('path');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
 const app = express();
-let formidable = require('formidable');
+const formidable = require('formidable');
 const fs = require('fs');
-let JSZip = require("jszip");
+const JSZip = require("jszip");
+require('./models/Article');
 
 // Connect to MongoDB here
 const mongoose   = require('mongoose');
+const Article = mongoose.model('Article');
 mongoose.connect(config.mongoUrl + config.mongoDbName);
+
 
 // Register model definition here
 require('./models');
+
 
 //configure app
 app.use(logger('dev'));
@@ -31,17 +35,26 @@ app.post('/upload', function(req, res) {
       keepExtensions: true
     }
   );
-    form.parse(req, function(err, fields, files) {
-      let fileName = files.file.name;
-      fs.rename(files.file.path, __dirname + '/app/images/' + fileName);
-      res.json({name : fileName});
-      res.end();
-    });
+
+  form.parse(req, function(err, fields, files) {
+    let fileName = files.file.name;
+    fs.rename(files.file.path, __dirname + '/app/images/' + fileName);
+    res.json({name : fileName});
+    res.end();
+  });
 
 });
 
 app.get('/download', function(req,res, next){
-  res.download('./out.zip', "download.zip");
+  res.download('./output/out.zip', "download.zip");
+  // res.end();
+  setTimeout(function(){
+    fs.unlink('./output/out.zip', (err) => {
+    if (err) throw err;
+    console.log('successfully deleted !');
+    });
+  }, 1000);
+
 });
 
 const routers = require('./routes/routers');
@@ -65,5 +78,6 @@ app.use('/dashboard', routers.dashboard);
 app.use('/article', routers.dashboard);
 app.use('/preview', routers.preview);
 app.use('/download', routers.download);
+// app.use('/upload', routers.download);
 
 module.exports = app;

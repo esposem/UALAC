@@ -9,20 +9,19 @@ const ObjectId = mongoose.Types.ObjectId;
 const Article = mongoose.model('Article');
 const config = require("../../config");
 const fs = require('fs');
-let JSZip = require("jszip");
+const JSZip = require("jszip");
 const URL = require('url');
 
 //fields we don't want to show to the client
 const fieldsFilter = { '__v': 0 };
 
 //supported methods
-router.all('/:articleid', middleware.supportedMethods('GET, POST'));
-router.all('/', middleware.supportedMethods('GET, POST'));
-
+router.all('/:id', middleware.supportedMethods('GET, POST, DELETE'));
+router.all('/', middleware.supportedMethods('GET, POST, DELETE'));
 
 //get a album
 router.post('/', function(req, res, next) {
-  console.log(req.body.text);
+  // console.log(req.body.text);
   let filetoread = ['./app/elements/menu-item/menu-item.html', './app/elements/menu-component/menu-component.html',
   './app/elements/article-item/article-item.html', './app/elements/switch-view/switch-view.html',
   './app/elements/image-component/image-component.html'];
@@ -163,7 +162,7 @@ router.post('/', function(req, res, next) {
 
   zip
   .generateNodeStream({type:'nodebuffer',streamFiles:true})
-  .pipe(fs.createWriteStream('./out.zip'))
+  .pipe(fs.createWriteStream('./output/out.zip'))
   .on('finish', function () {
     console.log("out.zip written.");
     res.sendStatus(201);
@@ -171,5 +170,17 @@ router.post('/', function(req, res, next) {
   });
 });
 
-/** router for /albums */
+
+router.delete('/', function(req,res, next){
+  let name = req.body.name;
+  fs.unlink('./app/images/' + name, (err) => {
+  if (err) throw err;
+  // console.log('successfully deleted !');
+  res.sendStatus(204);
+  });
+});
+
+
+
+
 module.exports = router;

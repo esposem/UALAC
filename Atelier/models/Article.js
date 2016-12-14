@@ -25,12 +25,11 @@ const ObjectId = mongoose.Schema.Types.ObjectId;
 const ArticleSchema = new mongoose.Schema(
   {
     title : { type: String, required: true },
-    image : { type: String, default: "/images/blank-user.jpg" },
+    image : { type: [String]},
     text : { type: String, default: "Nothing to show" },
     dateCreated : { type: Date, default: Date.now },
   }
 );
-
 
 //register model
 mongoose.model('Article', ArticleSchema);

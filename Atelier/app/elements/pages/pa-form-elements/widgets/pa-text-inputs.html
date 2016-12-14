@@ -196,20 +196,23 @@
           <br></br>
           <div style="display:flex; flex-direction: column;">
             <div class="uploaddiv" style="display: flex; flex-direction: row;">
-              <!-- <paper-button tabindex="0" id="htmlbutton" toggles raised noink on-click="ishtml" style= "width:auto; text-align: center;">Text Only</paper-button> -->
-              <!-- <paper-button tabindex="0" class$="{{hiddenClass}}" toggles raised noink on-click="toggleAutoBr" style= "width:auto; text-align: center;">Auto &#60;br&#62;</paper-button> -->
-              <!-- <paper-button tabindex="0" raised on-click="addImage" style="width:0%; text-align: center;">Image</paper-button> -->
               <paper-button tabindex="0" raised on-click="addSwitch" style="width: auto; text-align: center;">Switch View</paper-button>
-              <!-- <paper-button tabindex="0" raised on-click="addMenu" style="width:0%; text-align: center;">Menu</paper-button>
-              <paper-button tabindex="0" raised on-click="addMenuItem" style="width:auto; text-align: center;">Menu Item</paper-button> -->
               <paper-button tabindex="0" raised on-click="addVideo" style="width: auto; text-align: center;">Embed Video</paper-button>
               <div>
-                <file-upload raised id="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry" >Upload Image</file-upload>
+                <file-upload raised id="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry"  >Upload Image</file-upload>
               </div>
-            </div><br>
-            <!-- <p class$="{{hiddenClass}}">&#60;div&#62;</p> -->
+            </div>
+            <br>
+            <div id="imglist" style="display:flex; flex-direction: row; flex-wrap: wrap;">
+              <template is="dom-repeat" items="{{images}}" as="button" >
+                <paper-icon-item style="margin-right:10px">
+                  <a href=""> <iron-icon icon="cancel" item-icon id="{{createid()}}" on-click="deleted"></iron-icon></a>
+                  {{_deletepath(button)}}
+                </paper-icon-item>
+              </template>
+            </div>
+            <br>
             <textarea id="inputbox" label="Write the article here" on-keypress="checkBr" on-input="clicked" value=" "></textarea>
-            <!-- <p class$="{{hiddenClass}}">&#60;/div&#62;</p> -->
             <div style="display:flex; flex-direction: row-reverse;">
               <iron-ajax
               id="ajax"
@@ -225,13 +228,19 @@
             content-type ="application/json"
             on-response="loaded">
           </iron-ajax>
-
           <iron-ajax
           id="ajax3"
           url="/download"
           method="post"
           content-type ="application/json"
           on-response="downloaded">
+          </iron-ajax>
+          <iron-ajax
+          id="ajax4"
+          url="/download"
+          method="DELETE"
+          content-type ="application/json"
+          on-response="deletedimage">
           </iron-ajax>
               <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "display: inline-block; text-align: center; margin-top: 20px;">Save/Create</paper-button>
                <paper-button id="prev"  raised="" disabled="" style= "width:0%; text-align: center; margin-top: 20px;"><a target="_blank" href="/preview/" > preview </a></paper-button>
@@ -249,7 +258,6 @@
       <h4>
         Result
       </h4>
-
       <div id= "demo" style="word-wrap: break-word;">
         <div>
           Nothing to show
@@ -289,11 +297,23 @@
           page : {
             type : String,
             reflectToAttribute : true,
-            // observer: '_pageChanged',
           },
+
+          images : {
+            type : Array,
+            value : [],
+          },
+
+          id : {
+            type : String,
+            value : "No id yet"
+          }
         },
 
 
+        _deletepath : function(el){
+          return el.split('/')[2]
+        },
 
         fun : function(page){
           // console.log(page);
@@ -310,8 +330,6 @@
       },
 
         _hiddenprev : function(){
-          let id = this.$.articleid;
-          // console.log(id);
           let prevbutt = this.$.prev;
           this.$.prev.setAttribute("disabled","")
         },
@@ -406,32 +424,28 @@
 
         deleteverything: function(){
           this.$.articleid.childNodes[1].innerHTML = "No id yet"
+          this.id = "No id yet"
           this.$.inputbox.value = ""
           this.$.title.value=" "
           this.$.title.value=""
           this.$["title-field-title"].style="";
-          this.insertTextAtCursor(this.$.inputbox, value);
           this.clicked();
           this._hiddenprev();
-          // console.log(this.$.title);
+          this.$.upload.clear();
         },
 
         ajaxrequest : function(){
           let ajaxel = this.$.ajax;
           let txt = this.$.inputbox.value;
           let tle = this.$.title.value;
-          // console.log(this.$.articleid.childNodes[1].innerHTML);
           if(tle){
-            // console.log("title valid");
             let id = this.$.articleid.childNodes[1].innerHTML;
             if(id !== "No id yet"){
-              // console.log("Put Request");
               ajaxel.method="PUT"
-              ajaxel.body = JSON.stringify({"_id" : id, "text": txt, "title" : tle});
+              ajaxel.body = JSON.stringify({"_id" : id, "text": txt, "title" : tle, image : this.images});
             }else{
-              // console.log("Post Request");
               ajaxel.method="POST"
-              ajaxel.body = JSON.stringify({"text": txt, "title" : tle});
+              ajaxel.body = JSON.stringify({"text": txt, "title" : tle, image : this.images});
             }
             ajaxel.generateRequest();
 
@@ -450,6 +464,7 @@
           let id = this.$.articleid.childNodes[1].innerHTML;
           if(id === "No id yet"){
             this.$.articleid.childNodes[1].innerHTML = el.detail.response;
+            this.id = el.detail.response;
             this.$.toast.text = 'Created a new Article!';
             this.$.toast.show();
             this._shownprev("/preview/" + el.detail.response);
@@ -460,24 +475,40 @@
         },
 
         loaded : function(el){
-          // console.log(el.detail.response);
+          this.images = el.detail.response.image;
           this.$.inputbox.value = el.detail.response.text;
           this.$.inputbox.value += " "
           this.$.title.value = el.detail.response.title;
           this.$.articleid.childNodes[1].innerHTML = el.detail.response._id;
+          this.id = el.detail.response;
           this.clicked();
         },
 
         successfulupload : function(e){
-          let img = "/images/" + JSON.parse(e.detail.xhr.response).name;
-          // console.log("success");
-          this.addImage(img);
+          let img =  JSON.parse(e.detail.xhr.response).name;
+          this.addImage("/images/" + img);
           this.clicked();
+          this.push('images', "/images/" + img);
+        },
+
+        createid : function(){
+          let date = new Date();
+          let components = [
+              date.getYear(),
+              date.getMonth(),
+              date.getDate(),
+              date.getHours(),
+              date.getMinutes(),
+              date.getSeconds(),
+              date.getMilliseconds()
+          ];
+          let id = components.join("");
+          return id;
         },
 
         insertTextAtCursor: function(el, text)
         {
-          var val = el.value, endIndex, range;
+          let val = el.value, endIndex, range;
           if (typeof el.selectionStart != "undefined" && typeof el.selectionEnd != "undefined")
           {
              endIndex = el.selectionEnd;
@@ -503,7 +534,33 @@
            window.location = '/download';
         },
 
+        deleted : function(el){
+          let filename = el.target.parentNode.nextSibling.__compoundStorage__.textContent[1];
+          console.log(this.images);
+          el.target.parentNode.parentNode.outerHTML = "";
+          let index = this.images.indexOf(filename);
+          this.images.splice(index, 1);
+          console.log(this.images);
+          let ajaxel = this.$.ajax4;
+          ajaxel.body = JSON.stringify({"name" : filename})
+          ajaxel.generateRequest();
+          this.$.upload.clear();
+          this.clicked();
+          let id = this.$.articleid.childNodes[1].innerHTML;
+          if(id !== "No id yet"){
+            let txt = this.$.inputbox.value;
+            let tle = this.$.title.value;
+            let ajaxel = this.$.ajax;
+            ajaxel.method="PUT"
+            ajaxel.body = JSON.stringify({"text": txt, "title" : tle, image : this.images});
+            ajaxel.generateRequest();
+          }
 
+        },
+
+        deletedimage : function(res){
+          console.log("delete image!");
+        },
 
 
 

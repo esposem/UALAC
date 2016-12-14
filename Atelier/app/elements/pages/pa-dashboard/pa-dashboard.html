@@ -95,9 +95,6 @@
       input:focus ~ .bar:before, input:focus ~ .bar:after {
         width:50%;
       }
-
-
-
     </style>
 
 
@@ -109,7 +106,7 @@
       </div>
       <!-- <paper-input label="search here!" value="{{searchString::input}}"></paper-input> -->
       <template is="dom-repeat" items="{{artic}}" as="article" filter="{{computeFilter(searchString)}}">
-        <pa-widget widget="{{ widgets.about }}" art="{{article}}"></pa-widget>
+        <pa-widget widget="{{ widgets.about }}" art="{{fun(article)}}"></pa-widget>
       </template>
     </pa-simple-grid>
 
@@ -132,6 +129,11 @@
               return title.indexOf(string) != -1;
             }
           }
+        },
+
+        fun : function(el){
+          // console.log(el);
+          return el;
         },
 
         properties: {
