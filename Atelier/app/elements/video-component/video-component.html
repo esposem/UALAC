@@ -53,12 +53,72 @@
           default: 100
         }
 
+      },
 
+      _playOrPause: function()
+      {
+        if (ytv.state == 1 || ytv.state == 3)
+          ytv.pause();
+        if (ytv.state == 2 || ytv.state == -1)
+          ytv.play();
+        if (ytv.state == 0)
+        {
+          ytv.seekTo(0);
+          ytv.play();
+        }
+      },
+
+      _muteOrUnmute: function()
+      {
+        if (ytv._player.isMuted())
+          ytv.unMute();
+        else
+          ytv.mute();
+      },
+
+      _changeVolume: function(value)
+      {
+        if (ytv._player.getVolume() + value < 0)
+          ytv.setVolume(0);
+        else if (ytv._player.getVolume() + value > 100)
+          ytv.setVolume(100)
+        else
+          ytv.setVolume(ytv._player.getVolume() + value);
       },
 
       _handleKey: function(e) {
-        if (e.key == "1")
-          this._ariaSpeak("Questo è un testo di prova. Le mucche fanno mOO")
+        // play/pause
+        switch (e.key)
+        {
+          case "p":
+            this._playOrPause();
+            break;
+          case "m":
+            this._muteOrUnmute();
+            break;
+          case "+":
+            this._changeVolume(10);
+            break;
+          case "-":
+            this._changeVolume(-10);
+            break;
+          case ">":
+            ytv.seekTo(ytv.currenttime + 10);
+            break;
+          case "<":
+            ytv.seekTo(ytv.currenttime - 10);
+            break;
+          case "t":
+            let text = "";
+            let duration = Math.trunc(ytv.duration);
+            if (duration > 60)
+              text += Math.floor((duration / 60)) + " minutes, " + (duration % 60) + " seconds.";
+            else 
+              text += duration + " seconds."
+
+            this._ariaSpeak("Current time: " + ytv.currenttime + ". Total duration: " + text + ".");
+            break;
+        }
       },
 
 
@@ -113,31 +173,30 @@
       _ariaSpeak: function(textToSpeak)
       {
         let text = this.shadowRoot.getElementById("video-text")
-        console.log(this.calcoloBo(textToSpeak))
         if (this.pauseOnAria)
         {
           text.innerHTML = textToSpeak;
           ytv.pause();
-          setTimeout(function(){ytv.play();clearTimeout(this);}, this.calcoloBo(textToSpeak))
+          setTimeout(function(){ytv.play();clearTimeout(this);}, this._approxSpeakingTime(textToSpeak))
         }
         else
         {
           text.innerHTML = textToSpeak;
           ytv.mute();
-          setTimeout(function(){ytv.unMute();clearTimeout(this);}, this.calcoloBo(textToSpeak))
+          setTimeout(function(){ytv.unMute();clearTimeout(this);}, this._approxSpeakingTime(textToSpeak))
         }
 
 
       },
-        calcoloBo: function(textToSpeak)
-        {
-          let calcoloDellaVita = textToSpeak.length * 6;
-          calcoloDellaVita += (textToSpeak.match(new RegExp(".", "g")) || []).length * 80;
-          calcoloDellaVita += (textToSpeak.match(new RegExp("!", "g")) || []).length * 80;
-          //calcoloDellaVita += (textToSpeak.match(new RegExp("\?", "g")) || []).length * 100;
-          calcoloDellaVita += (textToSpeak.match(new RegExp("\,", "g")) || []).length * 50;
-          return calcoloDellaVita;
-        }
+      _approxSpeakingTime: function(textToSpeak)
+      {
+        let result = textToSpeak.length * 6;
+        result += (textToSpeak.match(new RegExp(".", "g")) || []).length * 80;
+        result += (textToSpeak.match(new RegExp("!", "g")) || []).length * 80;
+        //result += (textToSpeak.match(new RegExp("\?", "g")) || []).length * 100;
+        result += (textToSpeak.match(new RegExp("\,", "g")) || []).length * 50;
+        return result;
+      }
     });
 })();
   </script>
