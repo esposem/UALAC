@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const Article = mongoose.model('Article');
 const config = require("../../config");
+const security= require("../security.js")
 
 //fields we don't want to show to the client
 const fieldsFilter = { '__v': 0 };
@@ -17,7 +18,8 @@ router.all('/:artistid', middleware.supportedMethods('GET, PUT, DELETE, OPTIONS'
 router.all('/', middleware.supportedMethods('GET, POST, PUT, DELETE, OPTIONS'));
 
 //list albums
-router.get('/', function(req, res, next) {
+router.get('/', checkAuth, function(req, res, next) {
+
   Article.find({}, fieldsFilter).lean().populate('').exec(function(err, articles){
     if (err) return next (err);
     res.json(articles);
@@ -40,7 +42,7 @@ router.post('/', function(req, res, next) {
 
 
 //get a album
-router.get('/:articleid', function(req, res, next) {
+router.get('/:articleid',checkAuth, function(req, res, next) {
   // console.log("Hope");
   Article.findById(req.params.articleid, fieldsFilter).lean().populate('').exec(function(err, article){
     if (err) return next (err);
@@ -104,7 +106,14 @@ router.delete('/:articleid', function(req, res, next) {
   });
 });
 
-
+function checkAuth(req, res, next) {
+  console.log(security.block)
+  if (security.block) {
+    res.send('You are not authorized to view this page');
+  } else {
+    next();
+  }
+}
 
 /** router for /albums */
 module.exports = router;
