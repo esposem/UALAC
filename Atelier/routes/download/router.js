@@ -20,7 +20,11 @@ router.all('/:id', middleware.supportedMethods('GET, POST, DELETE'));
 router.all('/', middleware.supportedMethods('GET, POST, DELETE'));
 
 router.post('/', function(req, res, next) {
-  // console.log(req.body.text);
+  let imgarr = req.body.images;
+  // imgarr.forEach(function(el){
+  //   el = "./app/" + el;
+  //   console.log(el);
+  // })
   let filetoread = ['./app/elements/menu-item/menu-item.html', './app/elements/menu-component/menu-component.html',
   './app/elements/article-item/article-item.html', './app/elements/switch-view/switch-view.html',
   './app/elements/image-component/image-component.html'];
@@ -52,6 +56,20 @@ router.post('/', function(req, res, next) {
   let images = appf.folder("images");
   let article = elements.folder("article");
   let templ_file = article.folder("Template_files");
+
+  imgarr.forEach(function(el){
+    let contentPromise9 = new JSZip.external.Promise(function (resolve, reject) {
+        fs.readFile("./app/" + el, function(err, data) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+    let name = el.split('/')
+    images.file(name[name.length -1], contentPromise9);
+  })
 
   stylesel.forEach(function(el){
     let contentPromise8 = new JSZip.external.Promise(function (resolve, reject) {
@@ -152,7 +170,7 @@ router.post('/', function(req, res, next) {
       "<link rel=\"import\" href=\"./elements/article/the-temp.html\"> \n " +
     "</head>  \n "+
     "<body> \n " +
-    `<the-temp  \n text=\"false\" >  \n`  + req.body.text.ob  + `\n</the-temp>` +
+    `<the-temp  \n text=\"false\" >  \n`  + req.body.text  + `\n</the-temp>` +
     "</body> \n " +
   "</html> \n ");
 
