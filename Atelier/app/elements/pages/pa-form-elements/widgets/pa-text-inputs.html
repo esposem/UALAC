@@ -552,7 +552,7 @@
             let tle = this.$.title.value;
             let ajaxel = this.$.ajax;
             ajaxel.method="PUT"
-            ajaxel.body = JSON.stringify({"text": txt, "title" : tle, image : this.images});
+            ajaxel.body = JSON.stringify({"_id" : id, "text": txt, "title" : tle, image : this.images});
             ajaxel.generateRequest();
           }
 
