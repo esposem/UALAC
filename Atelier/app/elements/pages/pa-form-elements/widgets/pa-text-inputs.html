@@ -207,7 +207,7 @@
             <div id="imglist" style="display:flex; flex-direction: row; flex-wrap: wrap;">
               <template is="dom-repeat" items="{{images}}" as="button" >
                 <paper-icon-item style="margin-right:10px">
-                  <a href=""> <iron-icon icon="cancel" item-icon id="{{createid()}}" on-click="deleted"></iron-icon></a>
+                  <a href=""> <iron-icon icon="cancel" item-icon on-click="deleted"></iron-icon></a>
                   {{_deletepath(button)}}
                 </paper-icon-item>
               </template>
@@ -475,21 +475,6 @@
           this.push('images', "/images/" + img);
         },
 
-        createid : function(){
-          let date = new Date();
-          let components = [
-              date.getYear(),
-              date.getMonth(),
-              date.getDate(),
-              date.getHours(),
-              date.getMinutes(),
-              date.getSeconds(),
-              date.getMilliseconds()
-          ];
-          let id = components.join("");
-          return id;
-        },
-
         insertTextAtCursor: function(el, text)
         {
           let val = el.value, endIndex, range;
@@ -510,7 +495,7 @@
 
          export : function(){
           let ajaxel = this.$.ajax3;
-          ajaxel.body = JSON.stringify({"text" :   { "ob" : this.$.inputbox.value}});
+          ajaxel.body = JSON.stringify({"text" :   this.$.inputbox.value, images : this.images});
           ajaxel.generateRequest();
          },
 
@@ -543,9 +528,7 @@
         },
 
         listallimages : function(res){
-          console.log(res.detail.response);
           this.set('serverimg',res.detail.response);
-          console.log(this.serverimg);
         },
 
 
