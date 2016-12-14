@@ -212,8 +212,16 @@
                 </paper-icon-item>
               </template>
             </div>
+            <div id="imglistserver" style="display:flex; flex-direction: row; flex-wrap: wrap;">
+              <template is="dom-repeat" items="{{serverimg}}" as="el" >
+                <paper-icon-item style="margin-right:10px">
+                  {{el}}
+                </paper-icon-item>
+              </template>
+            </div>
+
             <br>
-            <textarea id="inputbox" label="Write the article here" on-keypress="checkBr" on-input="clicked" value=" "></textarea>
+            <textarea id="inputbox" label="Write the article here"  on-input="clicked" value=" "></textarea>
             <div style="display:flex; flex-direction: row-reverse;">
               <iron-ajax
               id="ajax"
@@ -240,8 +248,14 @@
           id="ajax4"
           url="/download"
           method="DELETE"
+          content-type ="application/json">
+          </iron-ajax>
+          <iron-ajax
+          id="ajax5"
+          url="/all"
+          method="GET"
           content-type ="application/json"
-          on-response="deletedimage">
+          on-response="listallimages">
           </iron-ajax>
               <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "display: inline-block; text-align: center; margin-top: 20px;">Save/Create</paper-button>
                <paper-button id="prev"  raised="" disabled="" style= "width:0%; text-align: center; margin-top: 20px;"><a target="_blank" href="/preview/" > preview </a></paper-button>
@@ -275,26 +289,6 @@
       Polymer({
         is: 'pa-text-inputs',
         properties : {
-
-          html_clicked : {
-            type : Boolean,
-            value : false,
-          },
-
-          br_clicked : {
-            type : Boolean,
-            value : false,
-          },
-
-          wrotebefore : {
-            type : String,
-          },
-
-          hiddenClass: {
-            type : String,
-            value : ""
-          },
-
           page : {
             type : String,
             reflectToAttribute : true,
@@ -305,10 +299,17 @@
             value : [],
           },
 
-          id : {
-            type : String,
-            value : "No id yet"
-          }
+          serverimg : {
+            type : Array,
+            value : []
+          },
+
+        },
+
+        ready : function(){
+          let ajaxel = this.$.ajax5
+          ajaxel.method = "GET"
+          ajaxel.generateRequest();
         },
 
 
@@ -359,27 +360,11 @@
         },
 
         clicked: function(e) {
-          // console.log(e.keyCode);
           let x = this.$.inputbox.value;
           let text = x || "Nothing to show";
-          if(this.html_clicked) {
-            text = text.split("<").join("&#60;");
-            text = text.split(">").join("&#62;");
-            text = text.split("\n").join("<br>");
-          } else {
-            // text = text.split("<br>").join("\n");
-          }
           this.$.demo.childNodes[1].innerHTML =  text;
-          this.wrotebefore = text;
-          // this.$.inputbox.value = "a" + this.$.inputbox.value;
         },
 
-        checkBr: function(e) {
-          if (this.br_clicked && !this.html_clicked && e.keyCode == 13) {
-            e.preventDefault();
-            this.$.inputbox.value += "<br>\n";
-          }
-        },
 
         addImage: function(img) {
           let value = "\n<image-component "+ '\n' +
@@ -426,7 +411,6 @@
 
         deleteverything: function(){
           this.$.articleid.childNodes[1].innerHTML = "No id yet"
-          this.id = "No id yet"
           this.$.inputbox.value = ""
           this.$.title.value=" "
           this.$.title.value=""
@@ -466,7 +450,6 @@
           let id = this.$.articleid.childNodes[1].innerHTML;
           if(id === "No id yet"){
             this.$.articleid.childNodes[1].innerHTML = el.detail.response;
-            this.id = el.detail.response;
             this.$.toast.text = 'Created a new Article!';
             this.$.toast.show();
             this._shownprev("/preview/" + el.detail.response);
@@ -482,7 +465,6 @@
           this.$.inputbox.value += " "
           this.$.title.value = el.detail.response.title;
           this.$.articleid.childNodes[1].innerHTML = el.detail.response._id;
-          this.id = el.detail.response;
           this.clicked();
         },
 
@@ -538,11 +520,11 @@
 
         deleted : function(el){
           let filename = el.target.parentNode.nextSibling.__compoundStorage__.textContent[1];
-          console.log(this.images);
+          // console.log(this.images);
           el.target.parentNode.parentNode.outerHTML = "";
           let index = this.images.indexOf(filename);
           this.images.splice(index, 1);
-          console.log(this.images);
+          // console.log(this.images);
           let ajaxel = this.$.ajax4;
           ajaxel.body = JSON.stringify({"name" : filename})
           ajaxel.generateRequest();
@@ -560,8 +542,10 @@
 
         },
 
-        deletedimage : function(res){
-          console.log("delete image!");
+        listallimages : function(res){
+          console.log(res.detail.response);
+          this.set('serverimg',res.detail.response);
+          console.log(this.serverimg);
         },
 
 

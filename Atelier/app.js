@@ -57,6 +57,34 @@ app.get('/download', function(req,res, next){
 
 });
 
+app.get('/all', function(req,res,next){
+  console.log("list all files!");
+  let arr = [];
+  fs.readdir("./app/images", (err, files) => {
+    console.log(files);
+    res.json(files);
+  })
+
+});
+
+// doAsyncstuff(listOfItems, cb){
+//     var totalItems = listOfItems.length;
+//     var processed = 0;
+//     listOfItems.forEach(function(item){
+//       fs.lstat(item, function(err, stat){
+//         processed++;
+//         if(stat.isFile()) // create file link
+//         if(stat.isDir()) create dir link
+//         if (processed == totalItems){
+//           cb(err, links)
+//         }
+//       })
+//     })
+// }
+
+
+
+
 const routers = require('./routes/routers');
 app.use('/', routers.root);
 

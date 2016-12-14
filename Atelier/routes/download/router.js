@@ -19,7 +19,6 @@ const fieldsFilter = { '__v': 0 };
 router.all('/:id', middleware.supportedMethods('GET, POST, DELETE'));
 router.all('/', middleware.supportedMethods('GET, POST, DELETE'));
 
-//get a album
 router.post('/', function(req, res, next) {
   // console.log(req.body.text);
   let filetoread = ['./app/elements/menu-item/menu-item.html', './app/elements/menu-component/menu-component.html',
