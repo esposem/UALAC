@@ -137,12 +137,20 @@
         height: 300px;
       }
 
+      #imglistserver {
+        display:flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
       .uploaddiv{
         height: 40px;
+        display: flex;
+        flex-direction: row;
       }
 
       .hidden {
-        display: none;
+        display: none! important;
       }
 
       #upload {
@@ -196,7 +204,7 @@
 
           <br></br>
           <div style="display:flex; flex-direction: column;">
-            <div class="uploaddiv" style="display: flex; flex-direction: row;">
+            <div id="uploaddiv" class="uploaddiv hidden">
               <paper-button tabindex="0" raised on-click="addSwitch" style="width: auto; text-align: center;">Switch View</paper-button>
               <paper-button tabindex="0" raised on-click="addVideo" style="width: auto; text-align: center;">Embed Video</paper-button>
               <paper-button tabindex="0" raised on-click="addImage" style="width: auto; text-align: center;">Image</paper-button>
@@ -213,7 +221,7 @@
                 </paper-icon-item>
               </template>
             </div>
-            <div id="imglistserver" style="display:flex; flex-direction: row; flex-wrap: wrap;">
+            <div id="imglistserver" class="hidden">
               <template is="dom-repeat" items="{{serverimg}}" as="el" filter="isblank">
                 <paper-icon-item style="margin-right:10px;text-decoration: underline;" on-click="addExistingImage" data-args$="{{el}}">
                   {{el}}
@@ -222,7 +230,7 @@
             </div>
 
             <br>
-            <textarea id="inputbox" label="Write the article here"  on-input="clicked" value=" "></textarea>
+            <textarea id="inputbox" class="hidden" label="Write the article here"  on-input="clicked" value=" "></textarea>
             <div style="display:flex; flex-direction: row-reverse;">
               <iron-ajax
               id="ajax"
@@ -259,8 +267,8 @@
           on-response="listallimages">
           </iron-ajax>
               <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "display: inline-block; text-align: center; margin-top: 20px;">Save/Create</paper-button>
-               <paper-button id="prev"  raised="" disabled="" style= "width:0%; text-align: center; margin-top: 20px;"><a target="_blank" href="/preview/" > preview </a></paper-button>
-               <paper-button id="exp"  raised=""  style= "width:0%; text-align: center; margin-top: 20px;" on-click="export"> Export </paper-button>
+               <paper-button id="prev" class="hidden" raised="" disabled="" style= "width:0%; text-align: center; margin-top: 20px;"><a target="_blank" href="/preview/" > preview </a></paper-button>
+               <paper-button id="exp" class="hidden" raised=""  style= "width:0%; text-align: center; margin-top: 20px;" on-click="export"> Export </paper-button>
             </div>
           </div>
         </div>
@@ -269,7 +277,7 @@
 
     <br>
     <br>
-    <pa-simple-grid sm-cols="1" >
+    <pa-simple-grid id="preview" class="hidden" sm-cols="1" >
       <paper-material class="widget" elevation="1">
       <h4>
         Result
@@ -366,6 +374,15 @@
             ajaxel.generateRequest();
             this._shownprev("/preview/" + subroute);
           }
+          if (this.subrouteData) {
+            console.log("article id exists")
+            this.$.uploaddiv.className = "uploaddiv";
+            this.$.imglistserver.className = "";
+            this.$.inputbox.className = "";
+            this.$.exp.className = "";
+            this.$.prev.className = "";
+            this.$.preview.className = "";
+          }
         },
 
         clicked: function(e) {
@@ -459,6 +476,12 @@
           this._hiddenprev();
           this.$.upload.clear();
           this.images = [];
+          this.$.uploaddiv.className = "uploaddiv hidden";
+          this.$.imglistserver.className = "hidden";
+          this.$.inputbox.className = "hidden";
+          this.$.exp.className = "hidden";
+          this.$.prev.className = "hidden";
+          this.$.preview.className = "hidden";
         },
 
         ajaxrequest : function(){
@@ -494,6 +517,12 @@
             this.$.toast.text = 'Created a new Article!';
             this.$.toast.show();
             this._shownprev("/preview/" + el.detail.response);
+            this.$.uploaddiv.className = "uploaddiv";
+            this.$.imglistserver.className = "";
+            this.$.inputbox.className = "";
+            this.$.exp.className = "";
+            this.$.prev.className = "";
+            this.$.preview.className = "  ";
           }else{
             this.$.toast.text = 'Article ' + id + " updated!";
             this.$.toast.show();
