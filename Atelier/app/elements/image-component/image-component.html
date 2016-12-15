@@ -89,7 +89,7 @@
 
         }
 
-        let image = htmlToElement("<img src=\"" + this.src + "\" alt=\"" + this.alt + "\" width=\"100%\" aria-hidden=\"true\">")
+        let image = htmlToElement("<img src=\"" + this.src + "\" alt=\"" + this.alt + "\" width=\"auto\" style=\"max-height:400px; display: block; margin: 0 auto;\" aria-hidden=\"true\">")
         this.shadowRoot.appendChild(image);
         this.addEventListener("keydown", this._hearDescription, true);
       },
