@@ -270,9 +270,11 @@
         Result
       </h4>
       <div id= "demo" style="word-wrap: break-word;">
+
         <div>
           Nothing to show
         </div>
+        <div id="hiddendiv" style="display: none;"></div>
       </div>
     </paper-material>
   </pa-simple-grid>
@@ -368,8 +370,7 @@
 
 
         uploadedImage: function(img) {
-
-          let value = "\n<image-component "+ '\n' +
+          let value = "\n<image-component id=\""+ img.split('/')[3] +"\"" + '\n' +
           "src= \"" + img + "\"\nalt=\"image\""+ '\n'+
           " normal=\"normal description\" "+ '\n' +
           " simplified=\"simplified description\" " + '\n'+ " emotional=\"emotional description\" "+ '\n' +
@@ -379,24 +380,25 @@
           this.clicked();
         },
 
-        addExistingImage: function(e)
-        {
-          let args = e.target.getAttribute('data-args').split(',');
-          let value = "\n<image-component "+ '\n' +
-          "src= \"\\images\\" + args[0] + "\"\nalt=\"image\""+ '\n'+
-          " normal=\"normal description\" "+ '\n' +
-          " simplified=\"simplified description\" " + '\n'+ " emotional=\"emotional description\" "+ '\n' +
-          " text=\"text to speak\"\n" +
-          "style=\"display: block; width: 100%;\"" + "\n></image-component>";
-          this.insertTextAtCursor(this.$.inputbox, value);
-          this.clicked();
-          this.push('images', "/images/" +args[0]);
-          console.log(this.images);
-        },
+        // addExistingImage: function(e)
+        // {
+        //   let args = e.target.getAttribute('data-args').split(',');
+        //   console.log( args[0]);
+        //   let value = "\n<image-component id=\""+ args[0] +"\"" + '\n' +
+        //   "src= \"\\images\\" + args[0] + "\"\nalt=\"image\""+ '\n'+
+        //   " normal=\"normal description\" "+ '\n' +
+        //   " simplified=\"simplified description\" " + '\n'+ " emotional=\"emotional description\" "+ '\n' +
+        //   " text=\"text to speak\"\n" +
+        //   "style=\"display: block; width: 100%;\"" + "\n></image-component>";
+        //   this.insertTextAtCursor(this.$.inputbox, value);
+        //   this.clicked();
+        //   this.push('images', "/images/" +args[0]);
+        //   console.log(this.images);
+        // },
 
         addImage: function() {
           let id = this.$.articleid.childNodes[1].innerHTML;
-          let value = "\n<image-component "+ '\n' +
+          let value = "\n<image-component " + '\n' +
           "src= \"/images/"+ id +"/\" \n alt=\"image\""+ '\n'+
           " normal=\"normal description\" "+ '\n' +
           " simplified=\"simplified description\" " + '\n'+ " emotional=\"emotional description\" "+ '\n' +
@@ -561,7 +563,24 @@
 
         deleted : function(el){
           let filename = el.target.parentNode.nextSibling.__compoundStorage__.textContent[1];
-          // console.log(this.images);
+          let txt = this.$.inputbox.value;
+
+          this.$.hiddendiv.innerHTML = txt;
+          let arr = this.$.hiddendiv.childNodes;
+          for(let i = 0; i < arr.length; i++){
+            if(filename === arr[i].id){
+              this.$.hiddendiv.removeChild(arr[i]);
+              // arr.splice(i,1);
+              // arr[i].outerHTML="";
+              // console.log(arr[i]);
+              break;
+            }
+          }
+          this.$.inputbox.value = this.$.hiddendiv.innerHTML;
+          // console.log(txt);
+          this.$.hiddendiv.innerHTML = "";
+          this.clicked()
+
           el.target.parentNode.parentNode.outerHTML = "";
           let index = this.images.indexOf(filename);
           this.images.splice(index, 1);
@@ -571,12 +590,12 @@
           ajaxel.generateRequest();
           this.$.upload.clear();
           this.clicked();
-          let txt = this.$.inputbox.value;
           let tle = this.$.title.value;
           let ajaxel2 = this.$.ajax;
           ajaxel2.method="PUT"
-          ajaxel2.body = JSON.stringify({"_id" : id, "text": txt, "title" : tle, image : this.images});
+          ajaxel2.body = JSON.stringify({"_id" : id, "text": this.$.inputbox.value, "title" : tle, image : this.images});
           ajaxel2.generateRequest();
+
         },
 
 
