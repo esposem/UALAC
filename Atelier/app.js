@@ -7,6 +7,7 @@ const app = express();
 const formidable = require('formidable');
 const fs = require('fs');
 const JSZip = require("jszip");
+const session = require("express-session");
 // const security= require("./routes/security.js")
 require('./models/Article');
 
@@ -15,6 +16,11 @@ const mongoose   = require('mongoose');
 const Article = mongoose.model('Article');
 mongoose.connect(config.mongoUrl + config.mongoDbName);
 
+app.use(session({
+  secret : "realgianma"
+}));
+
+let sessions = [];
 
 // Register model definition here
 require('./models');
@@ -43,6 +49,17 @@ app.use(express.static(path.join(__dirname, 'app')));
 //     res.send('Bad user/pass');
 //   }
 // });
+
+app.post('/', function (req, res) {
+  var post = req.body;
+  console.log(req.session)
+  if (post.username === 'admin' && post.password === 'admin') {
+    sessions.push(req.session.id);
+    res.redirect('/dashboard');
+  } else {
+    res.send('Bad user/pass');
+  }
+});
 
 app.post('/upload', function(req, res) {
   let form = new formidable.IncomingForm(
@@ -91,7 +108,7 @@ app.use('/', routers.root);
 
 // intercepts requests that accept html and haven't been served
 // from the static middleware, to send the main page
-app.use('*', function(req,res, next){
+app.use('*', checkAuth, function(req,res, next){
   if(req.accepts('html')){
     const options = {
         root: __dirname + '/app/',
@@ -101,7 +118,7 @@ app.use('*', function(req,res, next){
 
   next();
 })
-//
+
 // function checkAuth(req, res, next) {
 //   console.log(security.block)
 //   if (security.block) {
@@ -111,6 +128,14 @@ app.use('*', function(req,res, next){
 //   }
 // }
 
+function checkAuth(req, res, next) {
+  console.log(security.block)
+  if (sessions.indexOf(req.session.id) > -1) {
+    next();
+  } else {
+    res.send('You are not authorized to view this page');
+  }
+}
 
 // json serving routes
 app.use('/dashboard', routers.dashboard);
