@@ -8,7 +8,6 @@ const formidable = require('formidable');
 const fs = require('fs');
 const JSZip = require("jszip");
 const session = require("express-session");
-// const security= require("./routes/security.js")
 require('./models/Article');
 
 // Connect to MongoDB here
@@ -36,44 +35,18 @@ app.use(bodyParser.json());    // parse application/json
 // static files are served from /app
 app.use(express.static(path.join(__dirname, 'app')));
 
-
-
-// Initialize routers here
-// app.post('/', function (req, res) {
-//   console.log("srvhfcnaoilsucrbpxaeinlusyerbcxan,urcqpiwaxnlizudyalw x")
-//   var post = req.body;
-//   console.log(req.session)
-//   if (post.username === 'admin' && post.password === 'admin') {
-//     security.block = false;
-//     res.redirect('/dashboard');
-//   } else {
-//     security.block = true;
-//     res.send('Bad user/pass');
-//   }
-// });
-
-app.post('/', function (req, res) {
-  var post = req.body;
-  console.log(req.session)
-  if (post.username === 'admin' && post.password === 'admin') {
-    sessions.push(req.session.id);
-    res.redirect('/dashboard');
-  } else {
-    res.send('Bad user/pass');
-  }
-});
-
-app.post('/upload', function(req, res) {
+app.post('/upload/:id', function(req, res) {
+  let folder = req.params.id;
   let form = new formidable.IncomingForm(
     {
-      uploadDir: __dirname + '/app/images/',
+      uploadDir: __dirname + '/app/images/' + folder,
       keepExtensions: true
     }
   );
 
   form.parse(req, function(err, fields, files) {
     let fileName = files.file.name;
-    fs.rename(files.file.path, __dirname + '/app/images/' + fileName);
+    fs.rename(files.file.path, __dirname + '/app/images/' + folder + "/" + fileName);
     res.json({name : fileName});
     res.end();
   });
@@ -121,22 +94,6 @@ app.use('*', function(req,res, next){
   next();
 })
 
-// function checkAuth(req, res, next) {
-//   console.log(security.block)
-//   if (security.block) {
-//     res.send('You are not authorized to view this page');
-//   } else {
-//     next();
-//   }
-// }
-
-function checkAuth(req, res, next) {
-  if (sessions.indexOf(req.session.id) > -1) {
-    next();
-  } else {
-    res.send('You are not authorized to view this page');
-  }
-}
 
 // json serving routes
 app.use('/dashboard', routers.dashboard);

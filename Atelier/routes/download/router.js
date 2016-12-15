@@ -21,10 +21,6 @@ router.all('/', middleware.supportedMethods('GET, POST, DELETE'));
 
 router.post('/', function(req, res, next) {
   let imgarr = req.body.images;
-  // imgarr.forEach(function(el){
-  //   el = "./app/" + el;
-  //   console.log(el);
-  // })
   let filetoread = ['./app/elements/menu-item/menu-item.html', './app/elements/menu-component/menu-component.html',
   './app/elements/article-item/article-item.html', './app/elements/switch-view/switch-view.html',
   './app/elements/image-component/image-component.html'];
@@ -190,7 +186,7 @@ router.post('/', function(req, res, next) {
 
 router.delete('/', function(req,res, next){
   let name = req.body.name;
-  fs.unlink('./app/images/' + name, (err) => {
+  fs.unlink('./app/images/' + req.body.id + "/" + name, (err) => {
   if (err) throw err;
   // console.log('successfully deleted !');
   res.sendStatus(204);

@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
 const Article = mongoose.model('Article');
 const config = require("../../config");
-// const security= require("../security.js")
+const fs = require('fs.extra');
 
 //fields we don't want to show to the client
 const fieldsFilter = { '__v': 0 };
@@ -19,7 +19,6 @@ router.all('/', middleware.supportedMethods('GET, POST, PUT, DELETE, OPTIONS'));
 
 //list albums
 router.get('/', function(req, res, next) {
-
   Article.find({}, fieldsFilter).lean().populate('').exec(function(err, articles){
     if (err) return next (err);
     res.json(articles);
@@ -36,7 +35,11 @@ router.post('/', function(req, res, next) {
   }
     const newArticle = new Article(req.body);
     newArticle.save();
-    res.json(newArticle._id)
+    res.json(newArticle._id);
+    fs.mkdir("./app/images/" + newArticle._id, function(err){
+      console.log(err);
+    });
+
     // console.log(newArticle._id);
 });
 
@@ -61,7 +64,6 @@ router.get('/:articleid', function(req, res, next) {
 //update a album
 router.put('/', function(req, res, next) {
   const data = req.body;
-  console.log("PUT " + req.body);
 
   Article.findById(req.body._id, fieldsFilter , function(err, article){
     if (err) return next (err);
@@ -80,6 +82,9 @@ router.put('/', function(req, res, next) {
       const newArticle = new Article(req.body);
       newArticle.save();
       res.json(newArticle._id)
+      fs.mkdir("./app/images/" + newArticle._id, function(err){
+        console.log(err);
+      });
     }
 
   });
@@ -101,7 +106,12 @@ router.delete('/:articleid', function(req, res, next) {
     }
     article.remove(function(err, removed){
       if (err) return next (err);
-      res.status(204).end();
+      fs.rmrf('./app/images/' + req.params.articleid, function (err) {
+        if (err) {
+          console.error(err);
+        }
+        res.status(204).end();
+      });
     })
   });
 });

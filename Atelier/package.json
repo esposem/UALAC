@@ -4,8 +4,8 @@
   "description": "Exercise 7 of Web Atelier@inf.usi.ch. Web Components",
   "main": "app.js",
   "scripts": {
-    "start": "DEBUG='atelierbeats-server' node ./bin/www",
-    "start:dev": "DEBUG='atelierbeats-server' nodemon ./bin/www"
+    "start": "DEBUG='ualac-server' node ./bin/www",
+    "start:dev": "DEBUG='ualac-server' nodemon ./bin/www"
   },
   "keywords": [
     "Node.js",
@@ -20,6 +20,7 @@
     "debug": "^2.2.0",
     "express": "^4.13.3",
     "express-session": "^1.14.2",
+    "fs.extra": "^1.3.2",
     "jszip": "^3.1.3",
     "method-override": "^2.3.5",
     "mongoose": "^4.1.11",

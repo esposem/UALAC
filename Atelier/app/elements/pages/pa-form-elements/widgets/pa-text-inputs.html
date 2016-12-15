@@ -158,7 +158,6 @@
           padding: 0;
         }
       }
-
     </style>
     <pa-simple-grid sm-cols="1">
       <paper-material class="widget" elevation="1">
@@ -209,7 +208,7 @@
               <paper-button tabindex="0" raised on-click="addVideo" style="width: auto; text-align: center;">Embed Video</paper-button>
               <paper-button tabindex="0" raised on-click="addImage" style="width: auto; text-align: center;">Image</paper-button>
               <div>
-                <file-upload raised id="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry"  >Upload Image</file-upload>
+                <file-upload raised id="upload" target="/upload" method="POST" accept="image/*" errorText="error! please retry"  >Upload Image</file-upload>
               </div>
             </div>
             <br>
@@ -221,12 +220,7 @@
                 </paper-icon-item>
               </template>
             </div>
-            <div id="imglistserver" class="hidden">
-              <template is="dom-repeat" items="{{serverimg}}" as="el" filter="isblank">
-                <paper-icon-item style="margin-right:10px;text-decoration: underline;" on-click="addExistingImage" data-args$="{{el}}">
-                  {{el}}
-                </paper-icon-item>
-              </template>
+            <div id="imglistserver" style="display:flex; flex-direction: row; flex-wrap: wrap;">
             </div>
 
             <br>
@@ -258,13 +252,6 @@
           url="/download"
           method="DELETE"
           content-type ="application/json">
-          </iron-ajax>
-          <iron-ajax
-          id="ajax5"
-          url="/all"
-          method="GET"
-          content-type ="application/json"
-          on-response="listallimages">
           </iron-ajax>
               <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "display: inline-block; text-align: center; margin-top: 20px;">Save/Create</paper-button>
                <paper-button id="prev" class="hidden" raised="" disabled="" style= "width:0%; text-align: center; margin-top: 20px;"><a target="_blank" href="/preview/" > preview </a></paper-button>
@@ -308,22 +295,10 @@
             value : [],
           },
 
-          serverimg : {
-            type : Array,
-            value : []
-          },
-
         },
-
-        ready : function(){
-          let ajaxel = this.$.ajax5
-          ajaxel.method = "GET"
-          ajaxel.generateRequest();
-        },
-
 
         _deletepath : function(el){
-            return el.split('/')[2];
+            return el.split('/')[3];
         },
 
         isblank : function(el){
@@ -374,8 +349,8 @@
             ajaxel.generateRequest();
             this._shownprev("/preview/" + subroute);
           }
-          if (this.subrouteData) {
-            console.log("article id exists")
+          if (this.subrouteData.articleid) {
+
             this.$.uploaddiv.className = "uploaddiv";
             this.$.imglistserver.className = "";
             this.$.inputbox.className = "";
@@ -420,8 +395,9 @@
         },
 
         addImage: function() {
+          let id = this.$.articleid.childNodes[1].innerHTML;
           let value = "\n<image-component "+ '\n' +
-          "src= \"\"\nalt=\"image\""+ '\n'+
+          "src= \"/images/"+ id +"/\" \n alt=\"image\""+ '\n'+
           " normal=\"normal description\" "+ '\n' +
           " simplified=\"simplified description\" " + '\n'+ " emotional=\"emotional description\" "+ '\n' +
           " text=\"text to speak\"\n" +
@@ -511,6 +487,7 @@
         },
 
         finished : function(el){
+          console.log()
           let id = this.$.articleid.childNodes[1].innerHTML;
           if(id === "No id yet"){
             this.$.articleid.childNodes[1].innerHTML = el.detail.response;
@@ -527,12 +504,12 @@
             this.$.toast.text = 'Article ' + id + " updated!";
             this.$.toast.show();
           }
+          this.$.upload.target = "/upload/" + this.$.articleid.childNodes[1].innerHTML;
         },
 
         loaded : function(el){
+          this.$.upload.target = "/upload/" + el.detail.response._id;
           this.images = el.detail.response.image;
-          console.log(this.images[0]);
-          // console.log(this.images);
           this.$.inputbox.value = el.detail.response.text;
           this.$.inputbox.value += " "
           this.$.title.value = el.detail.response.title;
@@ -542,11 +519,17 @@
         },
 
         successfulupload : function(e){
+          let id = this.$.articleid.childNodes[1].innerHTML;
           let img =  JSON.parse(e.detail.xhr.response).name;
-          this.uploadedImage("/images/" + img);
+          this.uploadedImage("/images/" + id + "/" + img);
           this.clicked();
-          this.push('images', "/images/" + img);
-          this.push('serverimg', img);
+          this.push('images', "/images/" + id + "/" + img);
+          let txt = this.$.inputbox.value;
+          let tle = this.$.title.value;
+          let ajaxel2 = this.$.ajax;
+          ajaxel2.method="PUT"
+          ajaxel2.body = JSON.stringify({"_id" : id, "text": txt, "title" : tle, image : this.images});
+          ajaxel2.generateRequest();
         },
 
         insertTextAtCursor: function(el, text)
@@ -565,7 +548,7 @@
              range.text = text;
              range.select();
           }
-         },
+        },
 
          export : function(){
           let ajaxel = this.$.ajax3;
@@ -583,29 +566,20 @@
           el.target.parentNode.parentNode.outerHTML = "";
           let index = this.images.indexOf(filename);
           this.images.splice(index, 1);
-          let index2 = this.serverimg.indexOf(filename);
-          this.splice('serverimg', index2, 1);
+          let id = this.$.articleid.childNodes[1].innerHTML;
           let ajaxel = this.$.ajax4;
-          ajaxel.body = JSON.stringify({"name" : filename})
+          ajaxel.body = JSON.stringify({"name" : filename , "id" : id})
           ajaxel.generateRequest();
           this.$.upload.clear();
           this.clicked();
-          let id = this.$.articleid.childNodes[1].innerHTML;
-          if(id !== "No id yet"){
-            let txt = this.$.inputbox.value;
-            let tle = this.$.title.value;
-            let ajaxel = this.$.ajax;
-            ajaxel.method="PUT"
-            ajaxel.body = JSON.stringify({"_id" : id, "text": txt, "title" : tle, image : this.images});
-            ajaxel.generateRequest();
-          }
-
-
+          let txt = this.$.inputbox.value;
+          let tle = this.$.title.value;
+          let ajaxel2 = this.$.ajax;
+          ajaxel2.method="PUT"
+          ajaxel2.body = JSON.stringify({"_id" : id, "text": txt, "title" : tle, image : this.images});
+          ajaxel2.generateRequest();
         },
 
-        listallimages : function(res){
-          this.set('serverimg',res.detail.response);
-        },
 
 
 
