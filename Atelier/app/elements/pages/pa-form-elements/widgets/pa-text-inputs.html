@@ -206,7 +206,7 @@
             </div>
             <br>
             <div id="imglist" style="display:flex; flex-direction: row; flex-wrap: wrap;">
-              <template is="dom-repeat" items="{{images}}" as="button" >
+              <template is="dom-repeat" items="{{images}}" as="button" filter="isblank2">
                 <paper-icon-item style="margin-right:10px">
                   <a href=""> <iron-icon icon="cancel" item-icon on-click="deleted"></iron-icon></a>
                   {{_deletepath(button)}}
@@ -214,7 +214,7 @@
               </template>
             </div>
             <div id="imglistserver" style="display:flex; flex-direction: row; flex-wrap: wrap;">
-              <template is="dom-repeat" items="{{serverimg}}" as="el" >
+              <template is="dom-repeat" items="{{serverimg}}" as="el" filter="isblank">
                 <paper-icon-item style="margin-right:10px;text-decoration: underline;" on-click="addExistingImage" data-args$="{{el}}">
                   {{el}}
                 </paper-icon-item>
@@ -315,7 +315,15 @@
 
 
         _deletepath : function(el){
-          return el.split('/')[2]
+            return el.split('/')[2];
+        },
+
+        isblank : function(el){
+          return el !== "blank-user.jpg";
+        },
+
+        isblank2 : function(el){
+          return el !== "/images/blank-user.jpg";
         },
 
         fun : function(page){
@@ -447,6 +455,7 @@
           this.clicked();
           this._hiddenprev();
           this.$.upload.clear();
+          this.images = [];
         },
 
         ajaxrequest : function(){
@@ -490,11 +499,14 @@
 
         loaded : function(el){
           this.images = el.detail.response.image;
+          console.log(this.images[0]);
+          // console.log(this.images);
           this.$.inputbox.value = el.detail.response.text;
           this.$.inputbox.value += " "
           this.$.title.value = el.detail.response.title;
           this.$.articleid.childNodes[1].innerHTML = el.detail.response._id;
           this.clicked();
+          this.$.upload.clear();
         },
 
         successfulupload : function(e){
