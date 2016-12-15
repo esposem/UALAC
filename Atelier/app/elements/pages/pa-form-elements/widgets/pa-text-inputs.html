@@ -199,6 +199,7 @@
             <div class="uploaddiv" style="display: flex; flex-direction: row;">
               <paper-button tabindex="0" raised on-click="addSwitch" style="width: auto; text-align: center;">Switch View</paper-button>
               <paper-button tabindex="0" raised on-click="addVideo" style="width: auto; text-align: center;">Embed Video</paper-button>
+              <paper-button tabindex="0" raised on-click="addImage" style="width: auto; text-align: center;">Image</paper-button>
               <div>
                 <file-upload raised id="upload" target="/upload"  method="POST" accept="image/*" errorText="error! please retry"  >Upload Image</file-upload>
               </div>
@@ -214,7 +215,7 @@
             </div>
             <div id="imglistserver" style="display:flex; flex-direction: row; flex-wrap: wrap;">
               <template is="dom-repeat" items="{{serverimg}}" as="el" >
-                <paper-icon-item style="margin-right:10px">
+                <paper-icon-item style="margin-right:10px;text-decoration: underline;" on-click="addExistingImage" data-args$="{{el}}">
                   {{el}}
                 </paper-icon-item>
               </template>
@@ -366,7 +367,8 @@
         },
 
 
-        addImage: function(img) {
+        uploadedImage: function(img) {
+
           let value = "\n<image-component "+ '\n' +
           "src= \"" + img + "\"\nalt=\"image\""+ '\n'+
           " normal=\"normal description\" "+ '\n' +
@@ -374,6 +376,31 @@
           " text=\"text to speak\"\n" +
           "style=\"display: block; width: 100%;\"" + "\n></image-component>";
           this.insertTextAtCursor(this.$.inputbox, value);
+          this.clicked();
+        },
+
+        addExistingImage: function(e)
+        {
+          let args = e.target.getAttribute('data-args').split(',');
+          let value = "\n<image-component "+ '\n' +
+          "src= \"\\images\\" + args[0] + "\"\nalt=\"image\""+ '\n'+
+          " normal=\"normal description\" "+ '\n' +
+          " simplified=\"simplified description\" " + '\n'+ " emotional=\"emotional description\" "+ '\n' +
+          " text=\"text to speak\"\n" +
+          "style=\"display: block; width: 100%;\"" + "\n></image-component>";
+          this.insertTextAtCursor(this.$.inputbox, value);
+          this.clicked();
+        },
+
+        addImage: function() {
+          let value = "\n<image-component "+ '\n' +
+          "src= \"\"\nalt=\"image\""+ '\n'+
+          " normal=\"normal description\" "+ '\n' +
+          " simplified=\"simplified description\" " + '\n'+ " emotional=\"emotional description\" "+ '\n' +
+          " text=\"text to speak\"\n" +
+          "style=\"display: block; width: 100%;\"" + "\n></image-component>";
+          this.insertTextAtCursor(this.$.inputbox, value);
+          this.clicked();
         },
 
         addVideo: function() {
@@ -383,6 +410,7 @@
 
           "style=\"display: block; width: 100%;\"" + "\n></video-component>";
           this.insertTextAtCursor(this.$.inputbox, value);
+          this.clicked();
         },
 
         addSwitch: function() {
@@ -471,7 +499,7 @@
 
         successfulupload : function(e){
           let img =  JSON.parse(e.detail.xhr.response).name;
-          this.addImage("/images/" + img);
+          this.uploadedImage("/images/" + img);
           this.clicked();
           this.push('images', "/images/" + img);
           this.push('serverimg', img);
