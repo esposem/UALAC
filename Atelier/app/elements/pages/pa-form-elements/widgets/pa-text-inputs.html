@@ -487,7 +487,6 @@
         },
 
         finished : function(el){
-          console.log()
           let id = this.$.articleid.childNodes[1].innerHTML;
           if(id === "No id yet"){
             this.$.articleid.childNodes[1].innerHTML = el.detail.response;

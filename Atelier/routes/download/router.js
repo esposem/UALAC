@@ -21,6 +21,7 @@ router.all('/', middleware.supportedMethods('GET, POST, DELETE'));
 
 router.post('/', function(req, res, next) {
   let imgarr = req.body.images;
+  console.log(imgarr);
   let filetoread = ['./app/elements/menu-item/menu-item.html', './app/elements/menu-component/menu-component.html',
   './app/elements/article-item/article-item.html', './app/elements/switch-view/switch-view.html',
   './app/elements/image-component/image-component.html'];
@@ -63,8 +64,10 @@ router.post('/', function(req, res, next) {
             }
         });
     });
+
     let name = el.split('/')
-    images.file(name[name.length -1], contentPromise9);
+    let temp = images.folder(name[name.length -2]);
+    temp.file(name[name.length -1], contentPromise9);
   })
 
   stylesel.forEach(function(el){
