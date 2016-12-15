@@ -398,6 +398,8 @@
           "style=\"display: block; width: 100%;\"" + "\n></image-component>";
           this.insertTextAtCursor(this.$.inputbox, value);
           this.clicked();
+          this.push('images', "/images/" +args[0]);
+          console.log(this.images);
         },
 
         addImage: function() {
