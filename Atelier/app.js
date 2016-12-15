@@ -12,12 +12,14 @@ const session = require("express-session");
 require('./models/Article');
 
 // Connect to MongoDB here
-const mongoose   = require('mongoose');
+const mongoose = require('mongoose');
 const Article = mongoose.model('Article');
 mongoose.connect(config.mongoUrl + config.mongoDbName);
 
 app.use(session({
-  secret : "realgianma"
+  secret : "realgianma",
+  resave: true,
+  saveUninitialized: true,
 }));
 
 let sessions = [];
