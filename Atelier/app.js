@@ -110,7 +110,7 @@ app.use('/', routers.root);
 
 // intercepts requests that accept html and haven't been served
 // from the static middleware, to send the main page
-app.use('*', checkAuth, function(req,res, next){
+app.use('*', function(req,res, next){
   if(req.accepts('html')){
     const options = {
         root: __dirname + '/app/',
@@ -131,7 +131,6 @@ app.use('*', checkAuth, function(req,res, next){
 // }
 
 function checkAuth(req, res, next) {
-  console.log(security.block)
   if (sessions.indexOf(req.session.id) > -1) {
     next();
   } else {
