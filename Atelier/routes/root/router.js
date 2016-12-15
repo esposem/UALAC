@@ -7,11 +7,10 @@ const middleware =  require('../middleware');
 
 
 //supported methods
-router.all('/', middleware.supportedMethods('GET, POST, OPTIONS'));
+router.all('/', middleware.supportedMethods('GET, OPTIONS'));
 
 //serve main static page of our app
-router.post('/', function(req, res, next) {
-	console.log("HERE");
+router.get('/', function(req, res, next) {
   const options = {
       root: __dirname + '/app/',
     };

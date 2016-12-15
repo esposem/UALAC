@@ -7,7 +7,7 @@ const app = express();
 const formidable = require('formidable');
 const fs = require('fs');
 const JSZip = require("jszip");
-const security= require("./routes/security.js")
+// const security= require("./routes/security.js")
 require('./models/Article');
 
 // Connect to MongoDB here
@@ -31,18 +31,18 @@ app.use(express.static(path.join(__dirname, 'app')));
 
 
 // Initialize routers here
-app.post('/', function (req, res) {
-  console.log("srvhfcnaoilsucrbpxaeinlusyerbcxan,urcqpiwaxnlizudyalw x")
-  var post = req.body;
-  console.log(req.session)
-  if (post.username === 'admin' && post.password === 'admin') {
-    security.block = false;
-    res.redirect('/dashboard');
-  } else {
-    security.block = true;
-    res.send('Bad user/pass');
-  }
-});
+// app.post('/', function (req, res) {
+//   console.log("srvhfcnaoilsucrbpxaeinlusyerbcxan,urcqpiwaxnlizudyalw x")
+//   var post = req.body;
+//   console.log(req.session)
+//   if (post.username === 'admin' && post.password === 'admin') {
+//     security.block = false;
+//     res.redirect('/dashboard');
+//   } else {
+//     security.block = true;
+//     res.send('Bad user/pass');
+//   }
+// });
 
 app.post('/upload', function(req, res) {
   let form = new formidable.IncomingForm(
@@ -91,7 +91,7 @@ app.use('/', routers.root);
 
 // intercepts requests that accept html and haven't been served
 // from the static middleware, to send the main page
-app.use('*', checkAuth, function(req,res, next){
+app.use('*', function(req,res, next){
   if(req.accepts('html')){
     const options = {
         root: __dirname + '/app/',
@@ -101,15 +101,15 @@ app.use('*', checkAuth, function(req,res, next){
 
   next();
 })
-
-function checkAuth(req, res, next) {
-  console.log(security.block)
-  if (security.block) {
-    res.send('You are not authorized to view this page');
-  } else {
-    next();
-  }
-}
+//
+// function checkAuth(req, res, next) {
+//   console.log(security.block)
+//   if (security.block) {
+//     res.send('You are not authorized to view this page');
+//   } else {
+//     next();
+//   }
+// }
 
 
 // json serving routes
