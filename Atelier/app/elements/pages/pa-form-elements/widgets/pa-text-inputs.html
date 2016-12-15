@@ -334,16 +334,19 @@
             let prevbutt = this.$.prev;
             this.$.prev.childNodes[0].href = id;
             this.$.prev.removeAttribute("disabled")
-          // }
+
         },
 
         _routePageChanged: function(page) {
           // console.log(page)
           this.page = page;
+          if (window.location.pathname.split('/').length === 2 ){
+            // console.log();
+            this.deleteverything();
+          }
         },
 
         _subroutePageChanged: function(subroute) {
-          // console.log(subroute);
           if(this.page === "article" && subroute){
             let ajaxel = this.$.ajax2;
             ajaxel.url = "/dashboard/" + subroute
@@ -352,7 +355,6 @@
             this._shownprev("/preview/" + subroute);
           }
           if (this.subrouteData.articleid) {
-
             this.$.uploaddiv.className = "uploaddiv";
             this.$.imglistserver.className = "";
             this.$.inputbox.className = "";
@@ -379,22 +381,6 @@
           this.insertTextAtCursor(this.$.inputbox, value);
           this.clicked();
         },
-
-        // addExistingImage: function(e)
-        // {
-        //   let args = e.target.getAttribute('data-args').split(',');
-        //   console.log( args[0]);
-        //   let value = "\n<image-component id=\""+ args[0] +"\"" + '\n' +
-        //   "src= \"\\images\\" + args[0] + "\"\nalt=\"image\""+ '\n'+
-        //   " normal=\"normal description\" "+ '\n' +
-        //   " simplified=\"simplified description\" " + '\n'+ " emotional=\"emotional description\" "+ '\n' +
-        //   " text=\"text to speak\"\n" +
-        //   "style=\"display: block; width: 100%;\"" + "\n></image-component>";
-        //   this.insertTextAtCursor(this.$.inputbox, value);
-        //   this.clicked();
-        //   this.push('images', "/images/" +args[0]);
-        //   console.log(this.images);
-        // },
 
         addImage: function() {
           let id = this.$.articleid.childNodes[1].innerHTML;
@@ -463,6 +449,7 @@
         },
 
         ajaxrequest : function(){
+          this.$["title-field-title"].style="";
           let ajaxel = this.$.ajax;
           let txt = this.$.inputbox.value;
           let tle = this.$.title.value;
@@ -570,9 +557,6 @@
           for(let i = 0; i < arr.length; i++){
             if(filename === arr[i].id){
               this.$.hiddendiv.removeChild(arr[i]);
-              // arr.splice(i,1);
-              // arr[i].outerHTML="";
-              // console.log(arr[i]);
               break;
             }
           }
@@ -595,12 +579,7 @@
           ajaxel2.method="PUT"
           ajaxel2.body = JSON.stringify({"_id" : id, "text": this.$.inputbox.value, "title" : tle, image : this.images});
           ajaxel2.generateRequest();
-
         },
-
-
-
-
       });
     })();
   </script>
