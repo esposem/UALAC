@@ -510,7 +510,8 @@
           el.target.parentNode.parentNode.outerHTML = "";
           let index = this.images.indexOf(filename);
           this.images.splice(index, 1);
-          // console.log(this.images);
+          let index2 = this.serverimg.indexOf(filename);
+          this.splice('serverimg', index2, 1);
           let ajaxel = this.$.ajax4;
           ajaxel.body = JSON.stringify({"name" : filename})
           ajaxel.generateRequest();
@@ -525,6 +526,7 @@
             ajaxel.body = JSON.stringify({"_id" : id, "text": txt, "title" : tle, image : this.images});
             ajaxel.generateRequest();
           }
+
 
         },
 
