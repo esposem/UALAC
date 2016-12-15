@@ -343,6 +343,7 @@
           if (window.location.pathname.split('/').length === 2 ){
             // console.log();
             this.deleteverything();
+            this.$.title.value=" "
           }
         },
 
@@ -567,7 +568,7 @@
 
           el.target.parentNode.parentNode.outerHTML = "";
           let index = this.images.indexOf(filename);
-          this.images.splice(index, 1);
+          this.splice("images", index, 1);
           let id = this.$.articleid.childNodes[1].innerHTML;
           let ajaxel = this.$.ajax4;
           ajaxel.body = JSON.stringify({"name" : filename , "id" : id})
