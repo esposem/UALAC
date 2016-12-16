@@ -173,8 +173,8 @@ router.post('/', function(req, res, next) {
     "</body> \n " +
   "</html> \n ");
 
-  appf.file("how_to_run.txt", " With terminal, go in /app and then write `bower install`. After all the files are created \n" +
-  "run polyserve. The result will be in localhost:8080.");
+  appf.file("how_to_run.txt", " Open terminal and go in ./export/app \n write `bower install` \n After all the files are created," +
+  "run `polyserve`. \n The result will be in localhost:8080.");
 
   zip
   .generateNodeStream({type:'nodebuffer',streamFiles:true})

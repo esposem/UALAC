@@ -125,7 +125,7 @@
           } else {
             string = string.toLowerCase();
             return function(art) {
-              var title = art.title;
+              var title = art.title.toLowerCase();
               return title.indexOf(string) != -1;
             }
           }
