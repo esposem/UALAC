@@ -27,12 +27,10 @@ router.get('/', function(req, res, next) {
   });
 });
 
-//create new album
 router.post('/', function(req, res, next) {
-  console.log("POST ");
-  if(req.body.image.length == 0){
-    req.body.image = ['/images/blank-user.jpg']
-  }
+  // if(req.body.image.length == 0){
+  //   req.body.image = ['/images/blank-user.jpg']
+  // }
     const newArticle = new Article(req.body);
     newArticle.save();
     res.json(newArticle._id);
@@ -69,7 +67,7 @@ router.put('/', function(req, res, next) {
     if (err) return next (err);
     if (article){
       article.text =  data.text;
-      article.image = data.image || "/images/blank-user.jpg";
+      article.image = data.image;
       article.title = data.title;
       article.save();
       res.status(201);

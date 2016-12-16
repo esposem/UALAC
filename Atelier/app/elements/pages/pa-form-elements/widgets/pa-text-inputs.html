@@ -213,9 +213,9 @@
             </div>
             <br>
             <div id="imglist" style="display:flex; flex-direction: row; flex-wrap: wrap;">
-              <template is="dom-repeat" items="{{images}}" as="button" filter="isblank2">
+              <template is="dom-repeat" items="{{images}}" as="button"  >
                 <paper-icon-item style="margin-right:10px">
-                  <a href=""> <iron-icon icon="cancel" item-icon on-click="deleted"></iron-icon></a>
+                  <a href=""> <iron-icon icon="cancel" item-icon on-click="deleted" ></iron-icon></a>
                   {{_deletepath(button)}}
                 </paper-icon-item>
               </template>
@@ -299,16 +299,9 @@
 
         },
 
+
         _deletepath : function(el){
             return el.split('/')[3];
-        },
-
-        isblank : function(el){
-          return el !== "blank-user.jpg";
-        },
-
-        isblank2 : function(el){
-          return el !== "/images/blank-user.jpg";
         },
 
         fun : function(page){
@@ -440,7 +433,8 @@
           this.clicked();
           this._hiddenprev();
           this.$.upload.clear();
-          this.images = [];
+          this.set('images', []);
+          // this.images = [];
           this.$.uploaddiv.className = "uploaddiv hidden";
           this.$.imglistserver.className = "hidden";
           this.$.inputbox.className = "hidden";
@@ -498,7 +492,8 @@
 
         loaded : function(el){
           this.$.upload.target = "/upload/" + el.detail.response._id;
-          this.images = el.detail.response.image;
+          this.set('images', el.detail.response.image);
+          // this.images = el.detail.response.image;
           this.$.inputbox.value = el.detail.response.text;
           this.$.inputbox.value += " "
           this.$.title.value = el.detail.response.title;
@@ -550,7 +545,9 @@
         },
 
         deleted : function(el){
+
           let filename = el.target.parentNode.nextSibling.__compoundStorage__.textContent[1];
+          console.log(this.images);
           let txt = this.$.inputbox.value;
 
           this.$.hiddendiv.innerHTML = txt;
@@ -565,11 +562,13 @@
           // console.log(txt);
           this.$.hiddendiv.innerHTML = "";
           this.clicked()
-
-          el.target.parentNode.parentNode.outerHTML = "";
-          let index = this.images.indexOf(filename);
-          this.splice("images", index, 1);
           let id = this.$.articleid.childNodes[1].innerHTML;
+          el.target.parentNode.parentNode.outerHTML = "";
+          console.log(filename);
+          let index = this.images.indexOf("/images/" + id +"/" + filename);
+          console.log(index);
+          this.splice("images", index, 1);
+          console.log(this.images);
           let ajaxel = this.$.ajax4;
           ajaxel.body = JSON.stringify({"name" : filename , "id" : id})
           ajaxel.generateRequest();
