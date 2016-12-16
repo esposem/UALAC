@@ -16,10 +16,7 @@ const fieldsFilter = { '__v': 0 };
 router.all('/:articleid', middleware.supportedMethods('GET, PUT'));
 router.all('/', middleware.supportedMethods('GET, PUT'));
 
-
-//get a album
 router.get('/:articleid', function(req, res, next) {
-  // console.log("Hope");
   Article.findById(req.params.articleid, fieldsFilter).lean().populate('').exec(function(err, article){
     if (err) return next (err);
     if (!article) {
@@ -33,8 +30,6 @@ router.get('/:articleid', function(req, res, next) {
     res.json(article.text);
   });
 });
-  
 
 
-/** router for /albums */
 module.exports = router;

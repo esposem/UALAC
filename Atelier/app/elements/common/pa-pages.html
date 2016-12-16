@@ -2,7 +2,6 @@
 <link rel="import" href="/elements/pages/pa-dashboard/pa-dashboard.html">
 <link rel="import" href="/elements/pages/pa-form-elements/pa-form-elements.html">
 <link rel="import" href="/elements/pages/pa-not-found/pa-not-found.html">
-<link rel="import" href="/elements/common/pa-menu.html">
 <link rel="import" href="/bower_components/iron-pages/iron-pages.html">
 <link rel="import" href="/bower_components/iron-ajax/iron-ajax.html">
 
@@ -68,10 +67,7 @@
         content-type ="application/json"
         on-response="finished">
       </iron-ajax>
-
         <pa-page-title title="Manage Articles"></pa-page-title>
-        <!-- <paper-input  label="search here!"></paper-input> -->
-
         <pa-dashboard artic={{articles}}></pa-dashboard>
       </section>
 

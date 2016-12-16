@@ -1,7 +1,7 @@
 {
-  "name": "wa-exercise-7-2015-2016",
+  "name": "UALAC",
   "version": "0.0.0",
-  "description": "Exercise 7 of Web Atelier@inf.usi.ch. Web Components",
+  "description": "UALAC web components",
   "main": "app.js",
   "scripts": {
     "start": "DEBUG='ualac-server' node ./bin/www",
@@ -12,7 +12,7 @@
     "AJAX",
     "Dust.js"
   ],
-  "author": "Masiar Babazadeh, Vincenzo Ferme, Andrea, Galidabino, Vasileios Triglianos",
+  "author": "Emanuele Giuseppe Esposito, Camillo Malnati",
   "license": "MIT",
   "dependencies": {
     "bcrypt": "^0.8.5",

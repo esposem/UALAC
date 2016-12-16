@@ -17,7 +17,6 @@ const fieldsFilter = { '__v': 0 };
 router.all('/:artistid', middleware.supportedMethods('GET, PUT, DELETE, OPTIONS'));
 router.all('/', middleware.supportedMethods('GET, POST, PUT, DELETE, OPTIONS'));
 
-//list albums
 router.get('/', function(req, res, next) {
   Article.find({}, fieldsFilter).lean().populate('').exec(function(err, articles){
     if (err) return next (err);
@@ -28,9 +27,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-  // if(req.body.image.length == 0){
-  //   req.body.image = ['/images/blank-user.jpg']
-  // }
+  console.log("POST ");
+  if(req.body.image.length == 0){
+    req.body.image = ['/images/blank-user.jpg']
+  }
     const newArticle = new Article(req.body);
     newArticle.save();
     res.json(newArticle._id);
@@ -42,7 +42,6 @@ router.post('/', function(req, res, next) {
 });
 
 
-//get a album
 router.get('/:articleid', function(req, res, next) {
   // console.log("Hope");
   Article.findById(req.params.articleid, fieldsFilter).lean().populate('').exec(function(err, article){
@@ -59,7 +58,6 @@ router.get('/:articleid', function(req, res, next) {
   });
 });
 
-//update a album
 router.put('/', function(req, res, next) {
   const data = req.body;
 
@@ -67,16 +65,13 @@ router.put('/', function(req, res, next) {
     if (err) return next (err);
     if (article){
       article.text =  data.text;
-      article.image = data.image;
+      article.image = data.image || "/images/blank-user.jpg";
       article.title = data.title;
       article.save();
       res.status(201);
       res.send();
     }
     else{
-      // console.log("ERROR");
-      // res.status(500);
-      // res.send();
       const newArticle = new Article(req.body);
       newArticle.save();
       res.json(newArticle._id)
@@ -90,7 +85,6 @@ router.put('/', function(req, res, next) {
 
 
 
-//remove a album
 router.delete('/:articleid', function(req, res, next) {
   Article.findById(req.params.articleid, fieldsFilter , function(err, article){
     if (err) return next (err);
@@ -115,5 +109,4 @@ router.delete('/:articleid', function(req, res, next) {
 });
 
 
-/** router for /albums */
 module.exports = router;
