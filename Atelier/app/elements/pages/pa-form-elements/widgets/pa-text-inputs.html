@@ -253,7 +253,7 @@
           content-type ="application/json">
           </iron-ajax>
               <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "display: inline-block; text-align: center; margin-top: 20px;">Save/Create</paper-button>
-               <paper-button id="prev" class="hidden" raised="" disabled="" style= "width:0%; text-align: center; margin-top: 20px;"><a target="_blank" href="/preview/" > preview </a></paper-button>
+               <a target="_blank" href="/preview/" ><paper-button id="prev" class="hidden" raised=""  style= "width:0%; text-align: center; margin-top: 20px;"> preview </paper-button></a>
                <paper-button id="exp" class="hidden" raised=""  style= "width:0%; text-align: center; margin-top: 20px;" on-click="export"> Export </paper-button>
             </div>
           </div>
@@ -317,23 +317,14 @@
         'upload.success': 'successfulupload'
       },
 
-        _hiddenprev : function(){
-          let prevbutt = this.$.prev;
-          this.$.prev.setAttribute("disabled","")
-        },
-
         _shownprev: function(id){
             let prevbutt = this.$.prev;
-            this.$.prev.childNodes[0].href = id;
-            this.$.prev.removeAttribute("disabled")
-
+            this.$.prev.parentNode.href = id;
         },
 
         _routePageChanged: function(page) {
-          // console.log(page)
           this.page = page;
           if (window.location.pathname.split('/').length === 2 ){
-            // console.log();
             this.deleteverything();
             this.$.title.value=" "
           }
@@ -430,7 +421,7 @@
           this.$.title.value=""
           this.$["title-field-title"].style="";
           this.clicked();
-          this._hiddenprev();
+          // this._hiddenprev();
           this.$.upload.clear();
           this.set('images', []);
           // this.images = [];

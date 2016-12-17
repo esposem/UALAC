@@ -101,7 +101,6 @@
         <span class="bar"></span>
         <label>Search Articles by Title</label>
       </div>
-      <!-- <paper-input label="search here!" value="{{searchString::input}}"></paper-input> -->
       <template is="dom-repeat" items="{{artic}}" as="article" filter="{{computeFilter(searchString)}}">
         <pa-widget widget="{{ widgets.about }}" art="{{fun(article)}}"></pa-widget>
       </template>

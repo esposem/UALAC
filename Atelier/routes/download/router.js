@@ -23,8 +23,7 @@ router.post('/', function(req, res, next) {
   let imgarr = req.body.images;
   console.log(imgarr);
   let filetoread = ['./app/elements/menu-item/menu-item.html', './app/elements/menu-component/menu-component.html',
-  './app/elements/article-item/article-item.html', './app/elements/switch-view/switch-view.html',
-  './app/elements/image-component/image-component.html'];
+   './app/elements/switch-view/switch-view.html', './app/elements/image-component/image-component.html'];
   let subfiletoread = ['./app/elements/article/the-temp.html']
   let subsubtoread = ['./app/elements/article/Template_files/cssppms100mm_luganolac_1815911_16415_1.png',	'./app/elements/article/Template_files/ico_text_plus.png',
   './app/elements/article/Template_files/datepicker.css'	,				'./app/elements/article/Template_files/ico_tickets.png',
@@ -44,6 +43,7 @@ router.post('/', function(req, res, next) {
   './app/elements/article/Template_files/ico_text_min.png',				'./app/elements/article/Template_files/vuoto.gif']
   let stylesel = ['./app/styles/app-theme.html','./app/styles/shared-styles.html']
   let cssel = ['./app/css/app.css','./app/css/standardize.css']
+  let appfiles = ['./bower.json']
   let zip = new JSZip();
   let folder = zip.folder("export");
   let appf = folder.folder("app");
@@ -125,17 +125,21 @@ router.post('/', function(req, res, next) {
   let name2 = subfiletoread[0].split('/');
   article.file(name2[name2.length -1], contentPromise2);
 
-  let contentPromise4 = new JSZip.external.Promise(function (resolve, reject) {
-      fs.readFile('./bower.json', function(err, data) {
-          if (err) {
-              reject(err);
-          } else {
-              resolve(data);
-          }
-      });
-  });
-  let name4 = './bower.json'.split('/');
-  appf.file(name4[name4.length -1], contentPromise4);
+  appfiles.forEach(function(el){
+    let contentPromise4 = new JSZip.external.Promise(function (resolve, reject) {
+        fs.readFile(el, function(err, data) {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data);
+            }
+        });
+    });
+    let name4 = el.split('/');
+    appf.file(name4[name4.length -1], contentPromise4);
+  })
+
+  appf.file('.bowerrc', '{ "directory": "./bower_components/" }')
 
 
   subsubtoread.forEach(function(el){
