@@ -253,7 +253,7 @@
           content-type ="application/json">
           </iron-ajax>
               <paper-button tabindex="0" id="submitbutton" on-click="ajaxrequest" raised noink style= "display: inline-block; text-align: center; margin-top: 20px;">Save/Create</paper-button>
-               <a target="_blank" href="/preview/" ><paper-button id="prev" class="hidden" raised=""  style= "width:0%; text-align: center; margin-top: 20px;"> preview </paper-button></a>
+               <a target="_blank" href="/preview/" ><paper-button id="prev" class="hidden" on-click="savealso" raised=""  style= "width:0%; text-align: center; margin-top: 20px;"> preview </paper-button></a>
                <paper-button id="exp" class="hidden" raised=""  style= "width:0%; text-align: center; margin-top: 20px;" on-click="export"> Export </paper-button>
             </div>
           </div>
@@ -306,6 +306,10 @@
         fun : function(page){
           // console.log(page);
           return "/upload/" + page;
+        },
+
+        savealso : function(){
+          this.ajaxrequest();
         },
 
         observers: [
