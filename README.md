@@ -1,4 +1,5 @@
 # UALAC
+Ualac is a simple Content Management System done with Node, Polymer and MongoDB. It allows an user to create articles for LAC (Lugano Arte and Cultura) webpages. Other than this purpose, this repo contains also the components we created that respect the ARIA guidelines for screen readers.
 
 how to run it:
 
