@@ -1,21 +1,23 @@
 # UALAC
 Authors: Emanuele Giuseppe Esposito, Camillo Malnati, Riccardo Gabriele, Jacopo Fidacaro, Gianmarco Palazzi. <br> <br>
-Ualac is a simple Content Management System done with Node, Polymer and MongoDB. It allows an user to create articles for LAC (Lugano Arte and Cultura) webpages. Other than this purpose, this repo contains also the components we created that respect the ARIA guidelines for screen readers.<br> Live preview: https://nameless-coast-60325.herokuapp.com/ <br> <br>
+Ualac is a simple Content Management System done with Node, Polymer and MongoDB. It allows an user to create articles for LAC (Lugano Arte and Cultura) webpages that are readable by screen readers. The user can decide what the reader will read (three different description of the text). Other than this purpose, this repo contains also components that respect the ARIA guidelines for screen readers.<br> Live preview: https://nameless-coast-60325.herokuapp.com/ <br> <br>
 ![](Resources/ualac.png)
 
-<b>how to run: </b>
+<b>How to run: </b>
 
 you need npm and bower installed.
 
 1. Run `npm install` and `bower install`
 
-2. When it's done, you should have npm_components in `/` and bower_components in `/app`
+2. Start mongoDB
 
-3. Run `npm start` or `DEBUG='ualac-server' nodemon ./bin/www` (if you have nodemon)
+3. When it's done, you should have npm_components in `/` and bower_components in `/app`
+
+4. Run `npm start` or if you have nodemon `DEBUG='ualac-server' nodemon ./bin/www` 
 
 # Components 
 
-We created these components and tested them using Mac VoiceOver. All the components are built in a way that a screen reader can move between the various components, descriptions and button in a very smooth and simple way. Using some keyboard combination, it is also possible to control the components. Every time the reader is on one of these components, the voice will say which key to press to get the desidered behavior.
+We created these components and tested them using Mac VoiceOver. All the components are built in a way that a screen reader can move between the various components, descriptions and buttons in a very smooth and simple way. Using some keyboard combination, it is also possible to control the components. Every time the reader is on one of these elements, the voice will say which key to press to get the desidered behavior.
 
 <b> Image </b> <br>
 An image component that allows to add an image in the page, with the possibility to decide what to read in different descriptions.
@@ -64,8 +66,7 @@ style="display: block; width: 100%;" <!-- insert the video css -->
 <br> <br>
 
 <br> <b> Switch View </b> <br>
-A view with all event/artwork descriptions that it's usually displayed under the LAC webpages.
-Provides a smooth screen reader movement between the different descriptions.
+A view with all event/artwork descriptions that it's usually displayed under the artworks/events images or videos.
 The switch view component is located in `/app/elements/switch-view` <br>
 In screen reader mode, go on the desidered description and press enter to change it.
 
