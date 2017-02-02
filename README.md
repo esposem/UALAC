@@ -4,13 +4,13 @@ Ualac is a simple Content Management System done with Node, Polymer and MongoDB.
 
 <b>how to run: </b>
 
-you need npm, node (and nodemon) and bower installed.
+you need npm and bower installed.
 
-first of all, go in Atelier and run `npm install` and `bower install`
+1. Run `npm install` and `bower install`
 
-when it's done, you should have npm_components in /Atelier and bower_components in /Atelier/app
+2. When it's done, you should have npm_components in `/` and bower_components in `/app`
 
-in /Atelier, run `npm start` or `DEBUG='ualac-server' nodemon ./bin/www`
+3. Run `npm start` or `DEBUG='ualac-server' nodemon ./bin/www` (if you have nodemon)
 
 # Components 
 
