@@ -1,7 +1,8 @@
 # UALAC
-Ualac is a simple Content Management System done with Node, Polymer and MongoDB. It allows an user to create articles for LAC (Lugano Arte and Cultura) webpages. Other than this purpose, this repo contains also the components we created that respect the ARIA guidelines for screen readers.
+Ualac is a simple Content Management System done with Node, Polymer and MongoDB. It allows an user to create articles for LAC (Lugano Arte and Cultura) webpages. Other than this purpose, this repo contains also the components we created that respect the ARIA guidelines for screen readers.<br> Live preview: https://nameless-coast-60325.herokuapp.com/ <br> <br>
+![](Resources/ualac.png)
 
-how to run it:
+<b>how to run: </b>
 
 you need npm, node (and nodemon) and bower installed.
 
@@ -33,13 +34,14 @@ src= "/images/589108472327180a6c5af425/Fontaine.jpg"  <!-- insert the image path
 style="display: block; width: 100%;"  <!-- insert image css -->
 ></image-component> 
 ``` 
-<br>
+![](Resources/image.png)
+<br> <br>
 
-<b> Video </b> <br>
+<br> <b> Video </b> <br>
 A video player to add videos in the page. Easily to control with screen reader and keyboard.
 The video component is located in `/app/elements/video-component` <br>
 a youtube can be found in the url of a video:
-<i> `https://www.youtube.com/watch?v=`<b>UNNnwF42Icg </b> </i>
+![](Resources/youtubeid.png) <br>
 In screen reader mode:
 * Press `p` for play/pause video
 * Press `m` for muting/unmuting video
@@ -57,9 +59,10 @@ style="display: block; width: 100%;" <!-- insert the video css -->
 >
 </video-component>
 ```
-<br>
+![](Resources/video.png)
+<br> <br>
 
-<b> Switch View </b> <br>
+<br> <b> Switch View </b> <br>
 A view with all event/artwork descriptions that it's usually displayed under the LAC webpages.
 Provides a smooth screen reader movement between the different descriptions.
 The switch view component is located in `/app/elements/switch-view` <br>
@@ -73,9 +76,10 @@ simplified='insert simplified text here' <!-- insert the concise text -->
 emotional='insert image path here'> <!-- insert the emotional text -->
 </switch-view>
 ```
-<br>
+![](Resources/switchview.png)
+<br> <br>
 
-<b> Menu </b> <br>
+<br> <b> Menu </b> <br>
 Two components that can be used to create a menu that is readable by screen readers.
 The menu component is located in `/app/elements/menu-component` <br>
 The menu item is located in `/app/elements/menu-item` <br>
@@ -89,3 +93,4 @@ The menu item is located in `/app/elements/menu-item` <br>
   <menu-item value="LAC edu" link="http://www.luganolac.ch/it/597/lac-edu"></menu-item>
  </menu-component>
  ```
+ ![](Resources/menu.png)
