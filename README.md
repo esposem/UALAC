@@ -1,4 +1,5 @@
 # UALAC
+Authors: Emanuele Giuseppe Esposito, Camillo Malnati, Riccardo Gabriele, Jacopo Fidacaro, Gianmarco Palazzi. <br> <br>
 Ualac is a simple Content Management System done with Node, Polymer and MongoDB. It allows an user to create articles for LAC (Lugano Arte and Cultura) webpages. Other than this purpose, this repo contains also the components we created that respect the ARIA guidelines for screen readers.<br> Live preview: https://nameless-coast-60325.herokuapp.com/ <br> <br>
 ![](Resources/ualac.png)
 
